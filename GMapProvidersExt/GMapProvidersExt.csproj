@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E873E646-BE34-4060-A997-5087E9B7021C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GMapProvidersExt</RootNamespace>
+    <AssemblyName>GMapProvidersExt</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\Lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="osr_csharp">
+      <HintPath>..\Lib\osr_csharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AMap\AMapHybirdProvider.cs" />
+    <Compile Include="AMap\AMapProvider.cs" />
+    <Compile Include="AMap\AMapProviderBase.cs" />
+    <Compile Include="AMap\AMapSateliteProvider.cs" />
+    <Compile Include="ArcGIS\ArcGISColdMapProvider.cs" />
+    <Compile Include="ArcGIS\ArcGISGrayMapProvider.cs" />
+    <Compile Include="ArcGIS\ArcGISMapProvider.cs" />
+    <Compile Include="ArcGIS\ArcGISMapProviderBase.cs" />
+    <Compile Include="ArcGIS\ArcGISMapProviderNoPoi.cs" />
+    <Compile Include="ArcGIS\ArcGISSatelliteMapProvider.cs" />
+    <Compile Include="ArcGIS\ArcGISWarmMapProvider.cs" />
+    <Compile Include="Baidu\BaiduHybridMapProvider.cs" />
+    <Compile Include="Baidu\BaiduMapProvider.cs" />
+    <Compile Include="Baidu\BaiduMapProviderJS.cs" />
+    <Compile Include="Baidu\BaiduMapProviderBase.cs" />
+    <Compile Include="Baidu\BaiduMapProviderBaseJS.cs" />
+    <Compile Include="Baidu\BaiduProjectionJS.cs" />
+    <Compile Include="Baidu\BaiduSatelliteMapProvider.cs" />
+    <Compile Include="Baidu\BaiduProjection.cs" />
+    <Compile Include="Bing\BingChinaMapProvider.cs" />
+    <Compile Include="Bing\BingMapProvider.cs" />
+    <Compile Include="Bing\BingMapProviderBase.cs" />
+    <Compile Include="Properties\BMap.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>BMap.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Here\NokiaHybridMapProvider.cs" />
+    <Compile Include="Here\NokiaMapProvider.cs" />
+    <Compile Include="Here\NokiaMapProviderBase.cs" />
+    <Compile Include="Here\NokiaSatelliteMapProvider.cs" />
+    <Compile Include="MapUnit.cs" />
+    <Compile Include="ProjectionUtil.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Ship\ShipMapProvider.cs" />
+    <Compile Include="Ship\ShipMapProviderBase.cs" />
+    <Compile Include="Ship\ShipMapTileProvider.cs" />
+    <Compile Include="SogouProjection.cs" />
+    <Compile Include="Sogou\SogouMapProvider.cs" />
+    <Compile Include="Sogou\SogouMapProviderBase.cs" />
+    <Compile Include="Tencent\TencentMapHybridProvider.cs" />
+    <Compile Include="Tencent\TencentMapProvider.cs" />
+    <Compile Include="Tencent\TencentMapProviderBase.cs" />
+    <Compile Include="SoSo\SosoMapHybridProvider.cs" />
+    <Compile Include="SoSo\SosoMapProvider.cs" />
+    <Compile Include="SoSo\SosoMapProviderBase.cs" />
+    <Compile Include="SoSo\SosoMapSateliteProvider.cs" />
+    <Compile Include="SphericalMercatorProjection.cs" />
+    <Compile Include="Tencent\TencentMapSateliteProvider.cs" />
+    <Compile Include="Tencent\TencentTerrainMapAnnoProvider.cs" />
+    <Compile Include="Tencent\TencentTerrainMapProvider.cs" />
+    <Compile Include="TianDitu\Fujian\TiandituFujianMapProvider.cs" />
+    <Compile Include="TianDitu\Fujian\TiandituFujianMapProviderWithAnno.cs" />
+    <Compile Include="TianDitu\Fujian\TiandituFujianProviderBase.cs" />
+    <Compile Include="TianDitu\Fujian\TiandituFujianSatelliteMapProvider.cs" />
+    <Compile Include="TianDitu\Fujian\TiandituFujianSatelliteMapProviderWithAnno.cs.cs" />
+    <Compile Include="TianDitu\TiandituMapProvider.cs" />
+    <Compile Include="TianDitu\TiandituMapProvider4326.cs" />
+    <Compile Include="TianDitu\TiandituMapProviderWithAnno.cs" />
+    <Compile Include="TianDitu\TiandituMapProviderWithAnno4326.cs" />
+    <Compile Include="TianDitu\TiandituProviderBase.cs" />
+    <Compile Include="TianDitu\TiandituProviderBase4326.cs" />
+    <Compile Include="TianDitu\TiandituSatelliteMapProvider.cs" />
+    <Compile Include="TianDitu\TiandituSatelliteMapProvider4326.cs" />
+    <Compile Include="TianDitu\TiandituSatelliteMapProviderWithAnno.cs" />
+    <Compile Include="TianDitu\TiandituSatelliteMapProviderWithAnno4326.cs" />
+    <Compile Include="TileUtil.cs" />
+    <Compile Include="WGS84Projection.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GMap.NET.Core\GMap.NET.Core.csproj">
+      <Project>{D0C39D9D-BED0-418B-9A5E-713176CAF40C}</Project>
+      <Name>GMap.NET.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMap.NET.WindowsForms\GMap.NET.WindowsForms.csproj">
+      <Project>{E06DEF77-F933-42FB-AFD7-DB2D0D8D6A98}</Project>
+      <Name>GMap.NET.WindowsForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapPositionFix\GMapPositionFix.csproj">
+      <Project>{3AA453EC-6552-431C-9190-68AE85A6B5C3}</Project>
+      <Name>GMapPositionFix</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetUtil\NetUtil.csproj">
+      <Project>{0B25DE8C-3747-4FD5-90A6-789FE09B1816}</Project>
+      <Name>NetUtil</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\BMap.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>BMap.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

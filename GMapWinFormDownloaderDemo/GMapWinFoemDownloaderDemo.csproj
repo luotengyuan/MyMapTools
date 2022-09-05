@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FC90F9EA-0578-4DE6-AAF9-102F6032E730}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MapDownloader</RootNamespace>
+    <AssemblyName>MapDownloader</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\MapDownloader.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\MapDownloader.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>system.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\Lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.2.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MapControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MapControl.Designer.cs">
+      <DependentUpon>MapControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProxyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProxyForm.designer.cs">
+      <DependentUpon>ProxyForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MapControl.resx">
+      <DependentUpon>MapControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="ProxyForm.resx">
+      <DependentUpon>ProxyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <EmbeddedResource Include="leafletjs\dist\images\locate.svg" />
+    <None Include="Properties\DataSources\PoiData.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Resource\ChinaBoundary" />
+    <None Include="Resource\ChinaBoundary_Province_City" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="system.ico" />
+    <EmbeddedResource Include="leafletjs\dist\images\layers.png" />
+    <EmbeddedResource Include="leafletjs\dist\images\locate.png" />
+    <EmbeddedResource Include="leafletjs\dist\images\locate_active.png" />
+    <EmbeddedResource Include="leafletjs\dist\images\marker-icon%402x.png" />
+    <EmbeddedResource Include="leafletjs\dist\images\marker-icon.png" />
+    <EmbeddedResource Include="leafletjs\dist\images\marker-shadow.png" />
+    <EmbeddedResource Include="leafletjs\dist\images\spinner.gif" />
+    <EmbeddedResource Include="leafletjs\dist\leaflet-ie.css" />
+    <EmbeddedResource Include="leafletjs\dist\leaflet.css" />
+    <EmbeddedResource Include="leafletjs\dist\leaflet.js" />
+    <EmbeddedResource Include="leafletjs\dist\locate-ie.css" />
+    <EmbeddedResource Include="leafletjs\dist\locate.css" />
+    <EmbeddedResource Include="leafletjs\dist\locate.js" />
+    <EmbeddedResource Include="leafletjs\dist\mobile.css" />
+    <EmbeddedResource Include="leafletjs\dist\proj4js-compressed.js" />
+    <EmbeddedResource Include="leafletjs\dist\proj4leaflet.js" />
+    <EmbeddedResource Include="leafletjs\gmap.html" />
+    <Content Include="picture\location.png" />
+    <Content Include="picture\MapMarker_Bubble_Azure.png" />
+    <Content Include="picture\MapMarker_Bubble_Chartreuse.png" />
+    <Content Include="picture\MapMarker_Bubble_Pink.png" />
+    <Content Include="picture\system.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BSE.Windows.Forms\BSE.Windows.Forms.csproj">
+      <Project>{68DB802F-F9D8-47FE-BAA0-F73B247E5A47}</Project>
+      <Name>BSE.Windows.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonTools\CommonTools.csproj">
+      <Project>{C5681AE2-1966-46E5-9827-462BC625BF03}</Project>
+      <Name>CommonTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMap.NET.Core\GMap.NET.Core.csproj">
+      <Project>{D0C39D9D-BED0-418B-9A5E-713176CAF40C}</Project>
+      <Name>GMap.NET.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMap.NET.WindowsForms\GMap.NET.WindowsForms.csproj">
+      <Project>{E06DEF77-F933-42FB-AFD7-DB2D0D8D6A98}</Project>
+      <Name>GMap.NET.WindowsForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapChinaRegion\GMapChinaRegion.csproj">
+      <Project>{01B49280-D6F4-467C-8337-CEA9824F36CE}</Project>
+      <Name>GMapChinaRegion</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapCommonType\GMapCommonType.csproj">
+      <Project>{B004E87D-FE07-433C-812C-341D16164A40}</Project>
+      <Name>GMapCommonType</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapDownload\GMapDownload.csproj">
+      <Project>{F0FBF1C6-DCC6-4790-83B8-917DB5E46BCF}</Project>
+      <Name>GMapDownload</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapDrawTools\GMapDrawTools.csproj">
+      <Project>{A846C026-69E9-4A27-A40C-6237E3D0BFB2}</Project>
+      <Name>GMapDrawTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapExport\GMapExport.csproj">
+      <Project>{46CEA87B-4D4E-43D6-9152-B79163BF7996}</Project>
+      <Name>GMapExport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapHeat\GMapHeat.csproj">
+      <Project>{66C1D358-1909-45D4-8532-9EADAE71958C}</Project>
+      <Name>GMapHeat</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapMarkerLib\GMapMarkerLib.csproj">
+      <Project>{E25D9C8F-534F-4D86-BD45-9469AD9727E0}</Project>
+      <Name>GMapMarkerLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapPOI\GMapPOI.csproj">
+      <Project>{AD58A74D-63AE-46D5-9B8F-00DD0217B765}</Project>
+      <Name>GMapPOI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapPolygonLib\GMapPolygonLib.csproj">
+      <Project>{22E05880-ED51-420F-A61F-A5B7CDB32FBC}</Project>
+      <Name>GMapPolygonLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapPositionFix\GMapPositionFix.csproj">
+      <Project>{3AA453EC-6552-431C-9190-68AE85A6B5C3}</Project>
+      <Name>GMapPositionFix</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapProvidersExt\GMapProvidersExt.csproj">
+      <Project>{E873E646-BE34-4060-A997-5087E9B7021C}</Project>
+      <Name>GMapProvidersExt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapTools\GMapTools.csproj">
+      <Project>{ED39E8DA-A8F3-4906-BA24-90D09D0AF7CD}</Project>
+      <Name>GMapTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapUtil\GMapUtil.csproj">
+      <Project>{DB4076E6-AB5B-48E1-B674-391CCFAD9B4F}</Project>
+      <Name>GMapUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetUtil\NetUtil.csproj">
+      <Project>{0B25DE8C-3747-4FD5-90A6-789FE09B1816}</Project>
+      <Name>NetUtil</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

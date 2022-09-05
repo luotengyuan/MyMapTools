@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FA187656-5A66-4255-889C-8B3FEAB0580F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MapToolsWinForm</RootNamespace>
+    <AssemblyName>MyMapTools</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\GMapDemo.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\GMapDemo.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\icon_earth.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TerminalMapLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\TerminalMapLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bean\SearchEngineType.cs" />
+    <Compile Include="UI\Form_export_gps.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Form_export_gps.Designer.cs">
+      <DependentUpon>Form_export_gps.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Form_set_map_key.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Form_set_map_key.Designer.cs">
+      <DependentUpon>Form_set_map_key.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\KeyWordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\KeyWordForm.Designer.cs">
+      <DependentUpon>KeyWordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\CalculateUtils.cs" />
+    <Compile Include="Utils\ConvertUtils.cs" />
+    <Compile Include="UI\Form_about.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Form_about.Designer.cs">
+      <DependentUpon>Form_about.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Form_display_info.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Form_display_info.Designer.cs">
+      <DependentUpon>Form_display_info.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Form_load_gps.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Form_load_gps.Designer.cs">
+      <DependentUpon>Form_load_gps.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bean\GpsRoutePoint.cs" />
+    <Compile Include="Bean\GpsRoute.cs" />
+    <Compile Include="Bean\HistoryGeoData.cs" />
+    <Compile Include="Bean\HistoryGeoOverlay.cs" />
+    <Compile Include="UI\MapForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MapForm.Designer.cs">
+      <DependentUpon>MapForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MapControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\MapControl.Designer.cs">
+      <DependentUpon>MapControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\NamedPipeServer.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\ProxyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ProxyForm.Designer.cs">
+      <DependentUpon>ProxyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bean\RealtimeGeoOverlay.cs" />
+    <EmbeddedResource Include="UI\Form_about.resx">
+      <DependentUpon>Form_about.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Form_display_info.resx">
+      <DependentUpon>Form_display_info.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Form_export_gps.resx">
+      <DependentUpon>Form_export_gps.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Form_load_gps.resx">
+      <DependentUpon>Form_load_gps.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Form_set_map_key.resx">
+      <DependentUpon>Form_set_map_key.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\KeyWordForm.resx">
+      <DependentUpon>KeyWordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MapForm.resx">
+      <DependentUpon>MapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="UI\ProxyForm.resx">
+      <DependentUpon>ProxyForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\DataSources\HistoryGeoData.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ChinaBoundary" />
+    <None Include="Resources\ChinaBoundary_Province_City" />
+    <None Include="Resources\common.png" />
+    <None Include="Resources\arrow_up_1.png" />
+    <None Include="Resources\arrow_up_0.png" />
+    <None Include="Resources\arrow_up_2.png" />
+    <None Include="Resources\arrow_up_3.png" />
+    <None Include="Resources\arrow_up_4.png" />
+    <None Include="Resources\arrow_up_5.png" />
+    <None Include="Resources\arrow_up_6.png" />
+    <None Include="Resources\arrow_up_7.png" />
+    <None Include="Resources\arrow_up.png" />
+    <None Include="Resources\compass.png" />
+    <None Include="Resources\arrow_up_32_green.png" />
+    <None Include="Resources\arrow_up_32_red.png" />
+    <None Include="Resources\arrow_up_32_yellow.png" />
+    <None Include="Resources\arrow_up_32_blue.png" />
+    <None Include="Resources\arrow_up_32_gray.png" />
+    <None Include="Resources\arrow_up_32_purple.png" />
+    <None Include="Resources\camera_up_blue.png" />
+    <None Include="Resources\camera_up_blue_light.png" />
+    <None Include="Resources\camera_up_green.png" />
+    <None Include="Resources\camera_up_green_light.png" />
+    <None Include="Resources\camera_up_orange.png" />
+    <None Include="Resources\camera_up_pink.png" />
+    <None Include="Resources\camera_up_red.png" />
+    <None Include="Resources\camera_up_yellow.png" />
+    <None Include="Resources\camera_up_24_red.png" />
+    <None Include="Resources\camera_up_24_blue.png" />
+    <None Include="Resources\camera_up_24_blue_light.png" />
+    <None Include="Resources\camera_up_24_green.png" />
+    <None Include="Resources\camera_up_24_green_light.png" />
+    <None Include="Resources\camera_up_24_orange.png" />
+    <None Include="Resources\camera_up_24_pink.png" />
+    <None Include="Resources\camera_up_24_yellow.png" />
+    <Content Include="Resources\icon_earth.ico" />
+    <Content Include="Readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ditu.PNG" />
+    <None Include="Resources\hybird.png" />
+    <None Include="Resources\other.png" />
+    <Content Include="Resources\earth.png" />
+    <None Include="Resources\MapMarker_Bubble_Azure.png" />
+    <None Include="Resources\MapMarker_Bubble_Chartreuse.png" />
+    <None Include="Resources\MapMarker_Bubble_Pink.png" />
+    <None Include="Resources\point.png" />
+    <Content Include="Resources\point_blue.png" />
+    <None Include="Resources\satellite.png" />
+    <None Include="Resources\traffic_sign_1.png" />
+    <None Include="Resources\traffic_sign_2.png" />
+    <None Include="Resources\scale.png" />
+    <Content Include="Resources\weixing.PNG" />
+    <None Include="Resources\your_sister.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BSE.Windows.Forms\BSE.Windows.Forms.csproj">
+      <Project>{68DB802F-F9D8-47FE-BAA0-F73B247E5A47}</Project>
+      <Name>BSE.Windows.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonTools\CommonTools.csproj">
+      <Project>{c5681ae2-1966-46e5-9827-462bc625bf03}</Project>
+      <Name>CommonTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMap.NET.Core\GMap.NET.Core.csproj">
+      <Project>{D0C39D9D-BED0-418B-9A5E-713176CAF40C}</Project>
+      <Name>GMap.NET.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMap.NET.WindowsForms\GMap.NET.WindowsForms.csproj">
+      <Project>{E06DEF77-F933-42FB-AFD7-DB2D0D8D6A98}</Project>
+      <Name>GMap.NET.WindowsForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapChinaRegion\GMapChinaRegion.csproj">
+      <Project>{01B49280-D6F4-467C-8337-CEA9824F36CE}</Project>
+      <Name>GMapChinaRegion</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapCommonType\GMapCommonType.csproj">
+      <Project>{b004e87d-fe07-433c-812c-341d16164a40}</Project>
+      <Name>GMapCommonType</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapDownload\GMapDownload.csproj">
+      <Project>{f0fbf1c6-dcc6-4790-83b8-917db5e46bcf}</Project>
+      <Name>GMapDownload</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapDrawTools\GMapDrawTools.csproj">
+      <Project>{A846C026-69E9-4A27-A40C-6237E3D0BFB2}</Project>
+      <Name>GMapDrawTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapExport\GMapExport.csproj">
+      <Project>{46cea87b-4d4e-43d6-9152-b79163bf7996}</Project>
+      <Name>GMapExport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapHeat\GMapHeat.csproj">
+      <Project>{66c1d358-1909-45d4-8532-9eadae71958c}</Project>
+      <Name>GMapHeat</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapMarkerLib\GMapMarkerLib.csproj">
+      <Project>{E25D9C8F-534F-4D86-BD45-9469AD9727E0}</Project>
+      <Name>GMapMarkerLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapPOI\GMapPOI.csproj">
+      <Project>{ad58a74d-63ae-46d5-9b8f-00dd0217b765}</Project>
+      <Name>GMapPOI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapPolygonLib\GMapPolygonLib.csproj">
+      <Project>{22e05880-ed51-420f-a61f-a5b7cdb32fbc}</Project>
+      <Name>GMapPolygonLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapPositionFix\GMapPositionFix.csproj">
+      <Project>{3aa453ec-6552-431c-9190-68ae85a6b5c3}</Project>
+      <Name>GMapPositionFix</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapProvidersExt\GMapProvidersExt.csproj">
+      <Project>{E873E646-BE34-4060-A997-5087E9B7021C}</Project>
+      <Name>GMapProvidersExt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapTools\GMapTools.csproj">
+      <Project>{ED39E8DA-A8F3-4906-BA24-90D09D0AF7CD}</Project>
+      <Name>GMapTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GMapUtil\GMapUtil.csproj">
+      <Project>{DB4076E6-AB5B-48E1-B674-391CCFAD9B4F}</Project>
+      <Name>GMapUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetUtil\NetUtil.csproj">
+      <Project>{0B25DE8C-3747-4FD5-90A6-789FE09B1816}</Project>
+      <Name>NetUtil</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
