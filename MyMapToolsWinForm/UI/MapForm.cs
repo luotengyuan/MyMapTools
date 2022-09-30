@@ -485,6 +485,11 @@ namespace MapToolsWinForm
                 {
                     currentMarker = item as GMapFlashMarker;
                 }
+                if (!checkBoxMarker.Checked)
+                {
+                    sltDelMarker = item;
+                    contextMenuStripDelMarker.Show(Cursor.Position);
+                }
             }
 
             if (e.Button == MouseButtons.Left)
@@ -2312,6 +2317,15 @@ namespace MapToolsWinForm
                 routeEndMarker = new GMapImageMarker(routeEndPoint, Properties.Resources.MapMarker_Bubble_Pink);
                 this.routeOverlay.Markers.Add(routeEndMarker);
                 textBoxNaviEndPoint.Text = place.Value.Address;
+            }
+        }
+
+        GMapMarker sltDelMarker;
+        private void 删除当前MarkerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sltDelMarker != null)
+            {
+                demoOverlay.Markers.Remove(sltDelMarker);
             }
         }
 

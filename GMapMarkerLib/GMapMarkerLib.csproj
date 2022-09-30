@@ -63,6 +63,7 @@
     <Compile Include="GMapMarkerScopePie.cs" />
     <Compile Include="GMapMarkerScopePieAnimate.cs" />
     <Compile Include="GMapPointMarker.cs" />
+    <Compile Include="GMapRouteMidArrow.cs" />
     <Compile Include="GMapRouteBezier.cs" />
     <Compile Include="GMapTipMarker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
