@@ -79,8 +79,10 @@
             this.toolStripStatusExport = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitter_button = new System.Windows.Forms.Splitter();
             this.buttonMapType = new System.Windows.Forms.Button();
+            this.mapControl = new MapToolsWinForm.MapControl();
             this.panelDock = new System.Windows.Forms.Panel();
             this.dataGridViewGpsRoute = new System.Windows.Forms.DataGridView();
+            this.dataGridViewID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewLongitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewLatitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewDirection = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -90,6 +92,7 @@
             this.dataGridViewDateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewAttributes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.historyGeoDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panelButtonTools = new System.Windows.Forms.Panel();
             this.buttonForward = new System.Windows.Forms.Button();
             this.buttonBack = new System.Windows.Forms.Button();
@@ -134,6 +137,7 @@
             this.显示当前区域城市地图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.清除当前区域地图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.清除所有显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.统计所有城市总公里数ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除地图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripHistoryRoute = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -281,15 +285,13 @@
             this.清除城市显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_显示城市网格 = new System.Windows.Forms.ToolStripMenuItem();
             this.清除网格显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.统计公里数ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cb_coord_view_type = new System.Windows.Forms.ComboBox();
             this.tb_coord_view_text = new System.Windows.Forms.TextBox();
             this.btn_coord_view_add = new System.Windows.Forms.Button();
             this.btn_coord_view_clean = new System.Windows.Forms.Button();
             this.contextMenuStripDelMarker = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.删除当前MarkerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mapControl = new MapToolsWinForm.MapControl();
-            this.dataGridViewID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.historyGeoDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip.SuspendLayout();
             this.panelMap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_compass)).BeginInit();
@@ -297,6 +299,7 @@
             this.statusStrip1.SuspendLayout();
             this.panelDock.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewGpsRoute)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.historyGeoDataBindingSource)).BeginInit();
             this.panelButtonTools.SuspendLayout();
             this.contextMenuStripSelectedArea.SuspendLayout();
             this.contextMenuStripLocation.SuspendLayout();
@@ -326,7 +329,6 @@
             this.groupBox7.SuspendLayout();
             this.contextMenuCityDataView.SuspendLayout();
             this.contextMenuStripDelMarker.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.historyGeoDataBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // 地图操作ToolStripMenuItem
@@ -742,6 +744,33 @@
             this.buttonMapType.Size = new System.Drawing.Size(50, 49);
             this.buttonMapType.TabIndex = 0;
             // 
+            // mapControl
+            // 
+            this.mapControl.Bearing = 0F;
+            this.mapControl.CanDragMap = true;
+            this.mapControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mapControl.EmptyTileColor = System.Drawing.Color.Navy;
+            this.mapControl.GrayScaleMode = false;
+            this.mapControl.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.mapControl.LevelsKeepInMemmory = 5;
+            this.mapControl.Location = new System.Drawing.Point(0, 0);
+            this.mapControl.MarkersEnabled = true;
+            this.mapControl.MaxZoom = 2;
+            this.mapControl.MinZoom = 2;
+            this.mapControl.MouseWheelZoomEnabled = true;
+            this.mapControl.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.mapControl.Name = "mapControl";
+            this.mapControl.NegativeMode = false;
+            this.mapControl.PolygonsEnabled = true;
+            this.mapControl.RetryLoadTile = 0;
+            this.mapControl.RoutesEnabled = true;
+            this.mapControl.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.mapControl.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.mapControl.ShowTileGridLines = false;
+            this.mapControl.Size = new System.Drawing.Size(828, 571);
+            this.mapControl.TabIndex = 6;
+            this.mapControl.Zoom = 0D;
+            // 
             // panelDock
             // 
             this.panelDock.Controls.Add(this.dataGridViewGpsRoute);
@@ -777,6 +806,13 @@
             this.dataGridViewGpsRoute.Size = new System.Drawing.Size(828, 62);
             this.dataGridViewGpsRoute.TabIndex = 1;
             this.dataGridViewGpsRoute.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewGpsRoute_CellDoubleClick);
+            // 
+            // dataGridViewID
+            // 
+            this.dataGridViewID.DataPropertyName = "ID";
+            this.dataGridViewID.FillWeight = 39.73235F;
+            this.dataGridViewID.HeaderText = "ID";
+            this.dataGridViewID.Name = "dataGridViewID";
             // 
             // dataGridViewLongitude
             // 
@@ -840,6 +876,10 @@
             this.dataGridViewAttributes.FillWeight = 158.9294F;
             this.dataGridViewAttributes.HeaderText = "Attributes";
             this.dataGridViewAttributes.Name = "dataGridViewAttributes";
+            // 
+            // historyGeoDataBindingSource
+            // 
+            this.historyGeoDataBindingSource.DataSource = typeof(MapToolsWinForm.HistoryGeoData);
             // 
             // panelButtonTools
             // 
@@ -1205,63 +1245,71 @@
             this.显示当前区域城市地图ToolStripMenuItem,
             this.清除当前区域地图ToolStripMenuItem,
             this.清除所有显示ToolStripMenuItem,
+            this.统计所有城市总公里数ToolStripMenuItem,
             this.删除地图ToolStripMenuItem});
             this.contextMenuStripDisplayInfo.Name = "contextMenuStripDisplayInfo";
-            this.contextMenuStripDisplayInfo.Size = new System.Drawing.Size(209, 180);
+            this.contextMenuStripDisplayInfo.Size = new System.Drawing.Size(221, 202);
             // 
             // 修改显示信息ToolStripMenuItem
             // 
             this.修改显示信息ToolStripMenuItem.Name = "修改显示信息ToolStripMenuItem";
-            this.修改显示信息ToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.修改显示信息ToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.修改显示信息ToolStripMenuItem.Text = "修改显示信息";
             this.修改显示信息ToolStripMenuItem.Click += new System.EventHandler(this.修改显示信息ToolStripMenuItem_Click);
             // 
             // 设置为地图匹配测试底图ToolStripMenuItem
             // 
             this.设置为地图匹配测试底图ToolStripMenuItem.Name = "设置为地图匹配测试底图ToolStripMenuItem";
-            this.设置为地图匹配测试底图ToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.设置为地图匹配测试底图ToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.设置为地图匹配测试底图ToolStripMenuItem.Text = "设置为地图匹配测试底图";
             this.设置为地图匹配测试底图ToolStripMenuItem.Click += new System.EventHandler(this.设置为地图匹配测试底图ToolStripMenuItem_Click);
             // 
             // 显示当前区域ToolStripMenuItem
             // 
             this.显示当前区域ToolStripMenuItem.Name = "显示当前区域ToolStripMenuItem";
-            this.显示当前区域ToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.显示当前区域ToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.显示当前区域ToolStripMenuItem.Text = "显示当前区域地图";
             this.显示当前区域ToolStripMenuItem.Click += new System.EventHandler(this.显示当前区域地图ToolStripMenuItem_Click);
             // 
             // 显示当前网格地图ToolStripMenuItem1
             // 
             this.显示当前网格地图ToolStripMenuItem1.Name = "显示当前网格地图ToolStripMenuItem1";
-            this.显示当前网格地图ToolStripMenuItem1.Size = new System.Drawing.Size(208, 22);
+            this.显示当前网格地图ToolStripMenuItem1.Size = new System.Drawing.Size(220, 22);
             this.显示当前网格地图ToolStripMenuItem1.Text = "显示当前网格地图";
             this.显示当前网格地图ToolStripMenuItem1.Click += new System.EventHandler(this.显示当前网格地图ToolStripMenuItem_Click);
             // 
             // 显示当前区域城市地图ToolStripMenuItem
             // 
             this.显示当前区域城市地图ToolStripMenuItem.Name = "显示当前区域城市地图ToolStripMenuItem";
-            this.显示当前区域城市地图ToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.显示当前区域城市地图ToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.显示当前区域城市地图ToolStripMenuItem.Text = "显示当前区域城市地图";
             this.显示当前区域城市地图ToolStripMenuItem.Click += new System.EventHandler(this.显示当前区域城市地图ToolStripMenuItem_Click);
             // 
             // 清除当前区域地图ToolStripMenuItem
             // 
             this.清除当前区域地图ToolStripMenuItem.Name = "清除当前区域地图ToolStripMenuItem";
-            this.清除当前区域地图ToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.清除当前区域地图ToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.清除当前区域地图ToolStripMenuItem.Text = "清除当前区域城市地图";
             this.清除当前区域地图ToolStripMenuItem.Click += new System.EventHandler(this.清除当前区域城市地图ToolStripMenuItem_Click);
             // 
             // 清除所有显示ToolStripMenuItem
             // 
             this.清除所有显示ToolStripMenuItem.Name = "清除所有显示ToolStripMenuItem";
-            this.清除所有显示ToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.清除所有显示ToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.清除所有显示ToolStripMenuItem.Text = "清除所有显示";
             this.清除所有显示ToolStripMenuItem.Click += new System.EventHandler(this.清除所有显示ToolStripMenuItem_Click);
+            // 
+            // 统计所有城市总公里数ToolStripMenuItem
+            // 
+            this.统计所有城市总公里数ToolStripMenuItem.Name = "统计所有城市总公里数ToolStripMenuItem";
+            this.统计所有城市总公里数ToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.统计所有城市总公里数ToolStripMenuItem.Text = "统计所有城市路网总公里数";
+            this.统计所有城市总公里数ToolStripMenuItem.Click += new System.EventHandler(this.统计所有城市总公里数ToolStripMenuItem_Click);
             // 
             // 删除地图ToolStripMenuItem
             // 
             this.删除地图ToolStripMenuItem.Name = "删除地图ToolStripMenuItem";
-            this.删除地图ToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.删除地图ToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.删除地图ToolStripMenuItem.Text = "删除地图";
             this.删除地图ToolStripMenuItem.Click += new System.EventHandler(this.删除地图ToolStripMenuItem_Click);
             // 
@@ -3188,44 +3236,52 @@
             this.toolStripMenuItem_显示城市数据,
             this.清除城市显示ToolStripMenuItem,
             this.toolStripMenuItem_显示城市网格,
-            this.清除网格显示ToolStripMenuItem});
+            this.清除网格显示ToolStripMenuItem,
+            this.统计公里数ToolStripMenuItem});
             this.contextMenuCityDataView.Name = "contextMenuStripDisplayInfo";
-            this.contextMenuCityDataView.Size = new System.Drawing.Size(149, 114);
+            this.contextMenuCityDataView.Size = new System.Drawing.Size(185, 136);
             // 
             // toolStripMenuItem_缩放至城市
             // 
             this.toolStripMenuItem_缩放至城市.Name = "toolStripMenuItem_缩放至城市";
-            this.toolStripMenuItem_缩放至城市.Size = new System.Drawing.Size(148, 22);
+            this.toolStripMenuItem_缩放至城市.Size = new System.Drawing.Size(184, 22);
             this.toolStripMenuItem_缩放至城市.Text = "缩放至城市";
             this.toolStripMenuItem_缩放至城市.Click += new System.EventHandler(this.toolStripMenuItem_缩放至城市_Click);
             // 
             // toolStripMenuItem_显示城市数据
             // 
             this.toolStripMenuItem_显示城市数据.Name = "toolStripMenuItem_显示城市数据";
-            this.toolStripMenuItem_显示城市数据.Size = new System.Drawing.Size(148, 22);
+            this.toolStripMenuItem_显示城市数据.Size = new System.Drawing.Size(184, 22);
             this.toolStripMenuItem_显示城市数据.Text = "显示城市数据";
             this.toolStripMenuItem_显示城市数据.Click += new System.EventHandler(this.toolStripMenuItem_显示城市数据_Click);
             // 
             // 清除城市显示ToolStripMenuItem
             // 
             this.清除城市显示ToolStripMenuItem.Name = "清除城市显示ToolStripMenuItem";
-            this.清除城市显示ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.清除城市显示ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.清除城市显示ToolStripMenuItem.Text = "清除城市显示";
             this.清除城市显示ToolStripMenuItem.Click += new System.EventHandler(this.清除城市显示ToolStripMenuItem_Click);
             // 
             // toolStripMenuItem_显示城市网格
             // 
             this.toolStripMenuItem_显示城市网格.Name = "toolStripMenuItem_显示城市网格";
-            this.toolStripMenuItem_显示城市网格.Size = new System.Drawing.Size(148, 22);
+            this.toolStripMenuItem_显示城市网格.Size = new System.Drawing.Size(184, 22);
             this.toolStripMenuItem_显示城市网格.Text = "显示城市网格";
             this.toolStripMenuItem_显示城市网格.Click += new System.EventHandler(this.toolStripMenuItem_显示城市网格_Click);
             // 
             // 清除网格显示ToolStripMenuItem
             // 
             this.清除网格显示ToolStripMenuItem.Name = "清除网格显示ToolStripMenuItem";
-            this.清除网格显示ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.清除网格显示ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.清除网格显示ToolStripMenuItem.Text = "清除网格显示";
             this.清除网格显示ToolStripMenuItem.Click += new System.EventHandler(this.清除网格显示ToolStripMenuItem_Click);
+            // 
+            // 统计公里数ToolStripMenuItem
+            // 
+            this.统计公里数ToolStripMenuItem.Name = "统计公里数ToolStripMenuItem";
+            this.统计公里数ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.统计公里数ToolStripMenuItem.Text = "统计城市路网公里数";
+            this.统计公里数ToolStripMenuItem.Click += new System.EventHandler(this.统计城市路网公里数ToolStripMenuItem_Click);
             // 
             // cb_coord_view_type
             // 
@@ -3286,44 +3342,6 @@
             this.删除当前MarkerToolStripMenuItem.Text = "删除当前Marker";
             this.删除当前MarkerToolStripMenuItem.Click += new System.EventHandler(this.删除当前MarkerToolStripMenuItem_Click);
             // 
-            // mapControl
-            // 
-            this.mapControl.Bearing = 0F;
-            this.mapControl.CanDragMap = true;
-            this.mapControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mapControl.EmptyTileColor = System.Drawing.Color.Navy;
-            this.mapControl.GrayScaleMode = false;
-            this.mapControl.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-            this.mapControl.LevelsKeepInMemmory = 5;
-            this.mapControl.Location = new System.Drawing.Point(0, 0);
-            this.mapControl.MarkersEnabled = true;
-            this.mapControl.MaxZoom = 2;
-            this.mapControl.MinZoom = 2;
-            this.mapControl.MouseWheelZoomEnabled = true;
-            this.mapControl.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
-            this.mapControl.Name = "mapControl";
-            this.mapControl.NegativeMode = false;
-            this.mapControl.PolygonsEnabled = true;
-            this.mapControl.RetryLoadTile = 0;
-            this.mapControl.RoutesEnabled = true;
-            this.mapControl.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
-            this.mapControl.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-            this.mapControl.ShowTileGridLines = false;
-            this.mapControl.Size = new System.Drawing.Size(828, 571);
-            this.mapControl.TabIndex = 6;
-            this.mapControl.Zoom = 0D;
-            // 
-            // dataGridViewID
-            // 
-            this.dataGridViewID.DataPropertyName = "ID";
-            this.dataGridViewID.FillWeight = 39.73235F;
-            this.dataGridViewID.HeaderText = "ID";
-            this.dataGridViewID.Name = "dataGridViewID";
-            // 
-            // historyGeoDataBindingSource
-            // 
-            this.historyGeoDataBindingSource.DataSource = typeof(MapToolsWinForm.HistoryGeoData);
-            // 
             // MapForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -3352,6 +3370,7 @@
             this.statusStrip1.PerformLayout();
             this.panelDock.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewGpsRoute)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.historyGeoDataBindingSource)).EndInit();
             this.panelButtonTools.ResumeLayout(false);
             this.panelButtonTools.PerformLayout();
             this.contextMenuStripSelectedArea.ResumeLayout(false);
@@ -3393,7 +3412,6 @@
             this.groupBox7.PerformLayout();
             this.contextMenuCityDataView.ResumeLayout(false);
             this.contextMenuStripDelMarker.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.historyGeoDataBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3664,6 +3682,8 @@
         private System.Windows.Forms.ToolStripMenuItem 口令ToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDelMarker;
         private System.Windows.Forms.ToolStripMenuItem 删除当前MarkerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 统计公里数ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 统计所有城市总公里数ToolStripMenuItem;
     }
 }
 

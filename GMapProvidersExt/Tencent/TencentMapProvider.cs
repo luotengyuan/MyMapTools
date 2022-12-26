@@ -11,6 +11,7 @@ using System.Web;
 using NetUtil;
 using log4net;
 using GMap.NET.WindowsForms;
+using MyDefaultLib;
 
 namespace GMapProvidersExt.Tencent
 {
@@ -99,18 +100,22 @@ namespace GMapProvidersExt.Tencent
             List<Placemark> list = new List<Placemark>();
             int pageSize = 20;
             string keyWordUrlEncode = HttpUtility.UrlEncode(keywords);
-            string format = "http://apis.map.qq.com/ws/place/v1/search?keyword={0}&boundary={5}({1})&page_size={2}&page_index={3}&key={4}";
+            string format = string.Format("http://apis.map.qq.com/ws/place/v1/search?keyword={0}&page_size={1}&page_index={2}", keyWordUrlEncode, pageSize, pageIndex);
             if (!string.IsNullOrEmpty(region))
             {
-                format = string.Format(format, new object[] { keyWordUrlEncode, HttpUtility.UrlEncode(region) + ",0", pageSize, pageIndex, KEY, "region" });
+                format += string.Format("&boundary={0}({1})", "region", HttpUtility.UrlEncode(region) + ",0");
             }
             else if (!string.IsNullOrEmpty(rectangle))
             {
-                format = string.Format(format, new object[] { keyWordUrlEncode, rectangle, pageSize, pageIndex, KEY, "rectangle" });
+                format += string.Format("&boundary={0}({1})", "rectangle", rectangle);
             }
             else if (!string.IsNullOrEmpty(nearby))
             {
-                format = string.Format(format, new object[] { keyWordUrlEncode, nearby, pageSize, pageIndex, KEY, "nearby" });
+                format += string.Format("&boundary={0}({1})", "nearby", nearby);
+            }
+            if (!string.IsNullOrWhiteSpace(KEY))
+            {
+                format += string.Format("&ak={0}", KEY);
             }
             //string cacheUrl = string.Format("http://apis.map.qq.com/{0}/{1}/{2}/{3}/{4}", new object[] { keyWordUrlEncode, HttpUtility.UrlEncode(region), rectangle, nearby, pageIndex });
             //string cacheResult = Singleton<Cache>.Instance.GetContent(cacheUrl, CacheType.UrlCache, TimeSpan.FromHours(360.0));
@@ -127,7 +132,7 @@ namespace GMapProvidersExt.Tencent
             //{
             //    return list;
             //}
-            string cacheResult = HttpUtil.GetData(format);
+            string cacheResult = MapRequestTools.GetData(format);
             JObject result = JObject.Parse(cacheResult);
             string status = (string)result["status"];
             string message = (string)result["message"];
@@ -230,8 +235,12 @@ namespace GMapProvidersExt.Tencent
             List<Placemark> list = new List<Placemark>();
             try
             {
-                string url = string.Format("http://apis.map.qq.com/ws/geocoder/v1/?location={0}&get_poi={1}&key={2}", location.Lat + "," + location.Lng, 0, KEY);
-                string content = HttpUtil.GetData(url);
+                string url = string.Format("http://apis.map.qq.com/ws/geocoder/v1/?location={0}&get_poi={1}", location.Lat + "," + location.Lng, 0);
+                if (!string.IsNullOrWhiteSpace(KEY))
+                {
+                    url += string.Format("&ak={0}", KEY);
+                }
+                string content = MapRequestTools.GetData(url);
                 JObject jsonObj = JObject.Parse(content);
                 if (jsonObj != null && jsonObj["result"] != null)
                 {
@@ -280,8 +289,12 @@ namespace GMapProvidersExt.Tencent
             List<PointLatLng> list = new List<PointLatLng>();
             try
             {
-                string url = string.Format("http://apis.map.qq.com/ws/geocoder/v1/?region={0}&address={1}&key={2}", placemark.CityName, placemark.Address, KEY);
-                string content = HttpUtil.GetData(url);
+                string url = string.Format("http://apis.map.qq.com/ws/geocoder/v1/?region={0}&address={1}", placemark.CityName, placemark.Address);
+                if (!string.IsNullOrWhiteSpace(KEY))
+                {
+                    url += string.Format("&ak={0}", KEY);
+                }
+                string content = MapRequestTools.GetData(url);
                 JObject jsonObj = JObject.Parse(content);
                 if (jsonObj != null && jsonObj["result"] != null)
                 {
@@ -363,7 +376,7 @@ namespace GMapProvidersExt.Tencent
             string url = "";
             if (wayList == null || wayList.Count <= 0)
             {
-                url = string.Format("https://apis.map.qq.com/ws/direction/v1/driving/?from={0}&to={1}&output=json&callback=cb&key={2}", origin, destination, KEY);
+                url = string.Format("https://apis.map.qq.com/ws/direction/v1/driving/?from={0}&to={1}&output=json&callback=cb", origin, destination);
             }
             else
             {
@@ -373,9 +386,13 @@ namespace GMapProvidersExt.Tencent
                     waysStr += string.Format("{0},{1};", item.Lat, item.Lng);
                 }
                 waysStr = waysStr.TrimEnd(';');
-                url = string.Format("https://apis.map.qq.com/ws/direction/v1/driving/?from={0}&to={1}&waypoints={2}&output=json&callback=cb&key={3}", origin, destination, waysStr, KEY);
+                url = string.Format("https://apis.map.qq.com/ws/direction/v1/driving/?from={0}&to={1}&waypoints={2}&output=json&callback=cb", origin, destination, waysStr);
             }
-            string result = HttpUtil.GetData(url);
+            if (!string.IsNullOrWhiteSpace(KEY))
+            {
+                url += string.Format("&ak={0}", KEY);
+            }
+            string result = MapRequestTools.GetData(url);
             if (!string.IsNullOrEmpty(result))
             {
                 JObject resJosn = JObject.Parse(result);

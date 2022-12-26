@@ -9,6 +9,7 @@ using NetUtil;
 using Newtonsoft.Json.Linq;
 using log4net;
 using GMap.NET.WindowsForms;
+using MyDefaultLib;
 
 namespace GMapProvidersExt.Baidu
 {
@@ -82,11 +83,15 @@ namespace GMapProvidersExt.Baidu
             List<Placemark> list = new List<Placemark>();
             int pageSize = 20;
             string keyWordUrlEncode = HttpUtility.UrlEncode(keywords);
-            string format = "http://api.map.baidu.com/place/v2/search?q={0}&region={1}&output=json&ak={2}&page_size={3}&page_num={4}&scope=1";
+            string format = string.Format("http://api.map.baidu.com/place/v2/search?q={0}&output=json&page_size={1}&page_num={2}&scope=1", keyWordUrlEncode, pageSize, pageIndex);
             //"http://api.map.baidu.com/place/v2/search?ak=您的密钥&output=json&query=%E9%93%B6%E8%A1%8C&page_size=10&page_num=0&scope=1&region=%E5%8C%97%E4%BA%AC"
             if (!string.IsNullOrEmpty(region))
             {
-                format = string.Format(format, new object[] { keyWordUrlEncode, HttpUtility.UrlEncode(region), KEY, pageSize, pageIndex });
+                format += string.Format("&region={0}", HttpUtility.UrlEncode(region));
+            }
+            if (!string.IsNullOrWhiteSpace(KEY))
+            {
+                format += string.Format("&ak={0}", KEY);
             }
             //Get Cache Json Result if exist
             //string cacheUrl = string.Format("http://api.map.baidu.com/place/v2/search/{0}/{1}/{2}/{3}", new object[] { keyWordUrlEncode, HttpUtility.UrlEncode(region), pageIndex, pageSize });
@@ -105,7 +110,7 @@ namespace GMapProvidersExt.Baidu
             //}
             try
             {
-                string cacheResult = HttpUtil.GetData(format);
+                string cacheResult = MapRequestTools.GetData(format);
                 JObject jsonResult = JObject.Parse(cacheResult);
                 string message = (string)jsonResult["message"];
                 if (message == "ok")
@@ -174,9 +179,13 @@ namespace GMapProvidersExt.Baidu
             List<Placemark> list = new List<Placemark>();
             try
             {
-                string reqUrl = string.Format("https://api.map.baidu.com/place/v2/search?query=门址&location={0}&radius=1000&output=json&page_size=5&ak={1}", location.Lat + "," + location.Lng, KEY);
+                string reqUrl = string.Format("https://api.map.baidu.com/place/v2/search?query=门址$银行$酒店$美食$山$村$号&location={0}&radius=10000&output=json&page_size=5", location.Lat + "," + location.Lng);
+                if (!string.IsNullOrWhiteSpace(KEY))
+                {
+                    reqUrl += string.Format("&ak={0}", KEY);
+                }
                 //https://api.map.baidu.com/place/v2/search?query=门址&location=39.915,116.404&radius=1000&output=json&page_size=5&ak=CQnucm2q5gflDUai9Q9nVWtIhVaZXRIB
-                string content = HttpUtil.GetData(reqUrl);
+                string content = MapRequestTools.GetData(reqUrl);
                 JObject jsonObj = JObject.Parse(content);
                 if (jsonObj != null && jsonObj["message"].ToString() == "ok")
                 {
@@ -216,15 +225,16 @@ namespace GMapProvidersExt.Baidu
             List<PointLatLng> list = new List<PointLatLng>();
             try
             {
-                string content = "";
+                string url = string.Format("https://api.map.baidu.com/geocoding/v3/?address={0}&output=json", placemark.Address);
                 if (placemark.CityName != null)
                 {
-                    content = HttpUtil.GetData(string.Format("https://api.map.baidu.com/geocoding/v3/?city={0}&address={1}&output=json&ak={2}", placemark.CityName, placemark.Address, KEY));
+                    url += string.Format("&city={0}", placemark.CityName);
                 }
-                else
+                if (!string.IsNullOrWhiteSpace(KEY))
                 {
-                    content = HttpUtil.GetData(string.Format("https://api.map.baidu.com/geocoding/v3/?address={0}&output=json&key={1}", placemark.Address, KEY));
+                    url += string.Format("&ak={0}", KEY);
                 }
+                string content = MapRequestTools.GetData(url);
                 JObject jsonObj = JObject.Parse(content);
                 if (jsonObj != null && Int32.Parse(jsonObj["status"].ToString()) == 0)
                 {
@@ -288,7 +298,7 @@ namespace GMapProvidersExt.Baidu
             string url = "";
             if (wayList == null || wayList.Count <= 0)
             {
-                url = string.Format("https://api.map.baidu.com/direction/v2/driving?origin={0}&destination={1}&ak={2}", origin, destination, KEY);
+                url = string.Format("https://api.map.baidu.com/direction/v2/driving?origin={0}&destination={1}", origin, destination);
             }
             else
             {
@@ -298,9 +308,13 @@ namespace GMapProvidersExt.Baidu
                     waysStr += string.Format("{0},{1}|", item.Lat, item.Lng);
                 }
                 waysStr = waysStr.TrimEnd('|');
-                url = string.Format("https://api.map.baidu.com/direction/v2/driving?origin={0}&destination={1}&waypoints={2}&ak={3}", origin, destination, waysStr, KEY);
+                url = string.Format("https://api.map.baidu.com/direction/v2/driving?origin={0}&destination={1}&waypoints={2}", origin, destination, waysStr);
             }
-            string result = HttpUtil.GetData(url);
+            if (!string.IsNullOrWhiteSpace(KEY))
+            {
+                url += string.Format("&ak={0}", KEY);
+            }
+            string result = MapRequestTools.GetData(url);
             if (!string.IsNullOrEmpty(result))
             {
                 JObject resJosn = JObject.Parse(result);

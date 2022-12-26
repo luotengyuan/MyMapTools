@@ -7,58 +7,69 @@
  - 导航路线搜索、导出：通过百度地图、高德地图、腾讯地图等WebAPI搜索、保存导航路线数据；
  - 历史轨迹加载、回放：加载不同格式(csv/excel/nmea)轨迹数据，并可以回放、测试等；
  - 实时轨迹显示：通过串口接收GPS信息显示在地图上；
- 
-**项目地址：[https://github.com/luotengyuan/MyMapTools](https://github.com/luotengyuan/MyMapTools)
+
+**项目地址：[https://github.com/luotengyuan/MyMapTools](https://github.com/luotengyuan/MyMapTools)、[https://gitee.com/luotengyuan/MyMapTools](https://gitee.com/luotengyuan/MyMapTools)
 程序下载：[https://download.csdn.net/download/loutengyuan/86507941](https://download.csdn.net/download/loutengyuan/86507941)**
 
-![主界面](https://img-blog.csdnimg.cn/562e43efc25f40bf92104b953084a55f.png)
+![catch_2022-12-26_17-16-41](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/catch_2022-12-26_17-16-41.jpg)
 > **声明：本软件仅供个人学习与科研使用，所下载的数据版权归各个地图服务商所有，任何组织或个人因数据使用不当造成的问题，软件作者不负责任。**
 
 > **PS： 请替换自己的API Key!** 
+>
 > - [http://lbsyun.baidu.com/index.php?title=webapi](http://lbsyun.baidu.com/index.php?title=webapi)
+>
 > - [https://lbs.amap.com/api/webservice/summary/](https://lbs.amap.com/api/webservice/summary/)
+>
 > - [https://lbs.qq.com/webservice_v1/index.html](https://lbs.qq.com/webservice_v1/index.html)
+>
+>   ![GIF_2022-12-26_17-19-30](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/GIF_2022-12-26_17-19-30.gif)
+>
+>   最近有人使用我在工程中配置的key去请求搜索服务，我的也是个人开发账号，配额才100，导致我天天收到短信和邮件提示，所以需要使用的朋友还是自己申请一下key，谢谢！
+>
+>   ![catch_2022-12-26_18-40-03](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/catch_2022-12-26_18-40-03.jpg)
+>
+>   ![catch_2022-12-26_18-43-21](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/catch_2022-12-26_18-43-21.jpg)
 
 ## 1 功能介绍
 ### 1.1 多种在线地图切换
 - 可以根据自己的需要切换不同的地图提供商（例如：百度、高德）或者不同的地图类型（例如：普通地图、卫星地图、混合地图）
-![在这里插入图片描述](https://img-blog.csdnimg.cn/69ff43848712455c84bb3e9af286a709.png)
-![在这里插入图片描述](https://img-blog.csdnimg.cn/c7e2320533674e008266e258eae4f03c.png)
-![在这里插入图片描述](https://img-blog.csdnimg.cn/bce36159a03947ecb4adf49b186d0eba.png)
+
+![GIF_2022-12-26_17-26-08](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/GIF_2022-12-26_17-26-08.gif)
 ### 1.2 经纬度坐标显示
 - 可以根据不同类型的经纬度坐标，将坐标标注到地图上显示
-![在这里插入图片描述](https://img-blog.csdnimg.cn/f38f2e0134f84177ac7222da89bea67a.png)
+![GIF_2022-12-26_17-30-22](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/GIF_2022-12-26_17-30-22.gif)
 ### 1.3 坐标拾取功能
 - 在地图指定点右键鼠标，选择拾取该点坐标和地址菜单，可以在坐标坐标拾取标签页下查看该点的坐标和地址
-![在这里插入图片描述](https://img-blog.csdnimg.cn/86ba3ea190044bb1ad9a2a8b47af3dfe.png)
+![GIF_2022-12-26_18-07-41](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/GIF_2022-12-26_18-07-41.gif)
 - 根据坐标和地址也可查询在地图上的点位
-![在这里插入图片描述](https://img-blog.csdnimg.cn/f34d26d5f3f141deb0f7936640b12ecc.png)
+![GIF_2022-12-26_18-35-43](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/GIF_2022-12-26_18-35-43.gif)
 ### 1.4 POI查询功能
 - 根据关键字查询POI，并在地图中标注显示，还可以将搜索结果导出成Excel文件
-![在这里插入图片描述](https://img-blog.csdnimg.cn/aefb578a751f43568188c0239d3598fe.png)
+![GIF_2022-12-26_17-36-04](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/GIF_2022-12-26_17-36-04.gif)
 ### 1.5 地图下载拼接
 - 可以根据绘制矩形和多边形下载指定区域地图，可以根据行政区划下载地图
-![在这里插入图片描述](https://img-blog.csdnimg.cn/8a1a965bd5ee471abf10b42aa85d4356.png)
-![在这里插入图片描述](https://img-blog.csdnimg.cn/60576113423846bfb3cf94a356b64898.png)
-![在这里插入图片描述](https://img-blog.csdnimg.cn/7a7938dae41e494091fd25d9ca5390b5.png)
+![GIF_2022-12-26_17-38-08](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/GIF_2022-12-26_17-38-08.gif)
+![GIF_2022-12-26_17-40-41](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/GIF_2022-12-26_17-40-41.gif)
 ### 1.6 导航路线规划
 - 地图上右键选取导航起点、途经点、终点，点击规划路线，生成一条导航路线
-![在这里插入图片描述](https://img-blog.csdnimg.cn/73f15f12226c47799eb427bf8d327c9c.png)
+![GIF_2022-12-26_17-43-01](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/GIF_2022-12-26_17-43-01.gif)
 - 可以将导航路线导出成轨迹点
-![在这里插入图片描述](https://img-blog.csdnimg.cn/d8fa9bb5784048498dbfadf334d22fb9.png)
+![GIF_2022-12-26_17-44-45](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/GIF_2022-12-26_17-44-45.gif)
 - 还可以将轨迹导出成文件
-![在这里插入图片描述](https://img-blog.csdnimg.cn/9c0c00d4b5be425caa03d17343852be5.png)
+![GIF_2022-12-26_17-47-25](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/GIF_2022-12-26_17-47-25.gif)
 - 文件格式如下
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/3f3f0566edb448b0b273e24ef52bc5d3.png)
 ### 1.7 历史轨迹加载与回放
 - 可以通过加载csv、excel、nmea等文件将历史轨迹显示到地图上
-![在这里插入图片描述](https://img-blog.csdnimg.cn/9a12cb4640f04dd48042665a77d367cd.png)
-![在这里插入图片描述](https://img-blog.csdnimg.cn/9a18492380e94e91b6028cc10535ac06.png)
+![GIF_2022-12-26_17-55-33](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/GIF_2022-12-26_17-55-33.gif)
 - 可以将历史轨迹设置成模拟轨迹，模拟历史数据，并将模拟信息通过Pipe方式发送到其他进程作为输入，进行模拟GPS测试
-![在这里插入图片描述](https://img-blog.csdnimg.cn/ddd7e39f8295496da3d0cceddd764e40.png)
+![GIF_2022-12-26_17-58-03](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/GIF_2022-12-26_17-58-03.gif)
 ### 1.8 串口接收实时轨迹
 
-- 可以根据串口接收到的NMEA或者其他指定格式实时定位信息，并显示到地图上![在这里插入图片描述](https://img-blog.csdnimg.cn/10885bb80e0b459182d9488f2c68762f.png)
+- 可以根据串口接收到的NMEA或者其他指定格式实时定位信息，并显示到地图上
+
+![GIF_2022-12-26_18-05-19](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/GIF_2022-12-26_18-05-19.gif)
+
 ## 2 代码实现
 ### 2.1 GMap.NET库使用
 [GMap.NET](https://greatmaps.codeplex.com/)是一个强大、免费、跨平台、开源的.NET控件，它在Windows Forms和WPF环境中使用Google, Yahoo!, Bing, OpenStreetMap, ArcGIS, Pergo, SigPac等路径规划、地理编码以及地图展示功能。下面介绍从下载安装到如何使用GMap.NET。

@@ -69,6 +69,8 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MyMapToolsSetup", "MyMapToo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerminalMapLib", "TerminalMapLib\TerminalMapLib.csproj", "{B3129CF0-5086-4838-8B0D-60F8D6F00E9B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDefaultLib", "MyDefaultLib\MyDefaultLib.csproj", "{F785E808-5909-4BA4-B534-B0FD00BCA2EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -373,6 +375,16 @@ Global
 		{B3129CF0-5086-4838-8B0D-60F8D6F00E9B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{B3129CF0-5086-4838-8B0D-60F8D6F00E9B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B3129CF0-5086-4838-8B0D-60F8D6F00E9B}.Release|x86.ActiveCfg = Release|Any CPU
+		{F785E808-5909-4BA4-B534-B0FD00BCA2EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F785E808-5909-4BA4-B534-B0FD00BCA2EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F785E808-5909-4BA4-B534-B0FD00BCA2EB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F785E808-5909-4BA4-B534-B0FD00BCA2EB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F785E808-5909-4BA4-B534-B0FD00BCA2EB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F785E808-5909-4BA4-B534-B0FD00BCA2EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F785E808-5909-4BA4-B534-B0FD00BCA2EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F785E808-5909-4BA4-B534-B0FD00BCA2EB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F785E808-5909-4BA4-B534-B0FD00BCA2EB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F785E808-5909-4BA4-B534-B0FD00BCA2EB}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

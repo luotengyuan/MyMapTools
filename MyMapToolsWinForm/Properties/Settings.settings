@@ -62,15 +62,6 @@
     <Setting Name="Setting_tencent_map_key" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="Defult_amap_key" Type="System.String" Scope="User">
-      <Value Profile="(Default)">43fba9453caa69b438d977de4e432793</Value>
-    </Setting>
-    <Setting Name="Defult_baidu_map_key" Type="System.String" Scope="User">
-      <Value Profile="(Default)">CQnucm2q5gflDUai9Q9nVWtIhVaZXRIB</Value>
-    </Setting>
-    <Setting Name="Defult_tencent_map_key" Type="System.String" Scope="User">
-      <Value Profile="(Default)">RGTBZ-L55RW-UJSRS-RLTUY-E6HB7-WJBC6</Value>
-    </Setting>
     <Setting Name="Setting_slt_search_engine" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>

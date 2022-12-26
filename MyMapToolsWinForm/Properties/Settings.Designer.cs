@@ -265,42 +265,6 @@ namespace MapToolsWinForm.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("43fba9453caa69b438d977de4e432793")]
-        public string Defult_amap_key {
-            get {
-                return ((string)(this["Defult_amap_key"]));
-            }
-            set {
-                this["Defult_amap_key"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("CQnucm2q5gflDUai9Q9nVWtIhVaZXRIB")]
-        public string Defult_baidu_map_key {
-            get {
-                return ((string)(this["Defult_baidu_map_key"]));
-            }
-            set {
-                this["Defult_baidu_map_key"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("RGTBZ-L55RW-UJSRS-RLTUY-E6HB7-WJBC6")]
-        public string Defult_tencent_map_key {
-            get {
-                return ((string)(this["Defult_tencent_map_key"]));
-            }
-            set {
-                this["Defult_tencent_map_key"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int Setting_slt_search_engine {
             get {

@@ -167,29 +167,17 @@ namespace MapToolsWinForm
 
             // 初始化地图Key
             string mapKey = Properties.Settings.Default.Setting_amap_key;
-            if (mapKey == null || "".Equals(mapKey.Trim()))
-            {
-                AMapProvider.Instance.SetKey(Properties.Settings.Default.Defult_amap_key);
-            }
-            else
+            if (!string.IsNullOrWhiteSpace(mapKey))
             {
                 AMapProvider.Instance.SetKey(mapKey);
             }
             mapKey = Properties.Settings.Default.Setting_baidu_map_key;
-            if (mapKey == null || "".Equals(mapKey.Trim()))
-            {
-                BaiduMapProvider.Instance.SetKey(Properties.Settings.Default.Defult_baidu_map_key);
-            }
-            else
+            if (!string.IsNullOrWhiteSpace(mapKey))
             {
                 BaiduMapProvider.Instance.SetKey(mapKey);
             }
             mapKey = Properties.Settings.Default.Setting_tencent_map_key;
-            if (mapKey == null || "".Equals(mapKey.Trim()))
-            {
-                TencentMapProvider.Instance.SetKey(Properties.Settings.Default.Defult_tencent_map_key);
-            }
-            else
+            if (!string.IsNullOrWhiteSpace(mapKey))
             {
                 TencentMapProvider.Instance.SetKey(mapKey);
             }
@@ -488,7 +476,14 @@ namespace MapToolsWinForm
                 if (!checkBoxMarker.Checked)
                 {
                     sltDelMarker = item;
-                    contextMenuStripDelMarker.Show(Cursor.Position);
+                    foreach (var mk in demoOverlay.Markers)
+	                {
+		                if (sltDelMarker == mk)
+                        {
+                            contextMenuStripDelMarker.Show(Cursor.Position);
+                            break;
+	                    }
+	                }
                 }
             }
 
@@ -3196,6 +3191,7 @@ namespace MapToolsWinForm
                 }
             }
         }
+
         private void ShowCityDataOverlay(TerminalMapLib.CityDataInfo cityData, TerminalMapLib.TerminalMapInfo terminalMapInfo)
         {
             ShowCityDataOverlay(cityData, terminalMapInfo, RectLatLng.Empty, false);
@@ -3733,6 +3729,7 @@ namespace MapToolsWinForm
                         {
                             CleanCityDataOverlay(cityData, false);
                             ShowCityDataOverlay(cityData, terminalMapInfo, rect, true);
+                            Console.WriteLine(cityData.City_name);
                         }
                     }
                 }
@@ -3779,6 +3776,105 @@ namespace MapToolsWinForm
                     gridOverlay.Markers.Add(textMarker);
                 }
                 return;
+            }
+        }
+
+        private void 统计城市路网公里数ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sltCityDataInfo != null)
+            {
+                if (sltCityDataInfo.RoadFileInfo.LoadStatus == 0)
+                {
+                    RoadFileInfo roadFileInfo = TerminalMapTool.GetRoadFileInfo(sltCityDataInfo.RoadFileInfo.PathName, sltCityDataInfo, false);
+                    if (roadFileInfo != null)
+                    {
+                        sltCityDataInfo.RoadFileInfo = roadFileInfo;
+                    }
+                }
+                if (sltCityDataInfo.RoadFileInfo.LoadStatus == 1)
+                {
+                    int totalDist = 0;
+                    foreach (RoadGridInfo roadGridInfo in sltCityDataInfo.RoadFileInfo.RoadGridInfoList)
+                    {
+                        if (roadGridInfo.RoadSectionInfoList == null)
+                        {
+                            continue;
+                        }
+                        foreach (RoadSectionInfo roadSectionInfo in roadGridInfo.RoadSectionInfoList)
+                        {
+                            totalDist += roadSectionInfo.UiLnkLen;
+                        }
+                    }
+                    MessageBox.Show(sltCityDataInfo.City_name + "路网公里数：" + GetDistStr(totalDist)); 
+                }
+            }
+        }
+
+        private void 统计所有城市总公里数ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sltRootNode != null)
+            {
+                long totalDist = 0;
+                foreach (TreeNode item in sltRootNode.Nodes)
+                {
+                    if (item.Text.Contains("000000"))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        CityDataInfo cityData = item.Tag as CityDataInfo;
+                        if (cityData.RoadFileInfo.LoadStatus == 0)
+                        {
+                            List<RoadGridInfo> roadGridInfo = TerminalMapTool.GetRoadGridInfoList(cityData.RoadFileInfo.PathName, cityData);
+                            if (roadGridInfo != null)
+                            {
+                                foreach (RoadGridInfo roadGridInfo1 in roadGridInfo)
+                                {
+                                    if (roadGridInfo1.RoadSectionInfoList == null)
+                                    {
+                                        continue;
+                                    }
+                                    foreach (RoadSectionInfo roadSectionInfo in roadGridInfo1.RoadSectionInfoList)
+                                    {
+                                        totalDist += roadSectionInfo.UiLnkLen;
+                                    }
+                                }
+                            }
+                        }
+                        if (cityData.RoadFileInfo.LoadStatus == 1)
+                        {
+                            foreach (RoadGridInfo roadGridInfo in cityData.RoadFileInfo.RoadGridInfoList)
+                            {
+                                if (roadGridInfo.RoadSectionInfoList == null)
+                                {
+                                    continue;
+                                }
+                                foreach (RoadSectionInfo roadSectionInfo in roadGridInfo.RoadSectionInfoList)
+                                {
+                                    totalDist += roadSectionInfo.UiLnkLen;
+                                }
+                            }
+                        }
+                    }
+                }
+                MessageBox.Show("所有城市路网总公里数：" + GetDistStr(totalDist));
+            }
+        }
+
+        private string GetDistStr(long dist)
+        {
+            if (dist < 1000)
+            {
+                return string.Format("{0}米", dist);
+            }
+            else if (dist < 10000000)
+            {
+                return string.Format("{0:0.00}公里", dist / 1000.0);
+            }
+            else
+            {
+                return string.Format("{0:0.00}万公里", dist / 10000000.0);
             }
         }
 

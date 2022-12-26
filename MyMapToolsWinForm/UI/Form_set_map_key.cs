@@ -106,38 +106,17 @@ namespace MapToolsWinForm
             switch (mType)
             {
                 case SearchEngineType.AMAP:
-                    if (key == null || "".Equals(key.Trim()))
-                    {
-                        AMapProvider.Instance.SetKey(Properties.Settings.Default.Defult_amap_key);
-                    }
-                    else
-                    {
-                        AMapProvider.Instance.SetKey(key);
-                    }
+                    AMapProvider.Instance.SetKey(key);
                     Properties.Settings.Default.Setting_amap_key = key;
                     Properties.Settings.Default.Save();
                     break;
                 case SearchEngineType.BAIDU:
-                    if (key == null || "".Equals(key.Trim()))
-                    {
-                        BaiduMapProvider.Instance.SetKey(Properties.Settings.Default.Defult_baidu_map_key);
-                    }
-                    else
-                    {
-                        BaiduMapProvider.Instance.SetKey(key);
-                    }
+                    BaiduMapProvider.Instance.SetKey(key);
                     Properties.Settings.Default.Setting_baidu_map_key = key;
                     Properties.Settings.Default.Save();
                     break;
                 case SearchEngineType.TENCENT:
-                    if (key == null || "".Equals(key.Trim()))
-                    {
-                        TencentMapProvider.Instance.SetKey(Properties.Settings.Default.Defult_tencent_map_key);
-                    }
-                    else
-                    {
-                        TencentMapProvider.Instance.SetKey(key);
-                    }
+                    TencentMapProvider.Instance.SetKey(key);
                     Properties.Settings.Default.Setting_tencent_map_key = key;
                     Properties.Settings.Default.Save();
                     break;
