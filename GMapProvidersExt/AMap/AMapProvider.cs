@@ -87,7 +87,7 @@ namespace GMapProvidersExt.AMap
             List<Placemark> list = new List<Placemark>();
             int pageSize = 50;
             string keyWordUrlEncode = HttpUtility.UrlEncode(keywords);
-            string format = string.Format("http://restapi.amap.com/v3/place/text?&keywords={0}&output=json&offset={1}&page={2}", new object[] { keyWordUrlEncode, pageSize, pageIndex });
+            string format = string.Format("http://restapi.amap.com/v3/place/text?&keywords={0}&output=json&offset={1}&page={2}&extensions=all", new object[] { keyWordUrlEncode, pageSize, pageIndex });
             //http://restapi.amap.com/v3/place/text?&keywords=%E5%8C%97%E4%BA%AC%E5%A4%A7%E5%AD%A6&city=beijing&output=json&offset=5&page=1&key=26144cb5dbe74ea6c1410777feb646de&extensions=base
             if (!string.IsNullOrWhiteSpace(region))
             {
@@ -134,6 +134,13 @@ namespace GMapProvidersExt.AMap
                             JObject obj = results[i] as JObject;
                             string name = obj["name"].ToString();
                             string address = obj["address"].ToString();
+                            string provinceName = obj["pname"].ToString();
+                            string cityName = obj["cityname"].ToString();
+                            string cityCode = obj["citycode"].ToString();
+                            string adCode = obj["adcode"].ToString();
+                            string adName = obj["adname"].ToString();
+                            string tel = obj["tel"].ToString();
+                            string category = obj["type"].ToString();
                             string location = obj["location"].ToString();
                             string[] points = location.Split(',');
                             if (points != null && points.Length == 2)
@@ -143,9 +150,13 @@ namespace GMapProvidersExt.AMap
                                 Placemark item = new Placemark(address);
                                 item.Point = new PointLatLng(lat, lng, CoordType.GCJ02);
                                 item.Name = name;
-                                //item.ProvinceName = obj["pname"].ToString();
-                                //item.CityName = obj["cityname"].ToString();
-                                //item.Category = obj["type"].ToString();
+                                item.ProvinceName = provinceName;
+                                item.CityName = cityName;
+                                item.CityCode = cityCode;
+                                item.AdCode = adCode;
+                                item.AdName = adName;
+                                item.Tel = tel;
+                                item.Category = category;
                                 list.Add(item);
                                 ++this.succeedCount;
                                 if (queryProgressEvent != null)

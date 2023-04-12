@@ -52,6 +52,7 @@ namespace GMap.NET
         public string CityName;
         public string CityCode;
         public string AdCode;
+        public string AdName;
         public string Tel;
         public string Category;
         public RectLatLng LatLonBox;
@@ -82,6 +83,7 @@ namespace GMap.NET
             CityName = string.Empty;
             CityCode = string.Empty;
             AdCode = string.Empty;
+            AdName = string.Empty;
             Tel = string.Empty;
             Category = string.Empty;
         }
@@ -94,6 +96,7 @@ namespace GMap.NET
             this.CityName = oth.CityName;
             this.CityCode = oth.CityCode;
             this.AdCode = oth.AdCode;
+            this.AdName = oth.AdName;
             this.CountryCode = oth.CountryCode;
             this.LatLonBox = oth.LatLonBox;
             this.Name = oth.Name;

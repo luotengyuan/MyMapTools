@@ -58,7 +58,7 @@
 - 还可以将轨迹导出成文件
 ![GIF_2022-12-26_17-47-25](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/GIF_2022-12-26_17-47-25.gif)
 - 文件格式如下
-![在这里插入图片描述](https://img-blog.csdnimg.cn/3f3f0566edb448b0b273e24ef52bc5d3.png)
+![在这里插入图片描述](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/3f3f0566edb448b0b273e24ef52bc5d3.png)
 ### 1.7 历史轨迹加载与回放
 - 可以通过加载csv、excel、nmea等文件将历史轨迹显示到地图上
 ![GIF_2022-12-26_17-55-33](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/GIF_2022-12-26_17-55-33.gif)
@@ -75,14 +75,16 @@
 [GMap.NET](https://greatmaps.codeplex.com/)是一个强大、免费、跨平台、开源的.NET控件，它在Windows Forms和WPF环境中使用Google, Yahoo!, Bing, OpenStreetMap, ArcGIS, Pergo, SigPac等路径规划、地理编码以及地图展示功能。下面介绍从下载安装到如何使用GMap.NET。
 #### 2.1.1 下载和安装
 从[这里](https://greatmaps.codeplex.com/)下载，解压后得到两个文件（GMap.NET.Core.dll 和 GMap.NET.WindowsForms.dll）。然后在项目中添加引用。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/e31de6fa5d794a1aac5ffba396525c0f.png)
+![在这里插入图片描述](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/e31de6fa5d794a1aac5ffba396525c0f.png)
 添加GMapControl到工具箱。在“选择项”时，选择“GMap.NET.WindowsForms.dll”文件即可添加。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/10a3bbafd8ae4755a9a2dc547c447784.png#pic_center)
+![在这里插入图片描述](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/10a3bbafd8ae4755a9a2dc547c447784.png)
 使用NUGET安装
-![在这里插入图片描述](https://img-blog.csdnimg.cn/36c2e32d266c41ba9db9debfc17aba8d.png#pic_center)
+![在这里插入图片描述](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/36c2e32d266c41ba9db9debfc17aba8d.png)
+
 #### 2.1.2 添加地图控件
 拖拽GMapControl到Windows Form中，可看到控件中心有个小十字。查看属性，你会发现GMap.NET的一些特有属性。通过设置这些属性可以配置地图的行为，但是不能设置其内容。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/0f4c7751e3e84e8a9cc8711ec7957a0c.png#pic_center)
+![在这里插入图片描述](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/0f4c7751e3e84e8a9cc8711ec7957a0c.png)
+
 > * Bearing - 按照指定的度数向左旋转地图
 > * CanDragMap – 是否启用鼠标右键拖动（平移）地图
 > * EmptyTileColor – 设置没有数据的切片所显示的颜色
@@ -101,15 +103,16 @@ this.gMapControl1.SetPositionByKeywords("北京"); // 地图中心位置
 //this.gMapControl1.Position = new GMap.NET.PointLatLng(39.923518, 116.539009);
 ```
 ① MapProvider：设置地图源，输入GMapProviders可以看到GMap所支持的所有地图源。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/c845d520c87541a7b34f21abc2df3b36.png#pic_center)
+![在这里插入图片描述](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/c845d520c87541a7b34f21abc2df3b36.png)
 ② GMaps.Instance.Mode： GMap可以从服务器、本地缓存、服务器或本地缓存获取数据。这适用于在应用程序中创建的所有GMap控件实例，只需要设置一次该值。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/36cc08601ca94feaa03607d905a7c58d.png#pic_center)
+![在这里插入图片描述](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/36cc08601ca94feaa03607d905a7c58d.png)
 ③ 设置地图中心位置可以使用关键字或者经纬度。
 ④ 地图显示结果。按住鼠标右键可以拖拽地图，当然也可以设置其他键来拖拽。
+
 ```csharp
 this.gMapControl1.DragButton = MouseButtons.Left;
 ```
-![在这里插入图片描述](https://img-blog.csdnimg.cn/30533038eaf04b56b9213a6d8c16c108.png#pic_center)
+![在这里插入图片描述](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/30533038eaf04b56b9213a6d8c16c108.png)
 #### 2.1.3 添加标记
 ```csharp
 //创建一个名为“markers”的图层
@@ -136,7 +139,7 @@ marker.ToolTip.Foreground = Brushes.White;
 marker.ToolTip.TextPadding = new Size(20, 20);
 ```
 ③ 地图显示结果。（发现中心的小十字没了吗，因为这是可以设置的）
-![在这里插入图片描述](https://img-blog.csdnimg.cn/5a331038bebc44158e0e6452e0af8d07.png#pic_center)
+![在这里插入图片描述](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/5a331038bebc44158e0e6452e0af8d07.png)
 
 ```csharp
 this.gMapControl1.ShowCenter = false; //隐藏中心十字
@@ -167,7 +170,7 @@ polygons.Polygons.Add(polygon);
 this.gMapControl1.Overlays.Add(polygons);
 ```
 显示结果。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/f3e0454887484c3a83ef2f018a18094c.png#pic_center)
+![在这里插入图片描述](https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/f3e0454887484c3a83ef2f018a18094c.png)
 
 >版权声明：以上内容参考huangli0原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
 >链接：[https://blog.csdn.net/huangli0/article/details/80147243](https://blog.csdn.net/huangli0/article/details/80147243)

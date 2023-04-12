@@ -79,10 +79,8 @@
             this.toolStripStatusExport = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitter_button = new System.Windows.Forms.Splitter();
             this.buttonMapType = new System.Windows.Forms.Button();
-            this.mapControl = new MapToolsWinForm.MapControl();
             this.panelDock = new System.Windows.Forms.Panel();
             this.dataGridViewGpsRoute = new System.Windows.Forms.DataGridView();
-            this.dataGridViewID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewLongitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewLatitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewDirection = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -92,7 +90,6 @@
             this.dataGridViewDateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewAttributes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.historyGeoDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panelButtonTools = new System.Windows.Forms.Panel();
             this.buttonForward = new System.Windows.Forms.Button();
             this.buttonBack = new System.Windows.Forms.Button();
@@ -161,6 +158,8 @@
             this.tb_lon_lat_wgs84 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.xPanderPanel2 = new BSE.Windows.Forms.XPanderPanel();
+            this.comboBoxAd = new System.Windows.Forms.ComboBox();
+            this.label32 = new System.Windows.Forms.Label();
             this.buttonPoiClean = new System.Windows.Forms.Button();
             this.buttonPoiSave = new System.Windows.Forms.Button();
             this.buttonPOISearch = new System.Windows.Forms.Button();
@@ -292,6 +291,9 @@
             this.btn_coord_view_clean = new System.Windows.Forms.Button();
             this.contextMenuStripDelMarker = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.删除当前MarkerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mapControl = new MapToolsWinForm.MapControl();
+            this.dataGridViewID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.historyGeoDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip.SuspendLayout();
             this.panelMap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_compass)).BeginInit();
@@ -299,7 +301,6 @@
             this.statusStrip1.SuspendLayout();
             this.panelDock.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewGpsRoute)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.historyGeoDataBindingSource)).BeginInit();
             this.panelButtonTools.SuspendLayout();
             this.contextMenuStripSelectedArea.SuspendLayout();
             this.contextMenuStripLocation.SuspendLayout();
@@ -329,6 +330,7 @@
             this.groupBox7.SuspendLayout();
             this.contextMenuCityDataView.SuspendLayout();
             this.contextMenuStripDelMarker.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.historyGeoDataBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // 地图操作ToolStripMenuItem
@@ -744,33 +746,6 @@
             this.buttonMapType.Size = new System.Drawing.Size(50, 49);
             this.buttonMapType.TabIndex = 0;
             // 
-            // mapControl
-            // 
-            this.mapControl.Bearing = 0F;
-            this.mapControl.CanDragMap = true;
-            this.mapControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mapControl.EmptyTileColor = System.Drawing.Color.Navy;
-            this.mapControl.GrayScaleMode = false;
-            this.mapControl.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-            this.mapControl.LevelsKeepInMemmory = 5;
-            this.mapControl.Location = new System.Drawing.Point(0, 0);
-            this.mapControl.MarkersEnabled = true;
-            this.mapControl.MaxZoom = 2;
-            this.mapControl.MinZoom = 2;
-            this.mapControl.MouseWheelZoomEnabled = true;
-            this.mapControl.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
-            this.mapControl.Name = "mapControl";
-            this.mapControl.NegativeMode = false;
-            this.mapControl.PolygonsEnabled = true;
-            this.mapControl.RetryLoadTile = 0;
-            this.mapControl.RoutesEnabled = true;
-            this.mapControl.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
-            this.mapControl.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-            this.mapControl.ShowTileGridLines = false;
-            this.mapControl.Size = new System.Drawing.Size(828, 571);
-            this.mapControl.TabIndex = 6;
-            this.mapControl.Zoom = 0D;
-            // 
             // panelDock
             // 
             this.panelDock.Controls.Add(this.dataGridViewGpsRoute);
@@ -806,13 +781,6 @@
             this.dataGridViewGpsRoute.Size = new System.Drawing.Size(828, 62);
             this.dataGridViewGpsRoute.TabIndex = 1;
             this.dataGridViewGpsRoute.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewGpsRoute_CellDoubleClick);
-            // 
-            // dataGridViewID
-            // 
-            this.dataGridViewID.DataPropertyName = "ID";
-            this.dataGridViewID.FillWeight = 39.73235F;
-            this.dataGridViewID.HeaderText = "ID";
-            this.dataGridViewID.Name = "dataGridViewID";
             // 
             // dataGridViewLongitude
             // 
@@ -876,10 +844,6 @@
             this.dataGridViewAttributes.FillWeight = 158.9294F;
             this.dataGridViewAttributes.HeaderText = "Attributes";
             this.dataGridViewAttributes.Name = "dataGridViewAttributes";
-            // 
-            // historyGeoDataBindingSource
-            // 
-            this.historyGeoDataBindingSource.DataSource = typeof(MapToolsWinForm.HistoryGeoData);
             // 
             // panelButtonTools
             // 
@@ -1590,6 +1554,8 @@
             // xPanderPanel2
             // 
             this.xPanderPanel2.CaptionFont = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
+            this.xPanderPanel2.Controls.Add(this.comboBoxAd);
+            this.xPanderPanel2.Controls.Add(this.label32);
             this.xPanderPanel2.Controls.Add(this.buttonPoiClean);
             this.xPanderPanel2.Controls.Add(this.buttonPoiSave);
             this.xPanderPanel2.Controls.Add(this.buttonPOISearch);
@@ -1633,10 +1599,31 @@
             this.xPanderPanel2.ToolTipTextExpandIconPanelCollapsed = null;
             this.xPanderPanel2.ToolTipTextExpandIconPanelExpanded = null;
             // 
+            // comboBoxAd
+            // 
+            this.comboBoxAd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxAd.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxAd.FormattingEnabled = true;
+            this.comboBoxAd.Location = new System.Drawing.Point(57, 85);
+            this.comboBoxAd.Name = "comboBoxAd";
+            this.comboBoxAd.Size = new System.Drawing.Size(232, 20);
+            this.comboBoxAd.TabIndex = 35;
+            this.comboBoxAd.SelectedValueChanged += new System.EventHandler(this.comboBoxAd_SelectedValueChanged);
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(15, 88);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(47, 12);
+            this.label32.TabIndex = 34;
+            this.label32.Text = "区/县：";
+            // 
             // buttonPoiClean
             // 
             this.buttonPoiClean.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonPoiClean.Location = new System.Drawing.Point(170, 110);
+            this.buttonPoiClean.Location = new System.Drawing.Point(170, 137);
             this.buttonPoiClean.Name = "buttonPoiClean";
             this.buttonPoiClean.Size = new System.Drawing.Size(56, 23);
             this.buttonPoiClean.TabIndex = 33;
@@ -1647,7 +1634,7 @@
             // buttonPoiSave
             // 
             this.buttonPoiSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonPoiSave.Location = new System.Drawing.Point(234, 110);
+            this.buttonPoiSave.Location = new System.Drawing.Point(234, 137);
             this.buttonPoiSave.Name = "buttonPoiSave";
             this.buttonPoiSave.Size = new System.Drawing.Size(56, 23);
             this.buttonPoiSave.TabIndex = 32;
@@ -1658,7 +1645,7 @@
             // buttonPOISearch
             // 
             this.buttonPOISearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonPOISearch.Location = new System.Drawing.Point(233, 83);
+            this.buttonPOISearch.Location = new System.Drawing.Point(233, 110);
             this.buttonPOISearch.Name = "buttonPOISearch";
             this.buttonPOISearch.Size = new System.Drawing.Size(57, 23);
             this.buttonPOISearch.TabIndex = 31;
@@ -1674,7 +1661,7 @@
             this.comboBoxPoiSave.FormattingEnabled = true;
             this.comboBoxPoiSave.Items.AddRange(new object[] {
             "Excel存储"});
-            this.comboBoxPoiSave.Location = new System.Drawing.Point(58, 112);
+            this.comboBoxPoiSave.Location = new System.Drawing.Point(58, 139);
             this.comboBoxPoiSave.Name = "comboBoxPoiSave";
             this.comboBoxPoiSave.Size = new System.Drawing.Size(103, 20);
             this.comboBoxPoiSave.TabIndex = 30;
@@ -1682,7 +1669,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 119);
+            this.label8.Location = new System.Drawing.Point(3, 146);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(59, 12);
             this.label8.TabIndex = 29;
@@ -1698,6 +1685,7 @@
             this.comboBoxCity.Name = "comboBoxCity";
             this.comboBoxCity.Size = new System.Drawing.Size(232, 20);
             this.comboBoxCity.TabIndex = 28;
+            this.comboBoxCity.SelectedValueChanged += new System.EventHandler(this.comboBoxCity_SelectedValueChanged);
             // 
             // label6
             // 
@@ -1732,7 +1720,7 @@
             // 
             this.textBoxPOIkeyword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxPOIkeyword.Location = new System.Drawing.Point(58, 85);
+            this.textBoxPOIkeyword.Location = new System.Drawing.Point(58, 112);
             this.textBoxPOIkeyword.Name = "textBoxPOIkeyword";
             this.textBoxPOIkeyword.Size = new System.Drawing.Size(169, 21);
             this.textBoxPOIkeyword.TabIndex = 24;
@@ -1740,7 +1728,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 92);
+            this.label9.Location = new System.Drawing.Point(9, 119);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(53, 12);
             this.label9.TabIndex = 23;
@@ -3342,6 +3330,44 @@
             this.删除当前MarkerToolStripMenuItem.Text = "删除当前Marker";
             this.删除当前MarkerToolStripMenuItem.Click += new System.EventHandler(this.删除当前MarkerToolStripMenuItem_Click);
             // 
+            // mapControl
+            // 
+            this.mapControl.Bearing = 0F;
+            this.mapControl.CanDragMap = true;
+            this.mapControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mapControl.EmptyTileColor = System.Drawing.Color.Navy;
+            this.mapControl.GrayScaleMode = false;
+            this.mapControl.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.mapControl.LevelsKeepInMemmory = 5;
+            this.mapControl.Location = new System.Drawing.Point(0, 0);
+            this.mapControl.MarkersEnabled = true;
+            this.mapControl.MaxZoom = 2;
+            this.mapControl.MinZoom = 2;
+            this.mapControl.MouseWheelZoomEnabled = true;
+            this.mapControl.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.mapControl.Name = "mapControl";
+            this.mapControl.NegativeMode = false;
+            this.mapControl.PolygonsEnabled = true;
+            this.mapControl.RetryLoadTile = 0;
+            this.mapControl.RoutesEnabled = true;
+            this.mapControl.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.mapControl.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.mapControl.ShowTileGridLines = false;
+            this.mapControl.Size = new System.Drawing.Size(828, 571);
+            this.mapControl.TabIndex = 6;
+            this.mapControl.Zoom = 0D;
+            // 
+            // dataGridViewID
+            // 
+            this.dataGridViewID.DataPropertyName = "ID";
+            this.dataGridViewID.FillWeight = 39.73235F;
+            this.dataGridViewID.HeaderText = "ID";
+            this.dataGridViewID.Name = "dataGridViewID";
+            // 
+            // historyGeoDataBindingSource
+            // 
+            this.historyGeoDataBindingSource.DataSource = typeof(MapToolsWinForm.HistoryGeoData);
+            // 
             // MapForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -3370,7 +3396,6 @@
             this.statusStrip1.PerformLayout();
             this.panelDock.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewGpsRoute)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.historyGeoDataBindingSource)).EndInit();
             this.panelButtonTools.ResumeLayout(false);
             this.panelButtonTools.PerformLayout();
             this.contextMenuStripSelectedArea.ResumeLayout(false);
@@ -3412,6 +3437,7 @@
             this.groupBox7.PerformLayout();
             this.contextMenuCityDataView.ResumeLayout(false);
             this.contextMenuStripDelMarker.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.historyGeoDataBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3684,6 +3710,8 @@
         private System.Windows.Forms.ToolStripMenuItem 删除当前MarkerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 统计公里数ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 统计所有城市总公里数ToolStripMenuItem;
+        private System.Windows.Forms.ComboBox comboBoxAd;
+        private System.Windows.Forms.Label label32;
     }
 }
 

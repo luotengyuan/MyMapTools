@@ -1454,8 +1454,6 @@ namespace MapToolsWinForm
         private List<PoiData> poiQueryDataList = new List<PoiData>();
         private List<Placemark> poisQueryResult = new List<Placemark>();
         private int poiQueryCount = 0;
-        private string searchProvince;
-        private string searchCity;
         // POI Query Overlay
         private GMapOverlay poiQueryOverlay = new GMapOverlay("poiQueryOverlay");
 
@@ -1476,8 +1474,8 @@ namespace MapToolsWinForm
                     PoiData poiData = new PoiData();
                     poiData.Name = place.Name;
                     poiData.Address = place.Address;
-                    poiData.Province = searchProvince;
-                    poiData.City = searchCity;
+                    poiData.Province = place.ProvinceName;
+                    poiData.City = place.CityName;
                     poiData.Lat = place.Point.Lat;
                     poiData.Lng = place.Point.Lng;
                     this.poiQueryDataList.Add(poiData);
@@ -1488,6 +1486,7 @@ namespace MapToolsWinForm
                 this.mapControl.SetZoomToFitRect(rect);
             }
             this.toolStripStatusPOIDownload.Text = string.Format("共找到：{0}条POI数据", poisQueryResult.Count);
+            MyMessageBox.ShowTipMessage(this.toolStripStatusPOIDownload.Text);
         }
 
         void poiWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -1523,6 +1522,10 @@ namespace MapToolsWinForm
         //关键字POI查询
         private void buttonPOISearch_Click(object sender, EventArgs e)
         {
+            string searchRegion = "";
+            string searchProvince = null;
+            string searchCity = null;
+            string searchAd = null;
             Province province = this.comboBoxProvince.SelectedItem as Province;
             if (province == null)
             {
@@ -1532,12 +1535,40 @@ namespace MapToolsWinForm
             searchProvince = province.name;
 
             City city = this.comboBoxCity.SelectedItem as City;
-            if (city == null)
+            if (city != null)
             {
-                MyMessageBox.ShowTipMessage("请选择POI查询的城市！");
+                searchCity = city.name;
+            }
+
+            Piecearea ad = this.comboBoxAd.SelectedItem as Piecearea;
+            if (ad != null)
+            {
+                searchAd = ad.name;
+            }
+
+            if (searchAd != null && !searchAd.Equals("全选"))
+            {
+                searchRegion = searchAd;
+            }
+            else if (searchCity != null && !searchCity.Equals("全选"))
+            {
+                searchRegion = searchCity;
+            }
+            else if (searchProvince != null)
+            {
+                if (腾讯地图ToolStripMenuItem_search.Checked)
+                {
+                    MyMessageBox.ShowTipMessage("腾讯地图不支持全省查询，请重新选择！");
+                    return;
+                }
+                searchRegion = searchProvince;
+            }
+
+            if (searchRegion == null || "".Equals(searchRegion))
+            {
+                MyMessageBox.ShowTipMessage("请选择POI查询的区域！");
                 return;
             }
-            searchCity = city.name;
 
             string keywords = this.textBoxPOIkeyword.Text.Trim();
             if (string.IsNullOrEmpty(keywords))
@@ -1563,7 +1594,7 @@ namespace MapToolsWinForm
             {
                 selectMapIndex = 0;
             }
-            GetPOIFromMap(searchCity, keywords, selectMapIndex);
+            GetPOIFromMap(searchRegion, keywords, selectMapIndex);
         }
 
         private void GetPOIFromMap(string cityName, string keywords, int mapIndex)
@@ -1617,6 +1648,9 @@ namespace MapToolsWinForm
             if (province != null)
             {
                 this.comboBoxCity.Items.Clear();
+                City all = new City();
+                all.name = "全选";
+                this.comboBoxCity.Items.Add(all);
                 foreach (var city in province.City)
                 {
                     this.comboBoxCity.Items.Add(city);
@@ -1624,13 +1658,48 @@ namespace MapToolsWinForm
                 this.comboBoxCity.DisplayMember = "name";
                 this.comboBoxCity.SelectedIndex = 0;
             }
+            else
+            {
+                this.comboBoxCity.Items.Clear();
+            }
+        }
+
+        private void comboBoxCity_SelectedValueChanged(object sender, EventArgs e)
+        {
+            City city = this.comboBoxCity.SelectedItem as City;
+            if (city == null)
+            {
+                this.comboBoxAd.Items.Clear();
+            }
+            else if ("全选".Equals(city.name))
+            {
+                this.comboBoxAd.Items.Clear();
+            }
+            else
+            {
+                this.comboBoxAd.Items.Clear();
+                Piecearea all = new Piecearea();
+                all.name = "全选";
+                this.comboBoxAd.Items.Add(all);
+                foreach (var ad in city.Piecearea)
+                {
+                    this.comboBoxAd.Items.Add(ad);
+                }
+                this.comboBoxAd.DisplayMember = "name";
+                this.comboBoxAd.SelectedIndex = 0;
+            }
+        }
+
+        private void comboBoxAd_SelectedValueChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void buttonPoiSave_Click(object sender, EventArgs e)
         {
             try
             {
-                if (poiQueryDataList.Count <= 0)
+                if (poisQueryResult.Count <= 0)
                 {
                     MyMessageBox.ShowTipMessage("POI数据为空，无法保存！");
                     return;
@@ -1655,18 +1724,26 @@ namespace MapToolsWinForm
                         dt.Columns.Add("地址", typeof(string));
                         dt.Columns.Add("省份", typeof(string));
                         dt.Columns.Add("城市", typeof(string));
+                        dt.Columns.Add("区县", typeof(string));
                         dt.Columns.Add("经度", typeof(double));
                         dt.Columns.Add("纬度", typeof(double));
+                        dt.Columns.Add("区号", typeof(string));
+                        dt.Columns.Add("电话", typeof(string));
+                        dt.Columns.Add("类别", typeof(string));
 
-                        foreach (PoiData data in poiQueryDataList)
+                        foreach (Placemark data in poisQueryResult)
                         {
                             DataRow dr = dt.NewRow();
                             dr["名称"] = data.Name;
                             dr["地址"] = data.Address;
-                            dr["省份"] = data.Province;
-                            dr["城市"] = data.City;
-                            dr["经度"] = data.Lng;
-                            dr["纬度"] = data.Lat;
+                            dr["省份"] = data.ProvinceName;
+                            dr["城市"] = data.CityName;
+                            dr["区县"] = data.AdName;
+                            dr["经度"] = data.Point.Lng;
+                            dr["纬度"] = data.Point.Lat;
+                            dr["区号"] = data.AdCode;
+                            dr["电话"] = data.Tel;
+                            dr["类别"] = data.Category;
                             dt.Rows.Add(dr);
                         }
                         PoiExportParameter para = new PoiExportParameter();

@@ -83,7 +83,7 @@ namespace GMapProvidersExt.Baidu
             List<Placemark> list = new List<Placemark>();
             int pageSize = 20;
             string keyWordUrlEncode = HttpUtility.UrlEncode(keywords);
-            string format = string.Format("http://api.map.baidu.com/place/v2/search?q={0}&output=json&page_size={1}&page_num={2}&scope=1", keyWordUrlEncode, pageSize, pageIndex);
+            string format = string.Format("http://api.map.baidu.com/place/v2/search?q={0}&output=json&page_size={1}&page_num={2}&scope=1&city_limit=true&extensions_adcode=true&scope=2", keyWordUrlEncode, pageSize, pageIndex);
             //"http://api.map.baidu.com/place/v2/search?ak=您的密钥&output=json&query=%E9%93%B6%E8%A1%8C&page_size=10&page_num=0&scope=1&region=%E5%8C%97%E4%BA%AC"
             if (!string.IsNullOrEmpty(region))
             {
@@ -131,9 +131,27 @@ namespace GMapProvidersExt.Baidu
                             string address = obj["address"].ToString();
                             double lat = double.Parse(obj["location"]["lat"].ToString());
                             double lng = double.Parse(obj["location"]["lng"].ToString());
+                            string provinceName = obj["province"].ToString();
+                            string cityName = obj["city"].ToString();
+                            //string cityCode = obj["ad_info"]["province"].ToString();
+                            string adCode = obj["adcode"].ToString();
+                            string adName = obj["area"].ToString();
+                            string tel = obj["telephone"].ToString();
+                            string category = "";
+                            if ("1".Equals(obj["detail"].ToString()))
+                            {
+                                category = obj["detail_info"]["type"].ToString();
+                            }
                             Placemark item = new Placemark(address);
                             item.Point = new PointLatLng(lat, lng, CoordType.BD09);
                             item.Name = name;
+                            item.ProvinceName = provinceName;
+                            item.CityName = cityName;
+                            //item.CityCode = cityCode;
+                            item.AdCode = adCode;
+                            item.AdName = adName;
+                            item.Tel = tel;
+                            item.Category = category;
                             list.Add(item);
                             ++this.succeedCount;
                             if (queryProgressEvent != null)

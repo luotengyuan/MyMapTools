@@ -154,9 +154,23 @@ namespace GMapProvidersExt.Tencent
                         string address = obj["address"].ToString();
                         double lat = double.Parse(obj["location"]["lat"].ToString());
                         double lng = double.Parse(obj["location"]["lng"].ToString());
+                        string provinceName = obj["ad_info"]["province"].ToString();
+                        string cityName = obj["ad_info"]["city"].ToString();
+                        //string cityCode = obj["ad_info"]["province"].ToString();
+                        string adCode = obj["ad_info"]["adcode"].ToString();
+                        string adName = obj["ad_info"]["district"].ToString();
+                        string tel = obj["tel"].ToString();
+                        string category = obj["category"].ToString();
                         Placemark item = new Placemark(address);
                         item.Point = new PointLatLng(lat, lng, CoordType.GCJ02);
                         item.Name = name;
+                        item.ProvinceName = provinceName;
+                        item.CityName = cityName;
+                        //item.CityCode = cityCode;
+                        item.AdCode = adCode;
+                        item.AdName = adName;
+                        item.Tel = tel;
+                        item.Category = category;
                         list.Add(item);
                         ++this.succeedCount;
                         if (queryProgressEvent != null)
