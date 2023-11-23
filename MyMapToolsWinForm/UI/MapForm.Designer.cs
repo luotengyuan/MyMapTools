@@ -91,6 +91,8 @@
             this.dataGridViewType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewAttributes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelButtonTools = new System.Windows.Forms.Panel();
+            this.tb_tail_size = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
             this.buttonForward = new System.Windows.Forms.Button();
             this.buttonBack = new System.Windows.Forms.Button();
             this.checkBoxRepeat = new System.Windows.Forms.CheckBox();
@@ -234,10 +236,20 @@
             this.buttonDelectGpsRouteFile = new System.Windows.Forms.Button();
             this.buttonLoadGpsRouteFile = new System.Windows.Forms.Button();
             this.xPanderPanelTerminalMap = new BSE.Windows.Forms.XPanderPanel();
+            this.cb_terminal_map_encoding = new System.Windows.Forms.ComboBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.cb_terminal_map_coord_type = new System.Windows.Forms.ComboBox();
+            this.label35 = new System.Windows.Forms.Label();
             this.treeViewTerminalMap = new System.Windows.Forms.TreeView();
             this.buttonDelectMapFile = new System.Windows.Forms.Button();
             this.buttonLoadMapFile = new System.Windows.Forms.Button();
             this.xPanderPanel1 = new BSE.Windows.Forms.XPanderPanel();
+            this.label34 = new System.Windows.Forms.Label();
+            this.lb_adb_parse_count = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.btn_adb_clean = new System.Windows.Forms.Button();
+            this.btnOpenAdb = new System.Windows.Forms.Button();
+            this.lb_adb_recv_count = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.lb_parse_count = new System.Windows.Forms.Label();
             this.cb_serial_CoordType = new System.Windows.Forms.ComboBox();
@@ -291,6 +303,7 @@
             this.btn_coord_view_clean = new System.Windows.Forms.Button();
             this.contextMenuStripDelMarker = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.删除当前MarkerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonOneStep = new System.Windows.Forms.Button();
             this.mapControl = new MapToolsWinForm.MapControl();
             this.dataGridViewID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.historyGeoDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -488,7 +501,7 @@
             this.帮助ToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1130, 25);
+            this.menuStrip.Size = new System.Drawing.Size(1184, 25);
             this.menuStrip.TabIndex = 2;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -633,7 +646,7 @@
             this.panelMap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMap.Location = new System.Drawing.Point(302, 25);
             this.panelMap.Name = "panelMap";
-            this.panelMap.Size = new System.Drawing.Size(828, 687);
+            this.panelMap.Size = new System.Drawing.Size(882, 705);
             this.panelMap.TabIndex = 18;
             // 
             // pb_compass
@@ -651,7 +664,7 @@
             // 
             this.lb_scale_max.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lb_scale_max.AutoSize = true;
-            this.lb_scale_max.Location = new System.Drawing.Point(64, 506);
+            this.lb_scale_max.Location = new System.Drawing.Point(64, 524);
             this.lb_scale_max.Name = "lb_scale_max";
             this.lb_scale_max.Size = new System.Drawing.Size(23, 12);
             this.lb_scale_max.TabIndex = 11;
@@ -661,7 +674,7 @@
             // 
             this.lb_scale_min.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lb_scale_min.AutoSize = true;
-            this.lb_scale_min.Location = new System.Drawing.Point(6, 506);
+            this.lb_scale_min.Location = new System.Drawing.Point(6, 524);
             this.lb_scale_min.Name = "lb_scale_min";
             this.lb_scale_min.Size = new System.Drawing.Size(11, 12);
             this.lb_scale_min.TabIndex = 10;
@@ -672,7 +685,7 @@
             this.pb_scale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pb_scale.BackColor = System.Drawing.Color.Transparent;
             this.pb_scale.Image = global::MapToolsWinForm.Properties.Resources.scale;
-            this.pb_scale.Location = new System.Drawing.Point(8, 521);
+            this.pb_scale.Location = new System.Drawing.Point(8, 539);
             this.pb_scale.Name = "pb_scale";
             this.pb_scale.Size = new System.Drawing.Size(72, 15);
             this.pb_scale.TabIndex = 9;
@@ -689,9 +702,9 @@
             this.toolStripProgressBarDownload,
             this.toolStripStatusPOIDownload,
             this.toolStripStatusExport});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 546);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 564);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(828, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(882, 22);
             this.statusStrip1.TabIndex = 8;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -733,9 +746,9 @@
             // splitter_button
             // 
             this.splitter_button.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitter_button.Location = new System.Drawing.Point(0, 568);
+            this.splitter_button.Location = new System.Drawing.Point(0, 586);
             this.splitter_button.Name = "splitter_button";
-            this.splitter_button.Size = new System.Drawing.Size(828, 3);
+            this.splitter_button.Size = new System.Drawing.Size(882, 3);
             this.splitter_button.TabIndex = 7;
             this.splitter_button.TabStop = false;
             // 
@@ -751,9 +764,9 @@
             this.panelDock.Controls.Add(this.dataGridViewGpsRoute);
             this.panelDock.Controls.Add(this.panelButtonTools);
             this.panelDock.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelDock.Location = new System.Drawing.Point(0, 571);
+            this.panelDock.Location = new System.Drawing.Point(0, 589);
             this.panelDock.Name = "panelDock";
-            this.panelDock.Size = new System.Drawing.Size(828, 116);
+            this.panelDock.Size = new System.Drawing.Size(882, 116);
             this.panelDock.TabIndex = 5;
             // 
             // dataGridViewGpsRoute
@@ -778,7 +791,7 @@
             this.dataGridViewGpsRoute.Location = new System.Drawing.Point(0, 54);
             this.dataGridViewGpsRoute.Name = "dataGridViewGpsRoute";
             this.dataGridViewGpsRoute.RowTemplate.Height = 23;
-            this.dataGridViewGpsRoute.Size = new System.Drawing.Size(828, 62);
+            this.dataGridViewGpsRoute.Size = new System.Drawing.Size(882, 62);
             this.dataGridViewGpsRoute.TabIndex = 1;
             this.dataGridViewGpsRoute.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewGpsRoute_CellDoubleClick);
             // 
@@ -848,6 +861,9 @@
             // panelButtonTools
             // 
             this.panelButtonTools.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panelButtonTools.Controls.Add(this.buttonOneStep);
+            this.panelButtonTools.Controls.Add(this.tb_tail_size);
+            this.panelButtonTools.Controls.Add(this.label33);
             this.panelButtonTools.Controls.Add(this.buttonForward);
             this.panelButtonTools.Controls.Add(this.buttonBack);
             this.panelButtonTools.Controls.Add(this.checkBoxRepeat);
@@ -870,14 +886,31 @@
             this.panelButtonTools.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelButtonTools.Location = new System.Drawing.Point(0, 0);
             this.panelButtonTools.Name = "panelButtonTools";
-            this.panelButtonTools.Size = new System.Drawing.Size(828, 54);
+            this.panelButtonTools.Size = new System.Drawing.Size(882, 54);
             this.panelButtonTools.TabIndex = 0;
+            // 
+            // tb_tail_size
+            // 
+            this.tb_tail_size.Location = new System.Drawing.Point(820, 29);
+            this.tb_tail_size.Name = "tb_tail_size";
+            this.tb_tail_size.Size = new System.Drawing.Size(47, 21);
+            this.tb_tail_size.TabIndex = 19;
+            this.tb_tail_size.Text = "500";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(787, 32);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(35, 12);
+            this.label33.TabIndex = 20;
+            this.label33.Text = "tail:";
             // 
             // buttonForward
             // 
-            this.buttonForward.Location = new System.Drawing.Point(256, 28);
+            this.buttonForward.Location = new System.Drawing.Point(277, 28);
             this.buttonForward.Name = "buttonForward";
-            this.buttonForward.Size = new System.Drawing.Size(44, 23);
+            this.buttonForward.Size = new System.Drawing.Size(23, 23);
             this.buttonForward.TabIndex = 18;
             this.buttonForward.Text = "》";
             this.buttonForward.UseVisualStyleBackColor = true;
@@ -885,9 +918,9 @@
             // 
             // buttonBack
             // 
-            this.buttonBack.Location = new System.Drawing.Point(206, 28);
+            this.buttonBack.Location = new System.Drawing.Point(252, 28);
             this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(44, 23);
+            this.buttonBack.Size = new System.Drawing.Size(23, 23);
             this.buttonBack.TabIndex = 17;
             this.buttonBack.Text = "《";
             this.buttonBack.UseVisualStyleBackColor = true;
@@ -896,7 +929,7 @@
             // checkBoxRepeat
             // 
             this.checkBoxRepeat.AutoSize = true;
-            this.checkBoxRepeat.Location = new System.Drawing.Point(529, 32);
+            this.checkBoxRepeat.Location = new System.Drawing.Point(524, 32);
             this.checkBoxRepeat.Name = "checkBoxRepeat";
             this.checkBoxRepeat.Size = new System.Drawing.Size(60, 16);
             this.checkBoxRepeat.TabIndex = 16;
@@ -907,7 +940,7 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(715, 32);
+            this.label25.Location = new System.Drawing.Point(692, 32);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(29, 12);
             this.label25.TabIndex = 15;
@@ -916,7 +949,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(599, 33);
+            this.label24.Location = new System.Drawing.Point(584, 33);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(41, 12);
             this.label24.TabIndex = 14;
@@ -924,7 +957,7 @@
             // 
             // tb_end_idx
             // 
-            this.tb_end_idx.Location = new System.Drawing.Point(750, 29);
+            this.tb_end_idx.Location = new System.Drawing.Point(720, 29);
             this.tb_end_idx.Name = "tb_end_idx";
             this.tb_end_idx.Size = new System.Drawing.Size(63, 21);
             this.tb_end_idx.TabIndex = 13;
@@ -932,7 +965,7 @@
             // 
             // tb_start_idx
             // 
-            this.tb_start_idx.Location = new System.Drawing.Point(646, 29);
+            this.tb_start_idx.Location = new System.Drawing.Point(624, 29);
             this.tb_start_idx.Name = "tb_start_idx";
             this.tb_start_idx.Size = new System.Drawing.Size(63, 21);
             this.tb_start_idx.TabIndex = 12;
@@ -945,7 +978,7 @@
             this.tb_simulate_src.Enabled = false;
             this.tb_simulate_src.Location = new System.Drawing.Point(248, 5);
             this.tb_simulate_src.Name = "tb_simulate_src";
-            this.tb_simulate_src.Size = new System.Drawing.Size(565, 21);
+            this.tb_simulate_src.Size = new System.Drawing.Size(619, 21);
             this.tb_simulate_src.TabIndex = 11;
             // 
             // lb_simulate_src
@@ -974,7 +1007,7 @@
             this.cb_simulate_src.FormattingEnabled = true;
             this.cb_simulate_src.Location = new System.Drawing.Point(248, 5);
             this.cb_simulate_src.Name = "cb_simulate_src";
-            this.cb_simulate_src.Size = new System.Drawing.Size(565, 20);
+            this.cb_simulate_src.Size = new System.Drawing.Size(619, 20);
             this.cb_simulate_src.TabIndex = 8;
             this.cb_simulate_src.SelectedIndexChanged += new System.EventHandler(this.cb_simulate_src_SelectedIndexChanged);
             // 
@@ -1321,7 +1354,7 @@
             this.splitter1.Location = new System.Drawing.Point(297, 25);
             this.splitter1.MinSize = 5;
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(5, 687);
+            this.splitter1.Size = new System.Drawing.Size(5, 705);
             this.splitter1.TabIndex = 17;
             this.splitter1.TabStop = false;
             // 
@@ -1353,7 +1386,7 @@
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.PanelStyle = BSE.Windows.Forms.PanelStyle.Office2007;
             this.panelMenu.ShowExpandIcon = true;
-            this.panelMenu.Size = new System.Drawing.Size(297, 687);
+            this.panelMenu.Size = new System.Drawing.Size(297, 705);
             this.panelMenu.TabIndex = 16;
             this.panelMenu.Text = "地图工具";
             this.panelMenu.ToolTipTextCloseIcon = null;
@@ -1379,7 +1412,7 @@
             this.xPanderPanelList1.Name = "xPanderPanelList1";
             this.xPanderPanelList1.PanelColors = null;
             this.xPanderPanelList1.PanelStyle = BSE.Windows.Forms.PanelStyle.Office2007;
-            this.xPanderPanelList1.Size = new System.Drawing.Size(297, 658);
+            this.xPanderPanelList1.Size = new System.Drawing.Size(297, 676);
             this.xPanderPanelList1.TabIndex = 0;
             this.xPanderPanelList1.Text = "xPanderPanelList1";
             // 
@@ -1424,7 +1457,7 @@
             this.xPanderPanel_coord_pickup.Image = null;
             this.xPanderPanel_coord_pickup.Name = "xPanderPanel_coord_pickup";
             this.xPanderPanel_coord_pickup.PanelStyle = BSE.Windows.Forms.PanelStyle.Office2007;
-            this.xPanderPanel_coord_pickup.Size = new System.Drawing.Size(297, 433);
+            this.xPanderPanel_coord_pickup.Size = new System.Drawing.Size(297, 451);
             this.xPanderPanel_coord_pickup.TabIndex = 5;
             this.xPanderPanel_coord_pickup.Text = "坐标拾取";
             this.xPanderPanel_coord_pickup.ToolTipTextCloseIcon = null;
@@ -2564,6 +2597,10 @@
             // xPanderPanelTerminalMap
             // 
             this.xPanderPanelTerminalMap.CaptionFont = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
+            this.xPanderPanelTerminalMap.Controls.Add(this.cb_terminal_map_encoding);
+            this.xPanderPanelTerminalMap.Controls.Add(this.label37);
+            this.xPanderPanelTerminalMap.Controls.Add(this.cb_terminal_map_coord_type);
+            this.xPanderPanelTerminalMap.Controls.Add(this.label35);
             this.xPanderPanelTerminalMap.Controls.Add(this.treeViewTerminalMap);
             this.xPanderPanelTerminalMap.Controls.Add(this.buttonDelectMapFile);
             this.xPanderPanelTerminalMap.Controls.Add(this.buttonLoadMapFile);
@@ -2599,19 +2636,63 @@
             this.xPanderPanelTerminalMap.ToolTipTextExpandIconPanelCollapsed = null;
             this.xPanderPanelTerminalMap.ToolTipTextExpandIconPanelExpanded = null;
             // 
+            // cb_terminal_map_encoding
+            // 
+            this.cb_terminal_map_encoding.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_terminal_map_encoding.FormattingEnabled = true;
+            this.cb_terminal_map_encoding.Items.AddRange(new object[] {
+            "UTF-8",
+            "GBK"});
+            this.cb_terminal_map_encoding.Location = new System.Drawing.Point(190, 69);
+            this.cb_terminal_map_encoding.Name = "cb_terminal_map_encoding";
+            this.cb_terminal_map_encoding.Size = new System.Drawing.Size(80, 20);
+            this.cb_terminal_map_encoding.TabIndex = 11;
+            this.cb_terminal_map_encoding.SelectedIndexChanged += new System.EventHandler(this.cb_terminal_map_encoding_SelectedIndexChanged);
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(152, 73);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(41, 12);
+            this.label37.TabIndex = 10;
+            this.label37.Text = "编码：";
+            // 
+            // cb_terminal_map_coord_type
+            // 
+            this.cb_terminal_map_coord_type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_terminal_map_coord_type.FormattingEnabled = true;
+            this.cb_terminal_map_coord_type.Items.AddRange(new object[] {
+            "WGS84",
+            "GCJ02"});
+            this.cb_terminal_map_coord_type.Location = new System.Drawing.Point(64, 69);
+            this.cb_terminal_map_coord_type.Name = "cb_terminal_map_coord_type";
+            this.cb_terminal_map_coord_type.Size = new System.Drawing.Size(65, 20);
+            this.cb_terminal_map_coord_type.TabIndex = 9;
+            this.cb_terminal_map_coord_type.SelectedIndexChanged += new System.EventHandler(this.cb_terminal_map_coord_type_SelectedIndexChanged);
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(13, 74);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(53, 12);
+            this.label35.TabIndex = 8;
+            this.label35.Text = "坐标系：";
+            // 
             // treeViewTerminalMap
             // 
             this.treeViewTerminalMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.treeViewTerminalMap.Location = new System.Drawing.Point(5, 75);
+            this.treeViewTerminalMap.Location = new System.Drawing.Point(5, 99);
             this.treeViewTerminalMap.Name = "treeViewTerminalMap";
-            this.treeViewTerminalMap.Size = new System.Drawing.Size(286, 25);
+            this.treeViewTerminalMap.Size = new System.Drawing.Size(286, 0);
             this.treeViewTerminalMap.TabIndex = 7;
             // 
             // buttonDelectMapFile
             // 
-            this.buttonDelectMapFile.Location = new System.Drawing.Point(154, 42);
+            this.buttonDelectMapFile.Location = new System.Drawing.Point(154, 41);
             this.buttonDelectMapFile.Name = "buttonDelectMapFile";
             this.buttonDelectMapFile.Size = new System.Drawing.Size(116, 23);
             this.buttonDelectMapFile.TabIndex = 4;
@@ -2632,6 +2713,12 @@
             // xPanderPanel1
             // 
             this.xPanderPanel1.CaptionFont = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
+            this.xPanderPanel1.Controls.Add(this.label34);
+            this.xPanderPanel1.Controls.Add(this.lb_adb_parse_count);
+            this.xPanderPanel1.Controls.Add(this.label36);
+            this.xPanderPanel1.Controls.Add(this.btn_adb_clean);
+            this.xPanderPanel1.Controls.Add(this.btnOpenAdb);
+            this.xPanderPanel1.Controls.Add(this.lb_adb_recv_count);
             this.xPanderPanel1.Controls.Add(this.label22);
             this.xPanderPanel1.Controls.Add(this.lb_parse_count);
             this.xPanderPanel1.Controls.Add(this.cb_serial_CoordType);
@@ -2678,10 +2765,70 @@
             this.xPanderPanel1.PanelStyle = BSE.Windows.Forms.PanelStyle.Office2007;
             this.xPanderPanel1.Size = new System.Drawing.Size(297, 25);
             this.xPanderPanel1.TabIndex = 13;
-            this.xPanderPanel1.Text = "串口设置";
+            this.xPanderPanel1.Text = "数据接收设置";
             this.xPanderPanel1.ToolTipTextCloseIcon = null;
             this.xPanderPanel1.ToolTipTextExpandIconPanelCollapsed = null;
             this.xPanderPanel1.ToolTipTextExpandIconPanelExpanded = null;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(143, 218);
+            this.label34.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(41, 12);
+            this.label34.TabIndex = 40;
+            this.label34.Text = "解析数";
+            // 
+            // lb_adb_parse_count
+            // 
+            this.lb_adb_parse_count.Location = new System.Drawing.Point(187, 216);
+            this.lb_adb_parse_count.Name = "lb_adb_parse_count";
+            this.lb_adb_parse_count.Size = new System.Drawing.Size(75, 17);
+            this.lb_adb_parse_count.TabIndex = 39;
+            this.lb_adb_parse_count.Text = "0";
+            this.lb_adb_parse_count.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(11, 217);
+            this.label36.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(41, 12);
+            this.label36.TabIndex = 38;
+            this.label36.Text = "接收数";
+            // 
+            // btn_adb_clean
+            // 
+            this.btn_adb_clean.Location = new System.Drawing.Point(197, 243);
+            this.btn_adb_clean.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_adb_clean.Name = "btn_adb_clean";
+            this.btn_adb_clean.Size = new System.Drawing.Size(64, 22);
+            this.btn_adb_clean.TabIndex = 37;
+            this.btn_adb_clean.Text = "清空计数";
+            this.btn_adb_clean.UseVisualStyleBackColor = true;
+            this.btn_adb_clean.Click += new System.EventHandler(this.btn_adb_clean_Click);
+            // 
+            // btnOpenAdb
+            // 
+            this.btnOpenAdb.Location = new System.Drawing.Point(105, 243);
+            this.btnOpenAdb.Margin = new System.Windows.Forms.Padding(2);
+            this.btnOpenAdb.Name = "btnOpenAdb";
+            this.btnOpenAdb.Size = new System.Drawing.Size(64, 22);
+            this.btnOpenAdb.TabIndex = 36;
+            this.btnOpenAdb.Text = "打开ADB";
+            this.btnOpenAdb.UseVisualStyleBackColor = true;
+            this.btnOpenAdb.Click += new System.EventHandler(this.btnOpenAdb_Click);
+            // 
+            // lb_adb_recv_count
+            // 
+            this.lb_adb_recv_count.Location = new System.Drawing.Point(55, 215);
+            this.lb_adb_recv_count.Name = "lb_adb_recv_count";
+            this.lb_adb_recv_count.Size = new System.Drawing.Size(75, 17);
+            this.lb_adb_recv_count.TabIndex = 34;
+            this.lb_adb_recv_count.Text = "0";
+            this.lb_adb_recv_count.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label22
             // 
@@ -3280,7 +3427,7 @@
             "WGS84",
             "GCJ02",
             "BD09"});
-            this.cb_coord_view_type.Location = new System.Drawing.Point(972, 3);
+            this.cb_coord_view_type.Location = new System.Drawing.Point(1026, 3);
             this.cb_coord_view_type.Name = "cb_coord_view_type";
             this.cb_coord_view_type.Size = new System.Drawing.Size(60, 20);
             this.cb_coord_view_type.TabIndex = 19;
@@ -3288,7 +3435,7 @@
             // tb_coord_view_text
             // 
             this.tb_coord_view_text.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tb_coord_view_text.Location = new System.Drawing.Point(792, 3);
+            this.tb_coord_view_text.Location = new System.Drawing.Point(846, 3);
             this.tb_coord_view_text.Name = "tb_coord_view_text";
             this.tb_coord_view_text.Size = new System.Drawing.Size(179, 21);
             this.tb_coord_view_text.TabIndex = 20;
@@ -3296,7 +3443,7 @@
             // btn_coord_view_add
             // 
             this.btn_coord_view_add.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_coord_view_add.Location = new System.Drawing.Point(1034, 1);
+            this.btn_coord_view_add.Location = new System.Drawing.Point(1088, 1);
             this.btn_coord_view_add.Name = "btn_coord_view_add";
             this.btn_coord_view_add.Size = new System.Drawing.Size(45, 23);
             this.btn_coord_view_add.TabIndex = 21;
@@ -3307,7 +3454,7 @@
             // btn_coord_view_clean
             // 
             this.btn_coord_view_clean.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_coord_view_clean.Location = new System.Drawing.Point(1081, 1);
+            this.btn_coord_view_clean.Location = new System.Drawing.Point(1135, 1);
             this.btn_coord_view_clean.Name = "btn_coord_view_clean";
             this.btn_coord_view_clean.Size = new System.Drawing.Size(45, 23);
             this.btn_coord_view_clean.TabIndex = 22;
@@ -3329,6 +3476,17 @@
             this.删除当前MarkerToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.删除当前MarkerToolStripMenuItem.Text = "删除当前Marker";
             this.删除当前MarkerToolStripMenuItem.Click += new System.EventHandler(this.删除当前MarkerToolStripMenuItem_Click);
+            // 
+            // buttonOneStep
+            // 
+            this.buttonOneStep.Location = new System.Drawing.Point(206, 28);
+            this.buttonOneStep.Name = "buttonOneStep";
+            this.buttonOneStep.Size = new System.Drawing.Size(44, 23);
+            this.buttonOneStep.TabIndex = 21;
+            this.buttonOneStep.Tag = "";
+            this.buttonOneStep.Text = "Step";
+            this.buttonOneStep.UseVisualStyleBackColor = true;
+            this.buttonOneStep.Click += new System.EventHandler(this.buttonOneStep_Click);
             // 
             // mapControl
             // 
@@ -3353,7 +3511,7 @@
             this.mapControl.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.mapControl.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.mapControl.ShowTileGridLines = false;
-            this.mapControl.Size = new System.Drawing.Size(828, 571);
+            this.mapControl.Size = new System.Drawing.Size(882, 589);
             this.mapControl.TabIndex = 6;
             this.mapControl.Zoom = 0D;
             // 
@@ -3372,7 +3530,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1130, 712);
+            this.ClientSize = new System.Drawing.Size(1184, 730);
             this.Controls.Add(this.btn_coord_view_clean);
             this.Controls.Add(this.btn_coord_view_add);
             this.Controls.Add(this.tb_coord_view_text);
@@ -3428,6 +3586,7 @@
             this.xPanderPanel5.PerformLayout();
             this.xPanderPanel6.ResumeLayout(false);
             this.xPanderPanelTerminalMap.ResumeLayout(false);
+            this.xPanderPanelTerminalMap.PerformLayout();
             this.xPanderPanel1.ResumeLayout(false);
             this.xPanderPanel1.PerformLayout();
             this.xPanderPanel7.ResumeLayout(false);
@@ -3712,6 +3871,19 @@
         private System.Windows.Forms.ToolStripMenuItem 统计所有城市总公里数ToolStripMenuItem;
         private System.Windows.Forms.ComboBox comboBoxAd;
         private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TextBox tb_tail_size;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label lb_adb_parse_count;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Button btn_adb_clean;
+        private System.Windows.Forms.Button btnOpenAdb;
+        private System.Windows.Forms.Label lb_adb_recv_count;
+        private System.Windows.Forms.ComboBox cb_terminal_map_encoding;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.ComboBox cb_terminal_map_coord_type;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Button buttonOneStep;
     }
 }
 
