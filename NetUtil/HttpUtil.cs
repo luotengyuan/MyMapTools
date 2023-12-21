@@ -67,9 +67,15 @@ namespace NetUtil
 
         public static string GetData(string url)
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             string responseString = null;
             HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
             request.Method = "GET";
+            //这个一定要加上，在某些网站没有会发生"远程服务器返回错误: (403) 已禁止。"错误
+            request.UserAgent = "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0; QQWubi 133; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; CIBA; InfoPath.2)";
+            //request.Accept = "*/*";
+            //request.Accept = "image/jpeg, application/x-ms-application, image/gif, application/xaml+xml, image/pjpeg, application/x-ms-xbap, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, application/x-shockwave-flash, */*";
+            
             using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
             {
                 StreamReader reader = new StreamReader(response.GetResponseStream());

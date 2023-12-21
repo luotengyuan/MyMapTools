@@ -44,7 +44,33 @@ namespace MapToolsWinForm
 
         private int start_idx = 0;
         private int end_idx = 0;
-        //private PointLatLng lastPoint = PointLatLng.Empty;
+
+        PointLatLng lastPoint = PointLatLng.Empty;
+        private Queue<PointLatLng> lastPointQueue;
+        public int TailSize
+        {
+            get { return tailSize; }
+            set
+            {
+                if (value < 0)
+                {
+                    tailSize = 0;
+                }
+                else
+                {
+                    tailSize = value;
+                }
+            }
+        }
+        private int tailSize = 5;
+
+        // 声明回调函数原型，即函数委托了
+        public delegate void OnDataSend(string data);
+        public OnDataSend onDataSend = null;
+
+        // 声明回调函数原型，即函数委托了
+        public delegate void OnProgressChanged(int cur, int total);
+        public OnProgressChanged onProgressChanged = null;
 
         public HistoryGeoOverlay()
         {
@@ -55,12 +81,33 @@ namespace MapToolsWinForm
             isPaused = false;
             Follow = true;
             Repeat = false;
+            lastPointQueue = new Queue<PointLatLng>();
         }
 
-        PointLatLng lastP = PointLatLng.Empty;
-        PointLatLng[] lastPs = new PointLatLng[5] { PointLatLng.Empty, PointLatLng.Empty, PointLatLng.Empty, PointLatLng.Empty, PointLatLng.Empty };
-
         private void timer_Tick(object sender, EventArgs e)
+        {
+            Replay();
+        }
+
+        public void StepOver()
+        {
+            if (isStarted && isPaused)
+            {
+                Replay();
+            }
+        }
+
+        public void Stop()
+        {
+            timer.Stop();
+            index = 0;
+            isStarted = false;
+            isPaused = false;
+            lastPoint = PointLatLng.Empty;
+            lastPointQueue.Clear();
+        }
+
+        private void Replay()
         {
             if (geoDataList != null)
             {
@@ -69,12 +116,16 @@ namespace MapToolsWinForm
                 {
                     var historyGeoData = geoDataList[index];
                     PointLatLng wgsP = PointInDiffCoord.GetPointInCoordType(historyGeoData.Latitude, historyGeoData.Longitude, srcCoordType, CoordType.WGS84);
-                    if (namePipeServer != null)
+                    if (onDataSend != null)
                     {
-                        namePipeServer.sendCanData(string.Format("{0},{1},{2},{3},{4}", wgsP.Lng, wgsP.Lat, historyGeoData.Direction, historyGeoData.Speed, historyGeoData.Altitude));
+                        onDataSend(string.Format("&Pos:{0},{1},{2},{3},{4},{5}", wgsP.Lng, wgsP.Lat, historyGeoData.Direction, historyGeoData.Speed, historyGeoData.Altitude, historyGeoData.Accuracy));
+                    }
+                    if (onProgressChanged != null)
+                    {
+                        onProgressChanged(index, len);
                     }
 
-                    PointLatLng p = PointInDiffCoord.GetPointInCoordType(historyGeoData.Latitude, historyGeoData.Longitude, srcCoordType, distCoordType); 
+                    PointLatLng p = PointInDiffCoord.GetPointInCoordType(historyGeoData.Latitude, historyGeoData.Longitude, srcCoordType, distCoordType);
                     //GMapPointMarker point = new GMapPointMarker(p);
                     //this.Markers.Add(point);
 
@@ -87,46 +138,26 @@ namespace MapToolsWinForm
                     this.Markers.Clear();
                     GMapDirectionMarker dm = new GMapDirectionMarker(p, Properties.Resources.arrow_up, (float)historyGeoData.Direction);
                     this.Markers.Add(dm);
-                    if (lastP != PointLatLng.Empty)
+
+                    if (lastPoint != PointLatLng.Empty)
                     {
-                        lastPs[4] = lastPs[3];
-                        if (lastPs[4] != PointLatLng.Empty)
+                        lastPointQueue.Enqueue(lastPoint);
+                        while (lastPointQueue.Count > tailSize)
                         {
-                            GMapPointMarker pm = new GMapPointMarker(lastPs[4]);
-                            this.Markers.Add(pm);
+                            lastPointQueue.Dequeue();
                         }
-                        lastPs[3] = lastPs[2];
-                        if (lastPs[3] != PointLatLng.Empty)
+                        foreach (var item in lastPointQueue)
                         {
-                            GMapPointMarker pm = new GMapPointMarker(lastPs[3]);
-                            this.Markers.Add(pm);
-                        }
-                        lastPs[2] = lastPs[1];
-                        if (lastPs[2] != PointLatLng.Empty)
-                        {
-                            GMapPointMarker pm = new GMapPointMarker(lastPs[2]);
-                            this.Markers.Add(pm);
-                        }
-                        lastPs[1] = lastPs[0];
-                        if (lastPs[1] != PointLatLng.Empty)
-                        {
-                            GMapPointMarker pm = new GMapPointMarker(lastPs[1]);
-                            this.Markers.Add(pm);
-                        }
-                        lastPs[0] = lastP;
-                        if (lastPs[0] != PointLatLng.Empty)
-                        {
-                            GMapPointMarker pm = new GMapPointMarker(lastPs[0]);
+                            GMapPointMarker pm = new GMapPointMarker(item);
                             this.Markers.Add(pm);
                         }
                     }
-                    lastP = p;
+                    lastPoint = p;
 
                     if (Follow && this.Control != null)
                     {
                         this.Control.Position = p;
                     }
-
                     ++index;
                 }
                 else
@@ -147,25 +178,11 @@ namespace MapToolsWinForm
             }
         }
 
-        public void Stop()
-        {
-            timer.Stop();
-            index = 0;
-            isStarted = false;
-            isPaused = false;
-            lastP = PointLatLng.Empty;
-            lastPs = new PointLatLng[5] { PointLatLng.Empty, PointLatLng.Empty, PointLatLng.Empty, PointLatLng.Empty, PointLatLng.Empty };
-            if (namePipeServer != null)
-            {
-                namePipeServer.Close();
-            }
-            namePipeServer = null;
-        }
-
-        NamedPipeServer namePipeServer;
-        public void Start(GpsRoute simulateGpsRoute, CoordType distCoordType, int start_idx, int end_idx)
+        public void Start(GpsRoute simulateGpsRoute, CoordType distCoordType, int start_idx, int end_idx, OnDataSend sendDelegate, OnProgressChanged progressChanged)
         {
             Stop();
+            onDataSend = sendDelegate;
+            onProgressChanged = progressChanged;
             if (simulateGpsRoute == null || simulateGpsRoute.GpsRouteInfoList == null || simulateGpsRoute.GpsRouteInfoList.Count <= 0)
             {
                 return;
@@ -189,7 +206,6 @@ namespace MapToolsWinForm
             this.Markers.Clear();
             this.srcCoordType = simulateGpsRoute.CoordType;
             this.distCoordType = distCoordType;
-            namePipeServer = new NamedPipeServer("com.lois.pipe.gps.string");
             StartTimer();
 
         }

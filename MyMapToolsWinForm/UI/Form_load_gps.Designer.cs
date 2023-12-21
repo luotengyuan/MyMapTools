@@ -76,6 +76,9 @@
             this.cb_acc_slt_row = new System.Windows.Forms.ComboBox();
             this.cb_separator = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.btn_regex_pattern_manage = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cb_regex_pattern = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -99,16 +102,20 @@
             this.cb_file_format.Items.AddRange(new object[] {
             "CSV/TXT：lon, lat, dir, speed, alt, time",
             "EXCEL：lon, lat, dir, speed, alt, time",
-            "Nmea：$GPRMC,071402.0,A,2429.608288,N,11805.238504,E,20.1,297.2,110316,,,A*53"});
+            "Nmea：$GPRMC,071402.0,A,2429.608288,N,11805.238504,E,20.1,297.2,110316,,,A*53",
+            "KML：Point",
+            "ISA：av2hp-->location:lon, lat, dir, speed, accuracy",
+            "正则匹配：lon\\s+=\\s+(\\d+\\.\\d+)\\s+lat\\s+=\\s+(\\d+\\.\\d+)\\s+prob\\s+=\\s+(\\d+\\.\\d+)"});
             this.cb_file_format.Location = new System.Drawing.Point(72, 12);
             this.cb_file_format.Name = "cb_file_format";
-            this.cb_file_format.Size = new System.Drawing.Size(762, 20);
+            this.cb_file_format.Size = new System.Drawing.Size(763, 20);
             this.cb_file_format.TabIndex = 1;
+            this.cb_file_format.SelectedIndexChanged += new System.EventHandler(this.cb_file_format_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 50);
+            this.label2.Location = new System.Drawing.Point(10, 83);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 12);
             this.label2.TabIndex = 2;
@@ -118,15 +125,15 @@
             // 
             this.tb_file_path.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tb_file_path.Location = new System.Drawing.Point(72, 47);
+            this.tb_file_path.Location = new System.Drawing.Point(72, 80);
             this.tb_file_path.Name = "tb_file_path";
-            this.tb_file_path.Size = new System.Drawing.Size(874, 21);
+            this.tb_file_path.Size = new System.Drawing.Size(875, 21);
             this.tb_file_path.TabIndex = 3;
             // 
             // btn_load_file
             // 
             this.btn_load_file.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_load_file.Location = new System.Drawing.Point(952, 45);
+            this.btn_load_file.Location = new System.Drawing.Point(953, 78);
             this.btn_load_file.Name = "btn_load_file";
             this.btn_load_file.Size = new System.Drawing.Size(75, 23);
             this.btn_load_file.TabIndex = 5;
@@ -137,7 +144,7 @@
             // btn_confirm
             // 
             this.btn_confirm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_confirm.Location = new System.Drawing.Point(266, 557);
+            this.btn_confirm.Location = new System.Drawing.Point(266, 590);
             this.btn_confirm.Name = "btn_confirm";
             this.btn_confirm.Size = new System.Drawing.Size(75, 23);
             this.btn_confirm.TabIndex = 7;
@@ -148,7 +155,7 @@
             // btn_cancel
             // 
             this.btn_cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_cancel.Location = new System.Drawing.Point(709, 557);
+            this.btn_cancel.Location = new System.Drawing.Point(710, 590);
             this.btn_cancel.Name = "btn_cancel";
             this.btn_cancel.Size = new System.Drawing.Size(75, 23);
             this.btn_cancel.TabIndex = 8;
@@ -163,9 +170,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.lv_route_info);
             this.groupBox1.Controls.Add(this.panel1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 84);
+            this.groupBox1.Location = new System.Drawing.Point(12, 117);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1015, 459);
+            this.groupBox1.Size = new System.Drawing.Size(1016, 459);
             this.groupBox1.TabIndex = 32;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "轨迹信息";
@@ -177,7 +184,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lv_route_info.Location = new System.Drawing.Point(6, 18);
             this.lv_route_info.Name = "lv_route_info";
-            this.lv_route_info.Size = new System.Drawing.Size(658, 434);
+            this.lv_route_info.Size = new System.Drawing.Size(659, 434);
             this.lv_route_info.TabIndex = 56;
             this.lv_route_info.UseCompatibleStateImageBehavior = false;
             // 
@@ -214,7 +221,7 @@
             this.panel1.Controls.Add(this.cb_time_enable);
             this.panel1.Controls.Add(this.cb_acc_enable);
             this.panel1.Controls.Add(this.cb_acc_slt_row);
-            this.panel1.Location = new System.Drawing.Point(682, 18);
+            this.panel1.Location = new System.Drawing.Point(683, 18);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(327, 434);
             this.panel1.TabIndex = 55;
@@ -567,7 +574,7 @@
             "小写分号（;）",
             "大写分号（；）",
             "空格（ ）"});
-            this.cb_separator.Location = new System.Drawing.Point(906, 12);
+            this.cb_separator.Location = new System.Drawing.Point(907, 12);
             this.cb_separator.Name = "cb_separator";
             this.cb_separator.Size = new System.Drawing.Size(121, 20);
             this.cb_separator.TabIndex = 34;
@@ -576,17 +583,53 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(857, 18);
+            this.label5.Location = new System.Drawing.Point(858, 18);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 12);
             this.label5.TabIndex = 33;
             this.label5.Text = "分隔符：";
             // 
+            // btn_regex_pattern_manage
+            // 
+            this.btn_regex_pattern_manage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_regex_pattern_manage.Location = new System.Drawing.Point(953, 43);
+            this.btn_regex_pattern_manage.Name = "btn_regex_pattern_manage";
+            this.btn_regex_pattern_manage.Size = new System.Drawing.Size(75, 23);
+            this.btn_regex_pattern_manage.TabIndex = 37;
+            this.btn_regex_pattern_manage.Text = "语句管理";
+            this.btn_regex_pattern_manage.UseVisualStyleBackColor = true;
+            this.btn_regex_pattern_manage.Click += new System.EventHandler(this.btn_regex_pattern_manage_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(10, 48);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(65, 12);
+            this.label9.TabIndex = 35;
+            this.label9.Text = "正则语句：";
+            // 
+            // cb_regex_pattern
+            // 
+            this.cb_regex_pattern.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cb_regex_pattern.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_regex_pattern.FormattingEnabled = true;
+            this.cb_regex_pattern.Items.AddRange(new object[] {
+            "lon\\s+=\\s+(\\d+\\.\\d+)\\s+lat\\s+=\\s+(\\d+\\.\\d+)\\s+prob\\s+=\\s+(\\d+\\.\\d+)"});
+            this.cb_regex_pattern.Location = new System.Drawing.Point(72, 45);
+            this.cb_regex_pattern.Name = "cb_regex_pattern";
+            this.cb_regex_pattern.Size = new System.Drawing.Size(875, 20);
+            this.cb_regex_pattern.TabIndex = 38;
+            // 
             // Form_load_gps
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1039, 593);
+            this.ClientSize = new System.Drawing.Size(1040, 626);
+            this.Controls.Add(this.cb_regex_pattern);
+            this.Controls.Add(this.btn_regex_pattern_manage);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.cb_separator);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.groupBox1);
@@ -661,5 +704,8 @@
         private System.Windows.Forms.CheckBox cb_filter_repeat_point;
         private System.Windows.Forms.TextBox tb_min_speed;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btn_regex_pattern_manage;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox cb_regex_pattern;
     }
 }

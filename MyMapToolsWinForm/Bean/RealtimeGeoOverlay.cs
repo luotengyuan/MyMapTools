@@ -46,14 +46,32 @@ namespace MapToolsWinForm
             set { isPaused = value; }
         }
 
-        PointLatLng lastP = PointLatLng.Empty;
-        PointLatLng[] lastPs = new PointLatLng[5] { PointLatLng.Empty, PointLatLng.Empty, PointLatLng.Empty, PointLatLng.Empty, PointLatLng.Empty };
+        PointLatLng lastPoint = PointLatLng.Empty;
+        private Queue<PointLatLng> lastPointQueue;
+        public int TailSize
+        {
+            get { return tailSize; }
+            set
+            {
+                if (value < 0)
+                {
+                    tailSize = 0;
+                }
+                else
+                {
+                    tailSize = value;
+                }
+            }
+        }
+        private int tailSize = 5;
+        
 
         public RealtimeGeoOverlay()
         {
             isStarted = false;
             isPaused = false;
             Follow = true;
+            lastPointQueue = new Queue<PointLatLng>();
         }
 
         public void Update(GpsRoutePoint point)
@@ -74,40 +92,24 @@ namespace MapToolsWinForm
             PointLatLng p = PointInDiffCoord.GetPointInCoordType(point.Latitude, point.Longitude, srcCoordType, distCoordType);
             GMapDirectionMarker hm = new GMapDirectionMarker(p, Properties.Resources.arrow_up, (float)point.Direction);
             this.Markers.Add(hm);
-            if (lastP != PointLatLng.Empty)
+            if (lastPoint != PointLatLng.Empty)
             {
-                lastPs[4] = lastPs[3];
-                if (lastPs[4] != PointLatLng.Empty)
+                lastPointQueue.Enqueue(lastPoint);
+                while (lastPointQueue.Count > tailSize)
                 {
-                    GMapPointMarker pm = new GMapPointMarker(lastPs[4]);
-                    this.Markers.Add(pm);
+                    lastPointQueue.Dequeue();
                 }
-                lastPs[3] = lastPs[2];
-                if (lastPs[3] != PointLatLng.Empty)
+                foreach (var item in lastPointQueue)
                 {
-                    GMapPointMarker pm = new GMapPointMarker(lastPs[3]);
-                    this.Markers.Add(pm);
-                }
-                lastPs[2] = lastPs[1];
-                if (lastPs[2] != PointLatLng.Empty)
-                {
-                    GMapPointMarker pm = new GMapPointMarker(lastPs[2]);
-                    this.Markers.Add(pm);
-                }
-                lastPs[1] = lastPs[0];
-                if (lastPs[1] != PointLatLng.Empty)
-                {
-                    GMapPointMarker pm = new GMapPointMarker(lastPs[1]);
-                    this.Markers.Add(pm);
-                }
-                lastPs[0] = lastP;
-                if (lastPs[0] != PointLatLng.Empty)
-                {
-                    GMapPointMarker pm = new GMapPointMarker(lastPs[0]);
+                    GMapPointMarker pm = new GMapPointMarker(item);
                     this.Markers.Add(pm);
                 }
             }
-            lastP = p;
+            lastPoint = p;
+            if (onProgressChanged != null)
+            {
+                onProgressChanged(geoDataList.Count, geoDataList.Count);
+            }
 
             if (Follow && this.Control != null)
             {
@@ -116,17 +118,22 @@ namespace MapToolsWinForm
 
         }
 
+        // 声明回调函数原型，即函数委托了
+        public delegate void OnProgressChanged(int cur, int total);
+        public OnProgressChanged onProgressChanged = null;
+
         public void Stop()
         {
             isStarted = false;
             isPaused = false;
-            lastP = PointLatLng.Empty;
-            lastPs = new PointLatLng[5] { PointLatLng.Empty, PointLatLng.Empty, PointLatLng.Empty, PointLatLng.Empty, PointLatLng.Empty };
+            lastPoint = PointLatLng.Empty;
+            lastPointQueue.Clear();
             geoDataList = new List<GpsRoutePoint>();
         }
 
-        public void Start(CoordType srcCoordType, CoordType distCoordType)
+        public void Start(CoordType srcCoordType, CoordType distCoordType, OnProgressChanged progressChanged)
         {
+            onProgressChanged = progressChanged;
             Stop();
             this.Markers.Clear();
             this.srcCoordType = srcCoordType;
@@ -159,6 +166,19 @@ namespace MapToolsWinForm
                 return;
             }
             isPaused = false;
+        }
+
+        public GpsRoute GetGpsRoute()
+        {
+            if (geoDataList == null || geoDataList.Count <= 0)
+            {
+                return null;
+            }
+            GpsRoute gpsRoute = new GpsRoute();
+            gpsRoute.GpsRouteInfoList = geoDataList;
+            gpsRoute.RouteName = "实时轨迹接收";
+            gpsRoute.CoordType = srcCoordType;
+            return gpsRoute;
         }
     }
 }

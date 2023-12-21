@@ -19,7 +19,9 @@ namespace GMap.NET.MapProviders
          Instance = new GoogleSatelliteMapProvider();
       }
 
-      public string Version = "192";
+      //public string Version = "192";
+      //public string Version = "s@333000000";
+      public string Version = "s";// 去掉版本
 
       #region GMapProvider Members
 
@@ -45,22 +47,35 @@ namespace GMap.NET.MapProviders
       {
          string url = MakeTileImageUrl(pos, zoom, LanguageStr);
 
-         return GetTileImageUsingHttp(url);
+         return GetTileImageUsingHttp2(url);
       }
 
       #endregion
 
+      //string MakeTileImageUrl(GPoint pos, int zoom, string language)
+      //{
+      //   string sec1 = string.Empty; // after &x=...
+      //   string sec2 = string.Empty; // after &zoom=...
+      //   GetSecureWords(pos, out sec1, out sec2);
+
+      //   return string.Format(UrlFormat, UrlFormatServer, GetServerNum(pos, 4), UrlFormatRequest, Version, language, pos.X, sec1, pos.Y, zoom, sec2, Server);
+      //}
+
+      //static readonly string UrlFormatServer = "khm";
+      //static readonly string UrlFormatRequest = "kh";
+      //static readonly string UrlFormat = "https://{0}{1}.{10}/{2}/v={3}&hl={4}&x={5}{6}&y={7}&z={8}&s={9}";
+
       string MakeTileImageUrl(GPoint pos, int zoom, string language)
       {
-         string sec1 = string.Empty; // after &x=...
-         string sec2 = string.Empty; // after &zoom=...
-         GetSecureWords(pos, out sec1, out sec2);
+          string sec1 = string.Empty; // after &x=...
+          string sec2 = string.Empty; // after &zoom=...
+          GetSecureWords(pos, out sec1, out sec2);
 
-         return string.Format(UrlFormat, UrlFormatServer, GetServerNum(pos, 4), UrlFormatRequest, Version, language, pos.X, sec1, pos.Y, zoom, sec2, Server);
+          return string.Format(UrlFormat, UrlFormatServer, GetServerNum(pos, 4), UrlFormatRequest, Version, language, pos.X, sec1, pos.Y, zoom, sec2, Server);
       }
 
-      static readonly string UrlFormatServer = "khm";
-      static readonly string UrlFormatRequest = "kh";
-      static readonly string UrlFormat = "https://{0}{1}.{10}/{2}/v={3}&hl={4}&x={5}{6}&y={7}&z={8}&s={9}";
+      static readonly string UrlFormatServer = "mt";
+      static readonly string UrlFormatRequest = "vt";
+      static readonly string UrlFormat = "http://{0}{1}.{10}/maps/{2}/lyrs={3}&hl={4}&x={5}{6}&y={7}&z={8}&s={9}";
    }
 }

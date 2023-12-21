@@ -435,6 +435,61 @@ namespace GMap.NET.MapProviders
          Authorization = "Basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(userName + ":" + userPassword));
       }
 
+       /// <summary>
+       /// 注，这里请求需要使用代理的全局模式
+       /// </summary>
+       /// <param name="url"></param>
+       /// <returns></returns>
+      protected PureImage GetTileImageUsingHttp2(string url)
+      {
+          ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
+          HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+          request.Method = "GET";
+          request.UserAgent = UserAgent;
+          request.ReadWriteTimeout = TimeoutMs * 6;
+          request.Accept = requestAccept;
+          request.Referer = RefererUrl;
+          request.Timeout = TimeoutMs;
+
+          PureImage ret = null;
+
+          using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+          {
+              if (CheckTileImageHttpResponse(response))
+              {
+                  using (Stream responseStream = response.GetResponseStream())
+                  {
+                      MemoryStream data = Stuff.CopyStream(responseStream, false);
+
+                      Debug.WriteLine("Response[" + data.Length + " bytes]: " + url);
+
+                      if (data.Length > 0)
+                      {
+                          ret = TileImageProxy.FromStream(data);
+
+                          if (ret != null)
+                          {
+                              ret.Data = data;
+                              ret.Data.Position = 0;
+                          }
+                          else
+                          {
+                              data.Dispose();
+                          }
+                      }
+                      data = null;
+                  }
+              }
+              else
+              {
+                  Debug.WriteLine("CheckTileImageHttpResponse[false]: " + url);
+              }
+              response.Close();
+          }
+          return ret;
+      }
+
       protected PureImage GetTileImageUsingHttp(string url)
       {
          PureImage ret = null;

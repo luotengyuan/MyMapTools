@@ -286,5 +286,53 @@ namespace MapToolsWinForm.Properties {
                 this["Setting_key_word"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Setting_terminal_map_coord_type_idx {
+            get {
+                return ((int)(this["Setting_terminal_map_coord_type_idx"]));
+            }
+            set {
+                this["Setting_terminal_map_coord_type_idx"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Setting_terminal_map_encoding_idx {
+            get {
+                return ((int)(this["Setting_terminal_map_encoding_idx"]));
+            }
+            set {
+                this["Setting_terminal_map_encoding_idx"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Setting_hidden_mode {
+            get {
+                return ((bool)(this["Setting_hidden_mode"]));
+            }
+            set {
+                this["Setting_hidden_mode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Setting_slt_regex_pattern_idx {
+            get {
+                return ((int)(this["Setting_slt_regex_pattern_idx"]));
+            }
+            set {
+                this["Setting_slt_regex_pattern_idx"] = value;
+            }
+        }
     }
 }

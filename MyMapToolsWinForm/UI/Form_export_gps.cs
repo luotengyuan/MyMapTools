@@ -36,6 +36,7 @@ namespace MapToolsWinForm
             {
                 comboBox_coord_type.SelectedIndex = 0;
             }
+            comboBox_file_type.SelectedIndex = 0;
         }
 
         private void button_sel_Click(object sender, EventArgs e)
@@ -66,9 +67,19 @@ namespace MapToolsWinForm
                 MessageBox.Show("请先输入文件名称");
                 return;
             }
-            if (!file_name.EndsWith(".csv"))
+            if (comboBox_file_type.SelectedIndex == 0)
             {
-                file_name += ".csv";
+                if (!file_name.EndsWith(".csv"))
+                {
+                    file_name += ".csv";
+                }
+            }
+            else
+            {
+                if (!file_name.EndsWith(".kml"))
+                {
+                    file_name += ".kml";
+                }
             }
             CoordType type;
             if (comboBox_coord_type.SelectedIndex == 0)
@@ -96,49 +107,82 @@ namespace MapToolsWinForm
                     return;
                 }
             }
-            using (FileStream fs = new FileStream(full_path_name,FileMode.Create))
+
+            if (sltGpsRoute == null || sltGpsRoute.GpsRouteInfoList == null || sltGpsRoute.GpsRouteInfoList.Count <= 0)
             {
-                using (StreamWriter sw = new StreamWriter(fs,Encoding.Default))
+                MessageBox.Show("轨迹为空");
+                return;
+            }
+            bool ret;
+            if (comboBox_file_type.SelectedIndex == 0)
+            {
+                ret = saveGpsRouteToCsvFile(full_path_name, sltGpsRoute, type);
+            }
+            else
+            {
+                ret = KmlFileUtils.saveGpsRouteToKmlFile(full_path_name, sltGpsRoute, type);
+            }
+            if (ret)
+            {
+                MessageBox.Show("轨迹导出成功");
+            }
+            else
+            {
+                MessageBox.Show("轨迹导出失败");
+            }
+            this.Close();
+        }
+
+        public static bool saveGpsRouteToCsvFile(string full_path_name, GpsRoute sltGpsRoute, CoordType type)
+        {
+            try
+            {
+                using (FileStream fs = new FileStream(full_path_name, FileMode.Create))
                 {
-                    if (sltGpsRoute == null || sltGpsRoute.GpsRouteInfoList == null || sltGpsRoute.GpsRouteInfoList.Count <= 0)
+                    using (StreamWriter sw = new StreamWriter(fs, Encoding.Default))
                     {
-                        MessageBox.Show("轨迹为空");
-                        return;
-                    }
-                    string headStr = "lon,lat,direction,speed,accuracy,datetime";
-                    if (sltGpsRoute.GpsRouteInfoList[0].HeadAttributes != null)
-                    {
-                        for (int i = 0; i < sltGpsRoute.GpsRouteInfoList[0].HeadAttributes.Length; i++)
+                        string headStr = "lon,lat,direction,speed,altitude,accuracy,datetime";
+                        if (sltGpsRoute.GpsRouteInfoList[0].HeadAttributes != null)
                         {
-                            headStr += "," + sltGpsRoute.GpsRouteInfoList[0].HeadAttributes[i];
-                        }
-                    }
-                    sw.WriteLine(headStr);
-                    foreach (var item in sltGpsRoute.GpsRouteInfoList)
-                    {
-                        StringBuilder sb = new StringBuilder();
-                        PointLatLng lonLat = new PointLatLng(item.Latitude, item.Longitude, sltGpsRoute.CoordType);
-                        lonLat = PointInDiffCoord.GetPointInCoordType(lonLat, type);
-                        PointInDiffCoord coord = new PointInDiffCoord();
-                        sb.Append(lonLat.Lng + ",");
-                        sb.Append(lonLat.Lat + ",");
-                        sb.Append(item.Direction + ",");
-                        sb.Append(item.Speed + ",");
-                        sb.Append(item.Accuracy + ",");
-                        sb.Append(item.Datetime);
-                        if (item.Attributes != null)
-                        {
-                            for (int i = 0; i < item.Attributes.Length; i++)
+                            for (int i = 0; i < sltGpsRoute.GpsRouteInfoList[0].HeadAttributes.Length; i++)
                             {
-                                sb.Append(item.Attributes[i] + ",");
+                                headStr += "," + sltGpsRoute.GpsRouteInfoList[0].HeadAttributes[i];
                             }
                         }
-                        sw.WriteLine(sb.ToString());
+                        sw.WriteLine(headStr);
+                        foreach (var item in sltGpsRoute.GpsRouteInfoList)
+                        {
+                            StringBuilder sb = new StringBuilder();
+                            PointLatLng lonLat = new PointLatLng(item.Latitude, item.Longitude, sltGpsRoute.CoordType);
+                            lonLat = PointInDiffCoord.GetPointInCoordType(lonLat, type);
+                            sb.Append(lonLat.Lng + ",");
+                            sb.Append(lonLat.Lat + ",");
+                            sb.Append(item.Direction + ",");
+                            sb.Append(item.Speed + ",");
+                            sb.Append(item.Altitude + ",");
+                            sb.Append(item.Accuracy + ",");
+                            sb.Append(item.Datetime);
+                            if (item.Attributes != null)
+                            {
+                                for (int i = 0; i < item.Attributes.Length; i++)
+                                {
+                                    sb.Append(item.Attributes[i] + ",");
+                                }
+                            }
+                            sw.WriteLine(sb.ToString());
+                        }
                     }
                 }
+
+                Console.WriteLine("CSV文件已生成！");
+                return true;
             }
-            MessageBox.Show("轨迹导出成功");
-            this.Close();
+            catch (System.Exception)
+            {
+            }
+            Console.WriteLine("CSV文件生成失败！");
+            return false;
+
         }
     }
 }

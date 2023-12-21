@@ -31,7 +31,7 @@ namespace MapToolsWinForm
 
         private void Chack()
         {
-            if (TerminalMapLib.TerminalMapTool.isChack)
+            if (TerminalMapLib.TerminalMapTool.IsChack())
             {
                 MessageBox.Show("口令OK");
             }

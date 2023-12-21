@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MapForm));
-            this.地图操作ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.地图选择ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.高德地图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.百度地图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.腾讯地图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,7 +42,7 @@
             this.googleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oSMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.otherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.地图操作ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.地图操作ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.保存缓存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.读取缓存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.显示网格ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,6 +56,7 @@
             this.设置百度地图开发者KeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.腾讯地图ToolStripMenuItem_search = new System.Windows.Forms.ToolStripMenuItem();
             this.设置腾讯地图开发者KeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OSM地图ToolStripMenuItem_search = new System.Windows.Forms.ToolStripMenuItem();
             this.地图访问ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.在线和缓存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.在线服务ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,6 +92,10 @@
             this.dataGridViewType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewAttributes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelButtonTools = new System.Windows.Forms.Panel();
+            this.lb_gps_progress = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
+            this.cb_communicate_mode = new System.Windows.Forms.ComboBox();
+            this.buttonOneStep = new System.Windows.Forms.Button();
             this.tb_tail_size = new System.Windows.Forms.TextBox();
             this.label33 = new System.Windows.Forms.Label();
             this.buttonForward = new System.Windows.Forms.Button();
@@ -159,7 +164,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tb_lon_lat_wgs84 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.xPanderPanel2 = new BSE.Windows.Forms.XPanderPanel();
+            this.xPanderPanel_query = new BSE.Windows.Forms.XPanderPanel();
             this.comboBoxAd = new System.Windows.Forms.ComboBox();
             this.label32 = new System.Windows.Forms.Label();
             this.buttonPoiClean = new System.Windows.Forms.Button();
@@ -173,7 +178,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxPOIkeyword = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.xPanderPanel3 = new BSE.Windows.Forms.XPanderPanel();
+            this.xPanderPanel_download = new BSE.Windows.Forms.XPanderPanel();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.comboBoxStore = new System.Windows.Forms.ComboBox();
             this.buttonMapDownload = new System.Windows.Forms.Button();
@@ -189,7 +194,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.xPanderPanelChinaRegion = new BSE.Windows.Forms.XPanderPanel();
             this.advTreeChina = new System.Windows.Forms.TreeView();
-            this.xPanderPanel4 = new BSE.Windows.Forms.XPanderPanel();
+            this.xPanderPanel_overlay = new BSE.Windows.Forms.XPanderPanel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.buttonClearDemoOverlay = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -212,7 +217,7 @@
             this.buttonCircle = new System.Windows.Forms.Button();
             this.buttonRectangle = new System.Windows.Forms.Button();
             this.buttonPolygon = new System.Windows.Forms.Button();
-            this.xPanderPanel5 = new BSE.Windows.Forms.XPanderPanel();
+            this.xPanderPanel_navi_route = new BSE.Windows.Forms.XPanderPanel();
             this.buttonNaviEndDel = new System.Windows.Forms.Button();
             this.buttonNaviWay3Del = new System.Windows.Forms.Button();
             this.textBoxNaviWay3 = new System.Windows.Forms.TextBox();
@@ -231,7 +236,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.textBoxNaviStartPoint = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.xPanderPanel6 = new BSE.Windows.Forms.XPanderPanel();
+            this.xPanderPanel_gps_load = new BSE.Windows.Forms.XPanderPanel();
             this.clb_route_list = new System.Windows.Forms.CheckedListBox();
             this.buttonDelectGpsRouteFile = new System.Windows.Forms.Button();
             this.buttonLoadGpsRouteFile = new System.Windows.Forms.Button();
@@ -243,7 +248,7 @@
             this.treeViewTerminalMap = new System.Windows.Forms.TreeView();
             this.buttonDelectMapFile = new System.Windows.Forms.Button();
             this.buttonLoadMapFile = new System.Windows.Forms.Button();
-            this.xPanderPanel1 = new BSE.Windows.Forms.XPanderPanel();
+            this.xPanderPanel_data_recv = new BSE.Windows.Forms.XPanderPanel();
             this.label34 = new System.Windows.Forms.Label();
             this.lb_adb_parse_count = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
@@ -269,7 +274,7 @@
             this.cbxCOMPort = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.xPanderPanel7 = new BSE.Windows.Forms.XPanderPanel();
+            this.xPanderPanel_match_test = new BSE.Windows.Forms.XPanderPanel();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.lb_mt_recv_num = new System.Windows.Forms.Label();
             this.btn_mt_clean = new System.Windows.Forms.Button();
@@ -303,7 +308,6 @@
             this.btn_coord_view_clean = new System.Windows.Forms.Button();
             this.contextMenuStripDelMarker = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.删除当前MarkerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonOneStep = new System.Windows.Forms.Button();
             this.mapControl = new MapToolsWinForm.MapControl();
             this.dataGridViewID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.historyGeoDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -322,23 +326,23 @@
             this.panelMenu.SuspendLayout();
             this.xPanderPanelList1.SuspendLayout();
             this.xPanderPanel_coord_pickup.SuspendLayout();
-            this.xPanderPanel2.SuspendLayout();
-            this.xPanderPanel3.SuspendLayout();
+            this.xPanderPanel_query.SuspendLayout();
+            this.xPanderPanel_download.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.gbMapImage.SuspendLayout();
             this.xPanderPanelChinaRegion.SuspendLayout();
-            this.xPanderPanel4.SuspendLayout();
+            this.xPanderPanel_overlay.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.xPanderPanel5.SuspendLayout();
-            this.xPanderPanel6.SuspendLayout();
+            this.xPanderPanel_navi_route.SuspendLayout();
+            this.xPanderPanel_gps_load.SuspendLayout();
             this.xPanderPanelTerminalMap.SuspendLayout();
-            this.xPanderPanel1.SuspendLayout();
-            this.xPanderPanel7.SuspendLayout();
+            this.xPanderPanel_data_recv.SuspendLayout();
+            this.xPanderPanel_match_test.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.contextMenuCityDataView.SuspendLayout();
@@ -346,9 +350,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.historyGeoDataBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // 地图操作ToolStripMenuItem
+            // 地图选择ToolStripMenuItem
             // 
-            this.地图操作ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.地图选择ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.高德地图ToolStripMenuItem,
             this.百度地图ToolStripMenuItem,
             this.腾讯地图ToolStripMenuItem,
@@ -360,9 +364,9 @@
             this.googleToolStripMenuItem,
             this.oSMToolStripMenuItem,
             this.otherToolStripMenuItem});
-            this.地图操作ToolStripMenuItem.Name = "地图操作ToolStripMenuItem";
-            this.地图操作ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
-            this.地图操作ToolStripMenuItem.Text = "地图选择";
+            this.地图选择ToolStripMenuItem.Name = "地图选择ToolStripMenuItem";
+            this.地图选择ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.地图选择ToolStripMenuItem.Text = "地图选择";
             // 
             // 高德地图ToolStripMenuItem
             // 
@@ -441,17 +445,17 @@
             this.otherToolStripMenuItem.Text = "Other";
             this.otherToolStripMenuItem.Click += new System.EventHandler(this.otherToolStripMenuItem_Click);
             // 
-            // 地图操作ToolStripMenuItem1
+            // 地图操作ToolStripMenuItem
             // 
-            this.地图操作ToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.地图操作ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.保存缓存ToolStripMenuItem,
             this.读取缓存ToolStripMenuItem,
             this.显示网格ToolStripMenuItem,
             this.地图截屏ToolStripMenuItem,
             this.地图测距ToolStripMenuItem});
-            this.地图操作ToolStripMenuItem1.Name = "地图操作ToolStripMenuItem1";
-            this.地图操作ToolStripMenuItem1.Size = new System.Drawing.Size(68, 21);
-            this.地图操作ToolStripMenuItem1.Text = "地图操作";
+            this.地图操作ToolStripMenuItem.Name = "地图操作ToolStripMenuItem";
+            this.地图操作ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.地图操作ToolStripMenuItem.Text = "地图操作";
             // 
             // 保存缓存ToolStripMenuItem
             // 
@@ -493,15 +497,15 @@
             this.menuStrip.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.地图操作ToolStripMenuItem,
+            this.地图选择ToolStripMenuItem,
             this.搜索引擎ToolStripMenuItem,
-            this.地图操作ToolStripMenuItem1,
+            this.地图操作ToolStripMenuItem,
             this.地图访问ToolStripMenuItem,
             this.设置ToolStripMenuItem,
             this.帮助ToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1184, 25);
+            this.menuStrip.Size = new System.Drawing.Size(1199, 25);
             this.menuStrip.TabIndex = 2;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -510,7 +514,8 @@
             this.搜索引擎ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.高德地图ToolStripMenuItem_search,
             this.百度地图ToolStripMenuItem_search,
-            this.腾讯地图ToolStripMenuItem_search});
+            this.腾讯地图ToolStripMenuItem_search,
+            this.OSM地图ToolStripMenuItem_search});
             this.搜索引擎ToolStripMenuItem.Name = "搜索引擎ToolStripMenuItem";
             this.搜索引擎ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
             this.搜索引擎ToolStripMenuItem.Text = "搜索引擎";
@@ -520,7 +525,7 @@
             this.高德地图ToolStripMenuItem_search.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.设置高德地图开发者KeyToolStripMenuItem});
             this.高德地图ToolStripMenuItem_search.Name = "高德地图ToolStripMenuItem_search";
-            this.高德地图ToolStripMenuItem_search.Size = new System.Drawing.Size(124, 22);
+            this.高德地图ToolStripMenuItem_search.Size = new System.Drawing.Size(129, 22);
             this.高德地图ToolStripMenuItem_search.Text = "高德地图";
             this.高德地图ToolStripMenuItem_search.Click += new System.EventHandler(this.高德地图ToolStripMenuItem1_Click);
             // 
@@ -536,7 +541,7 @@
             this.百度地图ToolStripMenuItem_search.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.设置百度地图开发者KeyToolStripMenuItem});
             this.百度地图ToolStripMenuItem_search.Name = "百度地图ToolStripMenuItem_search";
-            this.百度地图ToolStripMenuItem_search.Size = new System.Drawing.Size(124, 22);
+            this.百度地图ToolStripMenuItem_search.Size = new System.Drawing.Size(129, 22);
             this.百度地图ToolStripMenuItem_search.Text = "百度地图";
             this.百度地图ToolStripMenuItem_search.Click += new System.EventHandler(this.百度地图ToolStripMenuItem1_Click);
             // 
@@ -552,7 +557,7 @@
             this.腾讯地图ToolStripMenuItem_search.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.设置腾讯地图开发者KeyToolStripMenuItem});
             this.腾讯地图ToolStripMenuItem_search.Name = "腾讯地图ToolStripMenuItem_search";
-            this.腾讯地图ToolStripMenuItem_search.Size = new System.Drawing.Size(124, 22);
+            this.腾讯地图ToolStripMenuItem_search.Size = new System.Drawing.Size(129, 22);
             this.腾讯地图ToolStripMenuItem_search.Text = "腾讯地图";
             this.腾讯地图ToolStripMenuItem_search.Click += new System.EventHandler(this.腾讯地图ToolStripMenuItem1_Click);
             // 
@@ -562,6 +567,13 @@
             this.设置腾讯地图开发者KeyToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.设置腾讯地图开发者KeyToolStripMenuItem.Text = "设置腾讯地图开发者Key";
             this.设置腾讯地图开发者KeyToolStripMenuItem.Click += new System.EventHandler(this.设置腾讯地图开发者KeyToolStripMenuItem_Click);
+            // 
+            // OSM地图ToolStripMenuItem_search
+            // 
+            this.OSM地图ToolStripMenuItem_search.Name = "OSM地图ToolStripMenuItem_search";
+            this.OSM地图ToolStripMenuItem_search.Size = new System.Drawing.Size(129, 22);
+            this.OSM地图ToolStripMenuItem_search.Text = "OSM地图";
+            this.OSM地图ToolStripMenuItem_search.Click += new System.EventHandler(this.OSM地图ToolStripMenuItem1_Click);
             // 
             // 地图访问ToolStripMenuItem
             // 
@@ -646,7 +658,7 @@
             this.panelMap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMap.Location = new System.Drawing.Point(302, 25);
             this.panelMap.Name = "panelMap";
-            this.panelMap.Size = new System.Drawing.Size(882, 705);
+            this.panelMap.Size = new System.Drawing.Size(897, 705);
             this.panelMap.TabIndex = 18;
             // 
             // pb_compass
@@ -659,6 +671,7 @@
             this.pb_compass.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pb_compass.TabIndex = 12;
             this.pb_compass.TabStop = false;
+            this.pb_compass.Click += new System.EventHandler(this.pb_compass_Click);
             // 
             // lb_scale_max
             // 
@@ -704,7 +717,7 @@
             this.toolStripStatusExport});
             this.statusStrip1.Location = new System.Drawing.Point(0, 564);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(882, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(897, 22);
             this.statusStrip1.TabIndex = 8;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -748,7 +761,7 @@
             this.splitter_button.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.splitter_button.Location = new System.Drawing.Point(0, 586);
             this.splitter_button.Name = "splitter_button";
-            this.splitter_button.Size = new System.Drawing.Size(882, 3);
+            this.splitter_button.Size = new System.Drawing.Size(897, 3);
             this.splitter_button.TabIndex = 7;
             this.splitter_button.TabStop = false;
             // 
@@ -766,7 +779,7 @@
             this.panelDock.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelDock.Location = new System.Drawing.Point(0, 589);
             this.panelDock.Name = "panelDock";
-            this.panelDock.Size = new System.Drawing.Size(882, 116);
+            this.panelDock.Size = new System.Drawing.Size(897, 116);
             this.panelDock.TabIndex = 5;
             // 
             // dataGridViewGpsRoute
@@ -791,7 +804,7 @@
             this.dataGridViewGpsRoute.Location = new System.Drawing.Point(0, 54);
             this.dataGridViewGpsRoute.Name = "dataGridViewGpsRoute";
             this.dataGridViewGpsRoute.RowTemplate.Height = 23;
-            this.dataGridViewGpsRoute.Size = new System.Drawing.Size(882, 62);
+            this.dataGridViewGpsRoute.Size = new System.Drawing.Size(897, 62);
             this.dataGridViewGpsRoute.TabIndex = 1;
             this.dataGridViewGpsRoute.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewGpsRoute_CellDoubleClick);
             // 
@@ -861,6 +874,9 @@
             // panelButtonTools
             // 
             this.panelButtonTools.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panelButtonTools.Controls.Add(this.lb_gps_progress);
+            this.panelButtonTools.Controls.Add(this.label38);
+            this.panelButtonTools.Controls.Add(this.cb_communicate_mode);
             this.panelButtonTools.Controls.Add(this.buttonOneStep);
             this.panelButtonTools.Controls.Add(this.tb_tail_size);
             this.panelButtonTools.Controls.Add(this.label33);
@@ -886,21 +902,62 @@
             this.panelButtonTools.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelButtonTools.Location = new System.Drawing.Point(0, 0);
             this.panelButtonTools.Name = "panelButtonTools";
-            this.panelButtonTools.Size = new System.Drawing.Size(882, 54);
+            this.panelButtonTools.Size = new System.Drawing.Size(897, 54);
             this.panelButtonTools.TabIndex = 0;
+            // 
+            // lb_gps_progress
+            // 
+            this.lb_gps_progress.Location = new System.Drawing.Point(809, 33);
+            this.lb_gps_progress.Name = "lb_gps_progress";
+            this.lb_gps_progress.Size = new System.Drawing.Size(76, 12);
+            this.lb_gps_progress.TabIndex = 24;
+            this.lb_gps_progress.Text = "0/0";
+            this.lb_gps_progress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(191, 8);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(59, 12);
+            this.label38.TabIndex = 23;
+            this.label38.Text = "通讯方式:";
+            // 
+            // cb_communicate_mode
+            // 
+            this.cb_communicate_mode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_communicate_mode.FormattingEnabled = true;
+            this.cb_communicate_mode.Items.AddRange(new object[] {
+            "串口",
+            "Pipe"});
+            this.cb_communicate_mode.Location = new System.Drawing.Point(251, 5);
+            this.cb_communicate_mode.Name = "cb_communicate_mode";
+            this.cb_communicate_mode.Size = new System.Drawing.Size(87, 20);
+            this.cb_communicate_mode.TabIndex = 22;
+            // 
+            // buttonOneStep
+            // 
+            this.buttonOneStep.Location = new System.Drawing.Point(206, 28);
+            this.buttonOneStep.Name = "buttonOneStep";
+            this.buttonOneStep.Size = new System.Drawing.Size(44, 23);
+            this.buttonOneStep.TabIndex = 21;
+            this.buttonOneStep.Tag = "";
+            this.buttonOneStep.Text = "Step";
+            this.buttonOneStep.UseVisualStyleBackColor = true;
+            this.buttonOneStep.Click += new System.EventHandler(this.buttonOneStep_Click);
             // 
             // tb_tail_size
             // 
-            this.tb_tail_size.Location = new System.Drawing.Point(820, 29);
+            this.tb_tail_size.Location = new System.Drawing.Point(776, 29);
             this.tb_tail_size.Name = "tb_tail_size";
-            this.tb_tail_size.Size = new System.Drawing.Size(47, 21);
+            this.tb_tail_size.Size = new System.Drawing.Size(27, 21);
             this.tb_tail_size.TabIndex = 19;
-            this.tb_tail_size.Text = "500";
+            this.tb_tail_size.Text = "5";
             // 
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(787, 32);
+            this.label33.Location = new System.Drawing.Point(743, 32);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(35, 12);
             this.label33.TabIndex = 20;
@@ -929,7 +986,7 @@
             // checkBoxRepeat
             // 
             this.checkBoxRepeat.AutoSize = true;
-            this.checkBoxRepeat.Location = new System.Drawing.Point(524, 32);
+            this.checkBoxRepeat.Location = new System.Drawing.Point(522, 32);
             this.checkBoxRepeat.Name = "checkBoxRepeat";
             this.checkBoxRepeat.Size = new System.Drawing.Size(60, 16);
             this.checkBoxRepeat.TabIndex = 16;
@@ -940,7 +997,7 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(692, 32);
+            this.label25.Location = new System.Drawing.Point(667, 32);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(29, 12);
             this.label25.TabIndex = 15;
@@ -949,7 +1006,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(584, 33);
+            this.label24.Location = new System.Drawing.Point(579, 33);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(41, 12);
             this.label24.TabIndex = 14;
@@ -957,17 +1014,17 @@
             // 
             // tb_end_idx
             // 
-            this.tb_end_idx.Location = new System.Drawing.Point(720, 29);
+            this.tb_end_idx.Location = new System.Drawing.Point(695, 29);
             this.tb_end_idx.Name = "tb_end_idx";
-            this.tb_end_idx.Size = new System.Drawing.Size(63, 21);
+            this.tb_end_idx.Size = new System.Drawing.Size(46, 21);
             this.tb_end_idx.TabIndex = 13;
             this.tb_end_idx.Text = "0";
             // 
             // tb_start_idx
             // 
-            this.tb_start_idx.Location = new System.Drawing.Point(624, 29);
+            this.tb_start_idx.Location = new System.Drawing.Point(619, 29);
             this.tb_start_idx.Name = "tb_start_idx";
-            this.tb_start_idx.Size = new System.Drawing.Size(63, 21);
+            this.tb_start_idx.Size = new System.Drawing.Size(46, 21);
             this.tb_start_idx.TabIndex = 12;
             this.tb_start_idx.Text = "0";
             // 
@@ -976,15 +1033,15 @@
             this.tb_simulate_src.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tb_simulate_src.Enabled = false;
-            this.tb_simulate_src.Location = new System.Drawing.Point(248, 5);
+            this.tb_simulate_src.Location = new System.Drawing.Point(409, 5);
             this.tb_simulate_src.Name = "tb_simulate_src";
-            this.tb_simulate_src.Size = new System.Drawing.Size(619, 21);
+            this.tb_simulate_src.Size = new System.Drawing.Size(473, 21);
             this.tb_simulate_src.TabIndex = 11;
             // 
             // lb_simulate_src
             // 
             this.lb_simulate_src.AutoSize = true;
-            this.lb_simulate_src.Location = new System.Drawing.Point(187, 8);
+            this.lb_simulate_src.Location = new System.Drawing.Point(344, 8);
             this.lb_simulate_src.Name = "lb_simulate_src";
             this.lb_simulate_src.Size = new System.Drawing.Size(59, 12);
             this.lb_simulate_src.TabIndex = 10;
@@ -997,7 +1054,7 @@
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(59, 12);
             this.label14.TabIndex = 9;
-            this.label14.Text = "模拟方式:";
+            this.label14.Text = "模拟类型:";
             // 
             // cb_simulate_src
             // 
@@ -1005,9 +1062,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_simulate_src.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_simulate_src.FormattingEnabled = true;
-            this.cb_simulate_src.Location = new System.Drawing.Point(248, 5);
+            this.cb_simulate_src.Location = new System.Drawing.Point(409, 5);
             this.cb_simulate_src.Name = "cb_simulate_src";
-            this.cb_simulate_src.Size = new System.Drawing.Size(619, 20);
+            this.cb_simulate_src.Size = new System.Drawing.Size(473, 20);
             this.cb_simulate_src.TabIndex = 8;
             this.cb_simulate_src.SelectedIndexChanged += new System.EventHandler(this.cb_simulate_src_SelectedIndexChanged);
             // 
@@ -1397,15 +1454,15 @@
             // 
             this.xPanderPanelList1.CaptionStyle = BSE.Windows.Forms.CaptionStyle.Normal;
             this.xPanderPanelList1.Controls.Add(this.xPanderPanel_coord_pickup);
-            this.xPanderPanelList1.Controls.Add(this.xPanderPanel2);
-            this.xPanderPanelList1.Controls.Add(this.xPanderPanel3);
+            this.xPanderPanelList1.Controls.Add(this.xPanderPanel_query);
+            this.xPanderPanelList1.Controls.Add(this.xPanderPanel_download);
             this.xPanderPanelList1.Controls.Add(this.xPanderPanelChinaRegion);
-            this.xPanderPanelList1.Controls.Add(this.xPanderPanel4);
-            this.xPanderPanelList1.Controls.Add(this.xPanderPanel5);
-            this.xPanderPanelList1.Controls.Add(this.xPanderPanel6);
+            this.xPanderPanelList1.Controls.Add(this.xPanderPanel_overlay);
+            this.xPanderPanelList1.Controls.Add(this.xPanderPanel_navi_route);
+            this.xPanderPanelList1.Controls.Add(this.xPanderPanel_gps_load);
             this.xPanderPanelList1.Controls.Add(this.xPanderPanelTerminalMap);
-            this.xPanderPanelList1.Controls.Add(this.xPanderPanel1);
-            this.xPanderPanelList1.Controls.Add(this.xPanderPanel7);
+            this.xPanderPanelList1.Controls.Add(this.xPanderPanel_data_recv);
+            this.xPanderPanelList1.Controls.Add(this.xPanderPanel_match_test);
             this.xPanderPanelList1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.xPanderPanelList1.GradientBackground = System.Drawing.Color.Empty;
             this.xPanderPanelList1.Location = new System.Drawing.Point(0, 28);
@@ -1584,53 +1641,53 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "WGS84坐标系(经度,纬度)：\t";
             // 
-            // xPanderPanel2
+            // xPanderPanel_query
             // 
-            this.xPanderPanel2.CaptionFont = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
-            this.xPanderPanel2.Controls.Add(this.comboBoxAd);
-            this.xPanderPanel2.Controls.Add(this.label32);
-            this.xPanderPanel2.Controls.Add(this.buttonPoiClean);
-            this.xPanderPanel2.Controls.Add(this.buttonPoiSave);
-            this.xPanderPanel2.Controls.Add(this.buttonPOISearch);
-            this.xPanderPanel2.Controls.Add(this.comboBoxPoiSave);
-            this.xPanderPanel2.Controls.Add(this.label8);
-            this.xPanderPanel2.Controls.Add(this.comboBoxCity);
-            this.xPanderPanel2.Controls.Add(this.label6);
-            this.xPanderPanel2.Controls.Add(this.comboBoxProvince);
-            this.xPanderPanel2.Controls.Add(this.label7);
-            this.xPanderPanel2.Controls.Add(this.textBoxPOIkeyword);
-            this.xPanderPanel2.Controls.Add(this.label9);
-            this.xPanderPanel2.CustomColors.BackColor = System.Drawing.SystemColors.Control;
-            this.xPanderPanel2.CustomColors.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(184)))), ((int)(((byte)(184)))));
-            this.xPanderPanel2.CustomColors.CaptionCheckedGradientBegin = System.Drawing.Color.Empty;
-            this.xPanderPanel2.CustomColors.CaptionCheckedGradientEnd = System.Drawing.Color.Empty;
-            this.xPanderPanel2.CustomColors.CaptionCheckedGradientMiddle = System.Drawing.Color.Empty;
-            this.xPanderPanel2.CustomColors.CaptionCloseIcon = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel2.CustomColors.CaptionExpandIcon = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel2.CustomColors.CaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.xPanderPanel2.CustomColors.CaptionGradientEnd = System.Drawing.SystemColors.ButtonFace;
-            this.xPanderPanel2.CustomColors.CaptionGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-            this.xPanderPanel2.CustomColors.CaptionPressedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel2.CustomColors.CaptionPressedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel2.CustomColors.CaptionPressedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel2.CustomColors.CaptionSelectedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel2.CustomColors.CaptionSelectedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel2.CustomColors.CaptionSelectedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel2.CustomColors.CaptionSelectedText = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel2.CustomColors.CaptionText = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel2.CustomColors.FlatCaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-            this.xPanderPanel2.CustomColors.FlatCaptionGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.xPanderPanel2.CustomColors.InnerBorderColor = System.Drawing.SystemColors.Window;
-            this.xPanderPanel2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel2.Image = null;
-            this.xPanderPanel2.Name = "xPanderPanel2";
-            this.xPanderPanel2.PanelStyle = BSE.Windows.Forms.PanelStyle.Office2007;
-            this.xPanderPanel2.Size = new System.Drawing.Size(297, 25);
-            this.xPanderPanel2.TabIndex = 6;
-            this.xPanderPanel2.Text = "POI查询";
-            this.xPanderPanel2.ToolTipTextCloseIcon = null;
-            this.xPanderPanel2.ToolTipTextExpandIconPanelCollapsed = null;
-            this.xPanderPanel2.ToolTipTextExpandIconPanelExpanded = null;
+            this.xPanderPanel_query.CaptionFont = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
+            this.xPanderPanel_query.Controls.Add(this.comboBoxAd);
+            this.xPanderPanel_query.Controls.Add(this.label32);
+            this.xPanderPanel_query.Controls.Add(this.buttonPoiClean);
+            this.xPanderPanel_query.Controls.Add(this.buttonPoiSave);
+            this.xPanderPanel_query.Controls.Add(this.buttonPOISearch);
+            this.xPanderPanel_query.Controls.Add(this.comboBoxPoiSave);
+            this.xPanderPanel_query.Controls.Add(this.label8);
+            this.xPanderPanel_query.Controls.Add(this.comboBoxCity);
+            this.xPanderPanel_query.Controls.Add(this.label6);
+            this.xPanderPanel_query.Controls.Add(this.comboBoxProvince);
+            this.xPanderPanel_query.Controls.Add(this.label7);
+            this.xPanderPanel_query.Controls.Add(this.textBoxPOIkeyword);
+            this.xPanderPanel_query.Controls.Add(this.label9);
+            this.xPanderPanel_query.CustomColors.BackColor = System.Drawing.SystemColors.Control;
+            this.xPanderPanel_query.CustomColors.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(184)))), ((int)(((byte)(184)))));
+            this.xPanderPanel_query.CustomColors.CaptionCheckedGradientBegin = System.Drawing.Color.Empty;
+            this.xPanderPanel_query.CustomColors.CaptionCheckedGradientEnd = System.Drawing.Color.Empty;
+            this.xPanderPanel_query.CustomColors.CaptionCheckedGradientMiddle = System.Drawing.Color.Empty;
+            this.xPanderPanel_query.CustomColors.CaptionCloseIcon = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_query.CustomColors.CaptionExpandIcon = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_query.CustomColors.CaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.xPanderPanel_query.CustomColors.CaptionGradientEnd = System.Drawing.SystemColors.ButtonFace;
+            this.xPanderPanel_query.CustomColors.CaptionGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
+            this.xPanderPanel_query.CustomColors.CaptionPressedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_query.CustomColors.CaptionPressedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_query.CustomColors.CaptionPressedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_query.CustomColors.CaptionSelectedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_query.CustomColors.CaptionSelectedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_query.CustomColors.CaptionSelectedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_query.CustomColors.CaptionSelectedText = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_query.CustomColors.CaptionText = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_query.CustomColors.FlatCaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
+            this.xPanderPanel_query.CustomColors.FlatCaptionGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.xPanderPanel_query.CustomColors.InnerBorderColor = System.Drawing.SystemColors.Window;
+            this.xPanderPanel_query.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_query.Image = null;
+            this.xPanderPanel_query.Name = "xPanderPanel_query";
+            this.xPanderPanel_query.PanelStyle = BSE.Windows.Forms.PanelStyle.Office2007;
+            this.xPanderPanel_query.Size = new System.Drawing.Size(297, 25);
+            this.xPanderPanel_query.TabIndex = 6;
+            this.xPanderPanel_query.Text = "POI查询";
+            this.xPanderPanel_query.ToolTipTextCloseIcon = null;
+            this.xPanderPanel_query.ToolTipTextExpandIconPanelCollapsed = null;
+            this.xPanderPanel_query.ToolTipTextExpandIconPanelExpanded = null;
             // 
             // comboBoxAd
             // 
@@ -1767,43 +1824,43 @@
             this.label9.TabIndex = 23;
             this.label9.Text = "关键字：";
             // 
-            // xPanderPanel3
+            // xPanderPanel_download
             // 
-            this.xPanderPanel3.CaptionFont = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
-            this.xPanderPanel3.Controls.Add(this.groupBox9);
-            this.xPanderPanel3.Controls.Add(this.groupBox8);
-            this.xPanderPanel3.Controls.Add(this.gbMapImage);
-            this.xPanderPanel3.CustomColors.BackColor = System.Drawing.SystemColors.Control;
-            this.xPanderPanel3.CustomColors.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(184)))), ((int)(((byte)(184)))));
-            this.xPanderPanel3.CustomColors.CaptionCheckedGradientBegin = System.Drawing.Color.Empty;
-            this.xPanderPanel3.CustomColors.CaptionCheckedGradientEnd = System.Drawing.Color.Empty;
-            this.xPanderPanel3.CustomColors.CaptionCheckedGradientMiddle = System.Drawing.Color.Empty;
-            this.xPanderPanel3.CustomColors.CaptionCloseIcon = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel3.CustomColors.CaptionExpandIcon = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel3.CustomColors.CaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.xPanderPanel3.CustomColors.CaptionGradientEnd = System.Drawing.SystemColors.ButtonFace;
-            this.xPanderPanel3.CustomColors.CaptionGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-            this.xPanderPanel3.CustomColors.CaptionPressedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel3.CustomColors.CaptionPressedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel3.CustomColors.CaptionPressedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel3.CustomColors.CaptionSelectedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel3.CustomColors.CaptionSelectedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel3.CustomColors.CaptionSelectedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel3.CustomColors.CaptionSelectedText = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel3.CustomColors.CaptionText = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel3.CustomColors.FlatCaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-            this.xPanderPanel3.CustomColors.FlatCaptionGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.xPanderPanel3.CustomColors.InnerBorderColor = System.Drawing.SystemColors.Window;
-            this.xPanderPanel3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel3.Image = null;
-            this.xPanderPanel3.Name = "xPanderPanel3";
-            this.xPanderPanel3.PanelStyle = BSE.Windows.Forms.PanelStyle.Office2007;
-            this.xPanderPanel3.Size = new System.Drawing.Size(297, 25);
-            this.xPanderPanel3.TabIndex = 7;
-            this.xPanderPanel3.Text = "地图下载";
-            this.xPanderPanel3.ToolTipTextCloseIcon = null;
-            this.xPanderPanel3.ToolTipTextExpandIconPanelCollapsed = null;
-            this.xPanderPanel3.ToolTipTextExpandIconPanelExpanded = null;
+            this.xPanderPanel_download.CaptionFont = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
+            this.xPanderPanel_download.Controls.Add(this.groupBox9);
+            this.xPanderPanel_download.Controls.Add(this.groupBox8);
+            this.xPanderPanel_download.Controls.Add(this.gbMapImage);
+            this.xPanderPanel_download.CustomColors.BackColor = System.Drawing.SystemColors.Control;
+            this.xPanderPanel_download.CustomColors.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(184)))), ((int)(((byte)(184)))));
+            this.xPanderPanel_download.CustomColors.CaptionCheckedGradientBegin = System.Drawing.Color.Empty;
+            this.xPanderPanel_download.CustomColors.CaptionCheckedGradientEnd = System.Drawing.Color.Empty;
+            this.xPanderPanel_download.CustomColors.CaptionCheckedGradientMiddle = System.Drawing.Color.Empty;
+            this.xPanderPanel_download.CustomColors.CaptionCloseIcon = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_download.CustomColors.CaptionExpandIcon = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_download.CustomColors.CaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.xPanderPanel_download.CustomColors.CaptionGradientEnd = System.Drawing.SystemColors.ButtonFace;
+            this.xPanderPanel_download.CustomColors.CaptionGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
+            this.xPanderPanel_download.CustomColors.CaptionPressedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_download.CustomColors.CaptionPressedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_download.CustomColors.CaptionPressedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_download.CustomColors.CaptionSelectedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_download.CustomColors.CaptionSelectedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_download.CustomColors.CaptionSelectedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_download.CustomColors.CaptionSelectedText = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_download.CustomColors.CaptionText = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_download.CustomColors.FlatCaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
+            this.xPanderPanel_download.CustomColors.FlatCaptionGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.xPanderPanel_download.CustomColors.InnerBorderColor = System.Drawing.SystemColors.Window;
+            this.xPanderPanel_download.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_download.Image = null;
+            this.xPanderPanel_download.Name = "xPanderPanel_download";
+            this.xPanderPanel_download.PanelStyle = BSE.Windows.Forms.PanelStyle.Office2007;
+            this.xPanderPanel_download.Size = new System.Drawing.Size(297, 25);
+            this.xPanderPanel_download.TabIndex = 7;
+            this.xPanderPanel_download.Text = "地图下载";
+            this.xPanderPanel_download.ToolTipTextCloseIcon = null;
+            this.xPanderPanel_download.ToolTipTextExpandIconPanelCollapsed = null;
+            this.xPanderPanel_download.ToolTipTextExpandIconPanelExpanded = null;
             // 
             // groupBox9
             // 
@@ -2016,43 +2073,43 @@
             this.advTreeChina.Size = new System.Drawing.Size(295, 0);
             this.advTreeChina.TabIndex = 0;
             // 
-            // xPanderPanel4
+            // xPanderPanel_overlay
             // 
-            this.xPanderPanel4.CaptionFont = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
-            this.xPanderPanel4.Controls.Add(this.groupBox5);
-            this.xPanderPanel4.Controls.Add(this.groupBox4);
-            this.xPanderPanel4.Controls.Add(this.groupBox3);
-            this.xPanderPanel4.CustomColors.BackColor = System.Drawing.SystemColors.Control;
-            this.xPanderPanel4.CustomColors.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(184)))), ((int)(((byte)(184)))));
-            this.xPanderPanel4.CustomColors.CaptionCheckedGradientBegin = System.Drawing.Color.Empty;
-            this.xPanderPanel4.CustomColors.CaptionCheckedGradientEnd = System.Drawing.Color.Empty;
-            this.xPanderPanel4.CustomColors.CaptionCheckedGradientMiddle = System.Drawing.Color.Empty;
-            this.xPanderPanel4.CustomColors.CaptionCloseIcon = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel4.CustomColors.CaptionExpandIcon = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel4.CustomColors.CaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.xPanderPanel4.CustomColors.CaptionGradientEnd = System.Drawing.SystemColors.ButtonFace;
-            this.xPanderPanel4.CustomColors.CaptionGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-            this.xPanderPanel4.CustomColors.CaptionPressedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel4.CustomColors.CaptionPressedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel4.CustomColors.CaptionPressedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel4.CustomColors.CaptionSelectedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel4.CustomColors.CaptionSelectedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel4.CustomColors.CaptionSelectedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel4.CustomColors.CaptionSelectedText = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel4.CustomColors.CaptionText = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel4.CustomColors.FlatCaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-            this.xPanderPanel4.CustomColors.FlatCaptionGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.xPanderPanel4.CustomColors.InnerBorderColor = System.Drawing.SystemColors.Window;
-            this.xPanderPanel4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel4.Image = null;
-            this.xPanderPanel4.Name = "xPanderPanel4";
-            this.xPanderPanel4.PanelStyle = BSE.Windows.Forms.PanelStyle.Office2007;
-            this.xPanderPanel4.Size = new System.Drawing.Size(297, 25);
-            this.xPanderPanel4.TabIndex = 9;
-            this.xPanderPanel4.Text = "地图覆盖物";
-            this.xPanderPanel4.ToolTipTextCloseIcon = null;
-            this.xPanderPanel4.ToolTipTextExpandIconPanelCollapsed = null;
-            this.xPanderPanel4.ToolTipTextExpandIconPanelExpanded = null;
+            this.xPanderPanel_overlay.CaptionFont = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
+            this.xPanderPanel_overlay.Controls.Add(this.groupBox5);
+            this.xPanderPanel_overlay.Controls.Add(this.groupBox4);
+            this.xPanderPanel_overlay.Controls.Add(this.groupBox3);
+            this.xPanderPanel_overlay.CustomColors.BackColor = System.Drawing.SystemColors.Control;
+            this.xPanderPanel_overlay.CustomColors.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(184)))), ((int)(((byte)(184)))));
+            this.xPanderPanel_overlay.CustomColors.CaptionCheckedGradientBegin = System.Drawing.Color.Empty;
+            this.xPanderPanel_overlay.CustomColors.CaptionCheckedGradientEnd = System.Drawing.Color.Empty;
+            this.xPanderPanel_overlay.CustomColors.CaptionCheckedGradientMiddle = System.Drawing.Color.Empty;
+            this.xPanderPanel_overlay.CustomColors.CaptionCloseIcon = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_overlay.CustomColors.CaptionExpandIcon = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_overlay.CustomColors.CaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.xPanderPanel_overlay.CustomColors.CaptionGradientEnd = System.Drawing.SystemColors.ButtonFace;
+            this.xPanderPanel_overlay.CustomColors.CaptionGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
+            this.xPanderPanel_overlay.CustomColors.CaptionPressedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_overlay.CustomColors.CaptionPressedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_overlay.CustomColors.CaptionPressedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_overlay.CustomColors.CaptionSelectedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_overlay.CustomColors.CaptionSelectedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_overlay.CustomColors.CaptionSelectedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_overlay.CustomColors.CaptionSelectedText = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_overlay.CustomColors.CaptionText = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_overlay.CustomColors.FlatCaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
+            this.xPanderPanel_overlay.CustomColors.FlatCaptionGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.xPanderPanel_overlay.CustomColors.InnerBorderColor = System.Drawing.SystemColors.Window;
+            this.xPanderPanel_overlay.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_overlay.Image = null;
+            this.xPanderPanel_overlay.Name = "xPanderPanel_overlay";
+            this.xPanderPanel_overlay.PanelStyle = BSE.Windows.Forms.PanelStyle.Office2007;
+            this.xPanderPanel_overlay.Size = new System.Drawing.Size(297, 25);
+            this.xPanderPanel_overlay.TabIndex = 9;
+            this.xPanderPanel_overlay.Text = "地图覆盖物";
+            this.xPanderPanel_overlay.ToolTipTextCloseIcon = null;
+            this.xPanderPanel_overlay.ToolTipTextExpandIconPanelCollapsed = null;
+            this.xPanderPanel_overlay.ToolTipTextExpandIconPanelExpanded = null;
             // 
             // groupBox5
             // 
@@ -2300,58 +2357,58 @@
             this.buttonPolygon.UseVisualStyleBackColor = true;
             this.buttonPolygon.Click += new System.EventHandler(this.buttonPolygon_Click);
             // 
-            // xPanderPanel5
+            // xPanderPanel_navi_route
             // 
-            this.xPanderPanel5.CaptionFont = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
-            this.xPanderPanel5.Controls.Add(this.buttonNaviEndDel);
-            this.xPanderPanel5.Controls.Add(this.buttonNaviWay3Del);
-            this.xPanderPanel5.Controls.Add(this.textBoxNaviWay3);
-            this.xPanderPanel5.Controls.Add(this.label31);
-            this.xPanderPanel5.Controls.Add(this.buttonNaviWay2Del);
-            this.xPanderPanel5.Controls.Add(this.textBoxNaviWay2);
-            this.xPanderPanel5.Controls.Add(this.label30);
-            this.xPanderPanel5.Controls.Add(this.buttonNaviWay1Del);
-            this.xPanderPanel5.Controls.Add(this.buttonNaviStartDel);
-            this.xPanderPanel5.Controls.Add(this.textBoxNaviWay1);
-            this.xPanderPanel5.Controls.Add(this.label28);
-            this.xPanderPanel5.Controls.Add(this.buttonNaviExport);
-            this.xPanderPanel5.Controls.Add(this.buttonCleanRoute);
-            this.xPanderPanel5.Controls.Add(this.buttonNaviGetRoute);
-            this.xPanderPanel5.Controls.Add(this.textBoxNaviEndPoint);
-            this.xPanderPanel5.Controls.Add(this.label13);
-            this.xPanderPanel5.Controls.Add(this.textBoxNaviStartPoint);
-            this.xPanderPanel5.Controls.Add(this.label1);
-            this.xPanderPanel5.CustomColors.BackColor = System.Drawing.SystemColors.Control;
-            this.xPanderPanel5.CustomColors.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(184)))), ((int)(((byte)(184)))));
-            this.xPanderPanel5.CustomColors.CaptionCheckedGradientBegin = System.Drawing.Color.Empty;
-            this.xPanderPanel5.CustomColors.CaptionCheckedGradientEnd = System.Drawing.Color.Empty;
-            this.xPanderPanel5.CustomColors.CaptionCheckedGradientMiddle = System.Drawing.Color.Empty;
-            this.xPanderPanel5.CustomColors.CaptionCloseIcon = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel5.CustomColors.CaptionExpandIcon = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel5.CustomColors.CaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.xPanderPanel5.CustomColors.CaptionGradientEnd = System.Drawing.SystemColors.ButtonFace;
-            this.xPanderPanel5.CustomColors.CaptionGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-            this.xPanderPanel5.CustomColors.CaptionPressedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel5.CustomColors.CaptionPressedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel5.CustomColors.CaptionPressedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel5.CustomColors.CaptionSelectedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel5.CustomColors.CaptionSelectedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel5.CustomColors.CaptionSelectedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel5.CustomColors.CaptionSelectedText = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel5.CustomColors.CaptionText = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel5.CustomColors.FlatCaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-            this.xPanderPanel5.CustomColors.FlatCaptionGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.xPanderPanel5.CustomColors.InnerBorderColor = System.Drawing.SystemColors.Window;
-            this.xPanderPanel5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel5.Image = null;
-            this.xPanderPanel5.Name = "xPanderPanel5";
-            this.xPanderPanel5.PanelStyle = BSE.Windows.Forms.PanelStyle.Office2007;
-            this.xPanderPanel5.Size = new System.Drawing.Size(297, 25);
-            this.xPanderPanel5.TabIndex = 10;
-            this.xPanderPanel5.Text = "导航路线";
-            this.xPanderPanel5.ToolTipTextCloseIcon = null;
-            this.xPanderPanel5.ToolTipTextExpandIconPanelCollapsed = null;
-            this.xPanderPanel5.ToolTipTextExpandIconPanelExpanded = null;
+            this.xPanderPanel_navi_route.CaptionFont = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
+            this.xPanderPanel_navi_route.Controls.Add(this.buttonNaviEndDel);
+            this.xPanderPanel_navi_route.Controls.Add(this.buttonNaviWay3Del);
+            this.xPanderPanel_navi_route.Controls.Add(this.textBoxNaviWay3);
+            this.xPanderPanel_navi_route.Controls.Add(this.label31);
+            this.xPanderPanel_navi_route.Controls.Add(this.buttonNaviWay2Del);
+            this.xPanderPanel_navi_route.Controls.Add(this.textBoxNaviWay2);
+            this.xPanderPanel_navi_route.Controls.Add(this.label30);
+            this.xPanderPanel_navi_route.Controls.Add(this.buttonNaviWay1Del);
+            this.xPanderPanel_navi_route.Controls.Add(this.buttonNaviStartDel);
+            this.xPanderPanel_navi_route.Controls.Add(this.textBoxNaviWay1);
+            this.xPanderPanel_navi_route.Controls.Add(this.label28);
+            this.xPanderPanel_navi_route.Controls.Add(this.buttonNaviExport);
+            this.xPanderPanel_navi_route.Controls.Add(this.buttonCleanRoute);
+            this.xPanderPanel_navi_route.Controls.Add(this.buttonNaviGetRoute);
+            this.xPanderPanel_navi_route.Controls.Add(this.textBoxNaviEndPoint);
+            this.xPanderPanel_navi_route.Controls.Add(this.label13);
+            this.xPanderPanel_navi_route.Controls.Add(this.textBoxNaviStartPoint);
+            this.xPanderPanel_navi_route.Controls.Add(this.label1);
+            this.xPanderPanel_navi_route.CustomColors.BackColor = System.Drawing.SystemColors.Control;
+            this.xPanderPanel_navi_route.CustomColors.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(184)))), ((int)(((byte)(184)))));
+            this.xPanderPanel_navi_route.CustomColors.CaptionCheckedGradientBegin = System.Drawing.Color.Empty;
+            this.xPanderPanel_navi_route.CustomColors.CaptionCheckedGradientEnd = System.Drawing.Color.Empty;
+            this.xPanderPanel_navi_route.CustomColors.CaptionCheckedGradientMiddle = System.Drawing.Color.Empty;
+            this.xPanderPanel_navi_route.CustomColors.CaptionCloseIcon = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_navi_route.CustomColors.CaptionExpandIcon = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_navi_route.CustomColors.CaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.xPanderPanel_navi_route.CustomColors.CaptionGradientEnd = System.Drawing.SystemColors.ButtonFace;
+            this.xPanderPanel_navi_route.CustomColors.CaptionGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
+            this.xPanderPanel_navi_route.CustomColors.CaptionPressedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_navi_route.CustomColors.CaptionPressedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_navi_route.CustomColors.CaptionPressedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_navi_route.CustomColors.CaptionSelectedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_navi_route.CustomColors.CaptionSelectedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_navi_route.CustomColors.CaptionSelectedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_navi_route.CustomColors.CaptionSelectedText = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_navi_route.CustomColors.CaptionText = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_navi_route.CustomColors.FlatCaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
+            this.xPanderPanel_navi_route.CustomColors.FlatCaptionGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.xPanderPanel_navi_route.CustomColors.InnerBorderColor = System.Drawing.SystemColors.Window;
+            this.xPanderPanel_navi_route.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_navi_route.Image = null;
+            this.xPanderPanel_navi_route.Name = "xPanderPanel_navi_route";
+            this.xPanderPanel_navi_route.PanelStyle = BSE.Windows.Forms.PanelStyle.Office2007;
+            this.xPanderPanel_navi_route.Size = new System.Drawing.Size(297, 25);
+            this.xPanderPanel_navi_route.TabIndex = 10;
+            this.xPanderPanel_navi_route.Text = "导航路线";
+            this.xPanderPanel_navi_route.ToolTipTextCloseIcon = null;
+            this.xPanderPanel_navi_route.ToolTipTextExpandIconPanelCollapsed = null;
+            this.xPanderPanel_navi_route.ToolTipTextExpandIconPanelExpanded = null;
             // 
             // buttonNaviEndDel
             // 
@@ -2523,43 +2580,43 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "起点：";
             // 
-            // xPanderPanel6
+            // xPanderPanel_gps_load
             // 
-            this.xPanderPanel6.CaptionFont = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
-            this.xPanderPanel6.Controls.Add(this.clb_route_list);
-            this.xPanderPanel6.Controls.Add(this.buttonDelectGpsRouteFile);
-            this.xPanderPanel6.Controls.Add(this.buttonLoadGpsRouteFile);
-            this.xPanderPanel6.CustomColors.BackColor = System.Drawing.SystemColors.Control;
-            this.xPanderPanel6.CustomColors.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(184)))), ((int)(((byte)(184)))));
-            this.xPanderPanel6.CustomColors.CaptionCheckedGradientBegin = System.Drawing.Color.Empty;
-            this.xPanderPanel6.CustomColors.CaptionCheckedGradientEnd = System.Drawing.Color.Empty;
-            this.xPanderPanel6.CustomColors.CaptionCheckedGradientMiddle = System.Drawing.Color.Empty;
-            this.xPanderPanel6.CustomColors.CaptionCloseIcon = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel6.CustomColors.CaptionExpandIcon = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel6.CustomColors.CaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.xPanderPanel6.CustomColors.CaptionGradientEnd = System.Drawing.SystemColors.ButtonFace;
-            this.xPanderPanel6.CustomColors.CaptionGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-            this.xPanderPanel6.CustomColors.CaptionPressedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel6.CustomColors.CaptionPressedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel6.CustomColors.CaptionPressedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel6.CustomColors.CaptionSelectedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel6.CustomColors.CaptionSelectedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel6.CustomColors.CaptionSelectedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel6.CustomColors.CaptionSelectedText = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel6.CustomColors.CaptionText = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel6.CustomColors.FlatCaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-            this.xPanderPanel6.CustomColors.FlatCaptionGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.xPanderPanel6.CustomColors.InnerBorderColor = System.Drawing.SystemColors.Window;
-            this.xPanderPanel6.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel6.Image = null;
-            this.xPanderPanel6.Name = "xPanderPanel6";
-            this.xPanderPanel6.PanelStyle = BSE.Windows.Forms.PanelStyle.Office2007;
-            this.xPanderPanel6.Size = new System.Drawing.Size(297, 25);
-            this.xPanderPanel6.TabIndex = 11;
-            this.xPanderPanel6.Text = "轨迹加载";
-            this.xPanderPanel6.ToolTipTextCloseIcon = null;
-            this.xPanderPanel6.ToolTipTextExpandIconPanelCollapsed = null;
-            this.xPanderPanel6.ToolTipTextExpandIconPanelExpanded = null;
+            this.xPanderPanel_gps_load.CaptionFont = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
+            this.xPanderPanel_gps_load.Controls.Add(this.clb_route_list);
+            this.xPanderPanel_gps_load.Controls.Add(this.buttonDelectGpsRouteFile);
+            this.xPanderPanel_gps_load.Controls.Add(this.buttonLoadGpsRouteFile);
+            this.xPanderPanel_gps_load.CustomColors.BackColor = System.Drawing.SystemColors.Control;
+            this.xPanderPanel_gps_load.CustomColors.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(184)))), ((int)(((byte)(184)))));
+            this.xPanderPanel_gps_load.CustomColors.CaptionCheckedGradientBegin = System.Drawing.Color.Empty;
+            this.xPanderPanel_gps_load.CustomColors.CaptionCheckedGradientEnd = System.Drawing.Color.Empty;
+            this.xPanderPanel_gps_load.CustomColors.CaptionCheckedGradientMiddle = System.Drawing.Color.Empty;
+            this.xPanderPanel_gps_load.CustomColors.CaptionCloseIcon = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_gps_load.CustomColors.CaptionExpandIcon = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_gps_load.CustomColors.CaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.xPanderPanel_gps_load.CustomColors.CaptionGradientEnd = System.Drawing.SystemColors.ButtonFace;
+            this.xPanderPanel_gps_load.CustomColors.CaptionGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
+            this.xPanderPanel_gps_load.CustomColors.CaptionPressedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_gps_load.CustomColors.CaptionPressedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_gps_load.CustomColors.CaptionPressedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_gps_load.CustomColors.CaptionSelectedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_gps_load.CustomColors.CaptionSelectedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_gps_load.CustomColors.CaptionSelectedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_gps_load.CustomColors.CaptionSelectedText = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_gps_load.CustomColors.CaptionText = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_gps_load.CustomColors.FlatCaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
+            this.xPanderPanel_gps_load.CustomColors.FlatCaptionGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.xPanderPanel_gps_load.CustomColors.InnerBorderColor = System.Drawing.SystemColors.Window;
+            this.xPanderPanel_gps_load.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_gps_load.Image = null;
+            this.xPanderPanel_gps_load.Name = "xPanderPanel_gps_load";
+            this.xPanderPanel_gps_load.PanelStyle = BSE.Windows.Forms.PanelStyle.Office2007;
+            this.xPanderPanel_gps_load.Size = new System.Drawing.Size(297, 25);
+            this.xPanderPanel_gps_load.TabIndex = 11;
+            this.xPanderPanel_gps_load.Text = "轨迹加载";
+            this.xPanderPanel_gps_load.ToolTipTextCloseIcon = null;
+            this.xPanderPanel_gps_load.ToolTipTextExpandIconPanelCollapsed = null;
+            this.xPanderPanel_gps_load.ToolTipTextExpandIconPanelExpanded = null;
             // 
             // clb_route_list
             // 
@@ -2567,7 +2624,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.clb_route_list.FormattingEnabled = true;
-            this.clb_route_list.Location = new System.Drawing.Point(5, 72);
+            this.clb_route_list.Location = new System.Drawing.Point(5, 74);
             this.clb_route_list.Name = "clb_route_list";
             this.clb_route_list.Size = new System.Drawing.Size(285, 4);
             this.clb_route_list.TabIndex = 7;
@@ -2710,70 +2767,70 @@
             this.buttonLoadMapFile.UseVisualStyleBackColor = true;
             this.buttonLoadMapFile.Click += new System.EventHandler(this.buttonLoadMapFile_Click);
             // 
-            // xPanderPanel1
+            // xPanderPanel_data_recv
             // 
-            this.xPanderPanel1.CaptionFont = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
-            this.xPanderPanel1.Controls.Add(this.label34);
-            this.xPanderPanel1.Controls.Add(this.lb_adb_parse_count);
-            this.xPanderPanel1.Controls.Add(this.label36);
-            this.xPanderPanel1.Controls.Add(this.btn_adb_clean);
-            this.xPanderPanel1.Controls.Add(this.btnOpenAdb);
-            this.xPanderPanel1.Controls.Add(this.lb_adb_recv_count);
-            this.xPanderPanel1.Controls.Add(this.label22);
-            this.xPanderPanel1.Controls.Add(this.lb_parse_count);
-            this.xPanderPanel1.Controls.Add(this.cb_serial_CoordType);
-            this.xPanderPanel1.Controls.Add(this.label21);
-            this.xPanderPanel1.Controls.Add(this.label20);
-            this.xPanderPanel1.Controls.Add(this.btn_clean);
-            this.xPanderPanel1.Controls.Add(this.btnOpenCom);
-            this.xPanderPanel1.Controls.Add(this.btnCheckCOM);
-            this.xPanderPanel1.Controls.Add(this.lb_recv_count);
-            this.xPanderPanel1.Controls.Add(this.cbxDataBits);
-            this.xPanderPanel1.Controls.Add(this.label19);
-            this.xPanderPanel1.Controls.Add(this.cbxStopBits);
-            this.xPanderPanel1.Controls.Add(this.cbxParitv);
-            this.xPanderPanel1.Controls.Add(this.label17);
-            this.xPanderPanel1.Controls.Add(this.label18);
-            this.xPanderPanel1.Controls.Add(this.cbxBaudRate);
-            this.xPanderPanel1.Controls.Add(this.cbxCOMPort);
-            this.xPanderPanel1.Controls.Add(this.label15);
-            this.xPanderPanel1.Controls.Add(this.label16);
-            this.xPanderPanel1.CustomColors.BackColor = System.Drawing.SystemColors.Control;
-            this.xPanderPanel1.CustomColors.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(184)))), ((int)(((byte)(184)))));
-            this.xPanderPanel1.CustomColors.CaptionCheckedGradientBegin = System.Drawing.Color.Empty;
-            this.xPanderPanel1.CustomColors.CaptionCheckedGradientEnd = System.Drawing.Color.Empty;
-            this.xPanderPanel1.CustomColors.CaptionCheckedGradientMiddle = System.Drawing.Color.Empty;
-            this.xPanderPanel1.CustomColors.CaptionCloseIcon = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel1.CustomColors.CaptionExpandIcon = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel1.CustomColors.CaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.xPanderPanel1.CustomColors.CaptionGradientEnd = System.Drawing.SystemColors.ButtonFace;
-            this.xPanderPanel1.CustomColors.CaptionGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-            this.xPanderPanel1.CustomColors.CaptionPressedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel1.CustomColors.CaptionPressedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel1.CustomColors.CaptionPressedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel1.CustomColors.CaptionSelectedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel1.CustomColors.CaptionSelectedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel1.CustomColors.CaptionSelectedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel1.CustomColors.CaptionSelectedText = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel1.CustomColors.CaptionText = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel1.CustomColors.FlatCaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-            this.xPanderPanel1.CustomColors.FlatCaptionGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.xPanderPanel1.CustomColors.InnerBorderColor = System.Drawing.SystemColors.Window;
-            this.xPanderPanel1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel1.Image = null;
-            this.xPanderPanel1.Name = "xPanderPanel1";
-            this.xPanderPanel1.PanelStyle = BSE.Windows.Forms.PanelStyle.Office2007;
-            this.xPanderPanel1.Size = new System.Drawing.Size(297, 25);
-            this.xPanderPanel1.TabIndex = 13;
-            this.xPanderPanel1.Text = "数据接收设置";
-            this.xPanderPanel1.ToolTipTextCloseIcon = null;
-            this.xPanderPanel1.ToolTipTextExpandIconPanelCollapsed = null;
-            this.xPanderPanel1.ToolTipTextExpandIconPanelExpanded = null;
+            this.xPanderPanel_data_recv.CaptionFont = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
+            this.xPanderPanel_data_recv.Controls.Add(this.label34);
+            this.xPanderPanel_data_recv.Controls.Add(this.lb_adb_parse_count);
+            this.xPanderPanel_data_recv.Controls.Add(this.label36);
+            this.xPanderPanel_data_recv.Controls.Add(this.btn_adb_clean);
+            this.xPanderPanel_data_recv.Controls.Add(this.btnOpenAdb);
+            this.xPanderPanel_data_recv.Controls.Add(this.lb_adb_recv_count);
+            this.xPanderPanel_data_recv.Controls.Add(this.label22);
+            this.xPanderPanel_data_recv.Controls.Add(this.lb_parse_count);
+            this.xPanderPanel_data_recv.Controls.Add(this.cb_serial_CoordType);
+            this.xPanderPanel_data_recv.Controls.Add(this.label21);
+            this.xPanderPanel_data_recv.Controls.Add(this.label20);
+            this.xPanderPanel_data_recv.Controls.Add(this.btn_clean);
+            this.xPanderPanel_data_recv.Controls.Add(this.btnOpenCom);
+            this.xPanderPanel_data_recv.Controls.Add(this.btnCheckCOM);
+            this.xPanderPanel_data_recv.Controls.Add(this.lb_recv_count);
+            this.xPanderPanel_data_recv.Controls.Add(this.cbxDataBits);
+            this.xPanderPanel_data_recv.Controls.Add(this.label19);
+            this.xPanderPanel_data_recv.Controls.Add(this.cbxStopBits);
+            this.xPanderPanel_data_recv.Controls.Add(this.cbxParitv);
+            this.xPanderPanel_data_recv.Controls.Add(this.label17);
+            this.xPanderPanel_data_recv.Controls.Add(this.label18);
+            this.xPanderPanel_data_recv.Controls.Add(this.cbxBaudRate);
+            this.xPanderPanel_data_recv.Controls.Add(this.cbxCOMPort);
+            this.xPanderPanel_data_recv.Controls.Add(this.label15);
+            this.xPanderPanel_data_recv.Controls.Add(this.label16);
+            this.xPanderPanel_data_recv.CustomColors.BackColor = System.Drawing.SystemColors.Control;
+            this.xPanderPanel_data_recv.CustomColors.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(184)))), ((int)(((byte)(184)))));
+            this.xPanderPanel_data_recv.CustomColors.CaptionCheckedGradientBegin = System.Drawing.Color.Empty;
+            this.xPanderPanel_data_recv.CustomColors.CaptionCheckedGradientEnd = System.Drawing.Color.Empty;
+            this.xPanderPanel_data_recv.CustomColors.CaptionCheckedGradientMiddle = System.Drawing.Color.Empty;
+            this.xPanderPanel_data_recv.CustomColors.CaptionCloseIcon = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_data_recv.CustomColors.CaptionExpandIcon = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_data_recv.CustomColors.CaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.xPanderPanel_data_recv.CustomColors.CaptionGradientEnd = System.Drawing.SystemColors.ButtonFace;
+            this.xPanderPanel_data_recv.CustomColors.CaptionGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
+            this.xPanderPanel_data_recv.CustomColors.CaptionPressedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_data_recv.CustomColors.CaptionPressedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_data_recv.CustomColors.CaptionPressedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_data_recv.CustomColors.CaptionSelectedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_data_recv.CustomColors.CaptionSelectedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_data_recv.CustomColors.CaptionSelectedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_data_recv.CustomColors.CaptionSelectedText = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_data_recv.CustomColors.CaptionText = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_data_recv.CustomColors.FlatCaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
+            this.xPanderPanel_data_recv.CustomColors.FlatCaptionGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.xPanderPanel_data_recv.CustomColors.InnerBorderColor = System.Drawing.SystemColors.Window;
+            this.xPanderPanel_data_recv.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_data_recv.Image = null;
+            this.xPanderPanel_data_recv.Name = "xPanderPanel_data_recv";
+            this.xPanderPanel_data_recv.PanelStyle = BSE.Windows.Forms.PanelStyle.Office2007;
+            this.xPanderPanel_data_recv.Size = new System.Drawing.Size(297, 25);
+            this.xPanderPanel_data_recv.TabIndex = 13;
+            this.xPanderPanel_data_recv.Text = "数据接收/发送设置";
+            this.xPanderPanel_data_recv.ToolTipTextCloseIcon = null;
+            this.xPanderPanel_data_recv.ToolTipTextExpandIconPanelCollapsed = null;
+            this.xPanderPanel_data_recv.ToolTipTextExpandIconPanelExpanded = null;
             // 
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(143, 218);
+            this.label34.Location = new System.Drawing.Point(143, 207);
             this.label34.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(41, 12);
@@ -2782,7 +2839,7 @@
             // 
             // lb_adb_parse_count
             // 
-            this.lb_adb_parse_count.Location = new System.Drawing.Point(187, 216);
+            this.lb_adb_parse_count.Location = new System.Drawing.Point(187, 205);
             this.lb_adb_parse_count.Name = "lb_adb_parse_count";
             this.lb_adb_parse_count.Size = new System.Drawing.Size(75, 17);
             this.lb_adb_parse_count.TabIndex = 39;
@@ -2792,7 +2849,7 @@
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(11, 217);
+            this.label36.Location = new System.Drawing.Point(11, 206);
             this.label36.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(41, 12);
@@ -2801,7 +2858,7 @@
             // 
             // btn_adb_clean
             // 
-            this.btn_adb_clean.Location = new System.Drawing.Point(197, 243);
+            this.btn_adb_clean.Location = new System.Drawing.Point(197, 232);
             this.btn_adb_clean.Margin = new System.Windows.Forms.Padding(2);
             this.btn_adb_clean.Name = "btn_adb_clean";
             this.btn_adb_clean.Size = new System.Drawing.Size(64, 22);
@@ -2812,7 +2869,7 @@
             // 
             // btnOpenAdb
             // 
-            this.btnOpenAdb.Location = new System.Drawing.Point(105, 243);
+            this.btnOpenAdb.Location = new System.Drawing.Point(105, 232);
             this.btnOpenAdb.Margin = new System.Windows.Forms.Padding(2);
             this.btnOpenAdb.Name = "btnOpenAdb";
             this.btnOpenAdb.Size = new System.Drawing.Size(64, 22);
@@ -2823,7 +2880,7 @@
             // 
             // lb_adb_recv_count
             // 
-            this.lb_adb_recv_count.Location = new System.Drawing.Point(55, 215);
+            this.lb_adb_recv_count.Location = new System.Drawing.Point(55, 204);
             this.lb_adb_recv_count.Name = "lb_adb_recv_count";
             this.lb_adb_recv_count.Size = new System.Drawing.Size(75, 17);
             this.lb_adb_recv_count.TabIndex = 34;
@@ -3106,42 +3163,42 @@
             this.label16.TabIndex = 15;
             this.label16.Text = "波特率";
             // 
-            // xPanderPanel7
+            // xPanderPanel_match_test
             // 
-            this.xPanderPanel7.CaptionFont = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
-            this.xPanderPanel7.Controls.Add(this.groupBox10);
-            this.xPanderPanel7.Controls.Add(this.groupBox7);
-            this.xPanderPanel7.CustomColors.BackColor = System.Drawing.SystemColors.Control;
-            this.xPanderPanel7.CustomColors.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(184)))), ((int)(((byte)(184)))));
-            this.xPanderPanel7.CustomColors.CaptionCheckedGradientBegin = System.Drawing.Color.Empty;
-            this.xPanderPanel7.CustomColors.CaptionCheckedGradientEnd = System.Drawing.Color.Empty;
-            this.xPanderPanel7.CustomColors.CaptionCheckedGradientMiddle = System.Drawing.Color.Empty;
-            this.xPanderPanel7.CustomColors.CaptionCloseIcon = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel7.CustomColors.CaptionExpandIcon = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel7.CustomColors.CaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.xPanderPanel7.CustomColors.CaptionGradientEnd = System.Drawing.SystemColors.ButtonFace;
-            this.xPanderPanel7.CustomColors.CaptionGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-            this.xPanderPanel7.CustomColors.CaptionPressedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel7.CustomColors.CaptionPressedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel7.CustomColors.CaptionPressedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.xPanderPanel7.CustomColors.CaptionSelectedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel7.CustomColors.CaptionSelectedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel7.CustomColors.CaptionSelectedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            this.xPanderPanel7.CustomColors.CaptionSelectedText = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel7.CustomColors.CaptionText = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel7.CustomColors.FlatCaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-            this.xPanderPanel7.CustomColors.FlatCaptionGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.xPanderPanel7.CustomColors.InnerBorderColor = System.Drawing.SystemColors.Window;
-            this.xPanderPanel7.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.xPanderPanel7.Image = null;
-            this.xPanderPanel7.Name = "xPanderPanel7";
-            this.xPanderPanel7.PanelStyle = BSE.Windows.Forms.PanelStyle.Office2007;
-            this.xPanderPanel7.Size = new System.Drawing.Size(297, 25);
-            this.xPanderPanel7.TabIndex = 14;
-            this.xPanderPanel7.Text = "匹配测试";
-            this.xPanderPanel7.ToolTipTextCloseIcon = null;
-            this.xPanderPanel7.ToolTipTextExpandIconPanelCollapsed = null;
-            this.xPanderPanel7.ToolTipTextExpandIconPanelExpanded = null;
+            this.xPanderPanel_match_test.CaptionFont = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
+            this.xPanderPanel_match_test.Controls.Add(this.groupBox10);
+            this.xPanderPanel_match_test.Controls.Add(this.groupBox7);
+            this.xPanderPanel_match_test.CustomColors.BackColor = System.Drawing.SystemColors.Control;
+            this.xPanderPanel_match_test.CustomColors.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(184)))), ((int)(((byte)(184)))));
+            this.xPanderPanel_match_test.CustomColors.CaptionCheckedGradientBegin = System.Drawing.Color.Empty;
+            this.xPanderPanel_match_test.CustomColors.CaptionCheckedGradientEnd = System.Drawing.Color.Empty;
+            this.xPanderPanel_match_test.CustomColors.CaptionCheckedGradientMiddle = System.Drawing.Color.Empty;
+            this.xPanderPanel_match_test.CustomColors.CaptionCloseIcon = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_match_test.CustomColors.CaptionExpandIcon = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_match_test.CustomColors.CaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.xPanderPanel_match_test.CustomColors.CaptionGradientEnd = System.Drawing.SystemColors.ButtonFace;
+            this.xPanderPanel_match_test.CustomColors.CaptionGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
+            this.xPanderPanel_match_test.CustomColors.CaptionPressedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_match_test.CustomColors.CaptionPressedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_match_test.CustomColors.CaptionPressedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_match_test.CustomColors.CaptionSelectedGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_match_test.CustomColors.CaptionSelectedGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_match_test.CustomColors.CaptionSelectedGradientMiddle = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            this.xPanderPanel_match_test.CustomColors.CaptionSelectedText = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_match_test.CustomColors.CaptionText = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_match_test.CustomColors.FlatCaptionGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
+            this.xPanderPanel_match_test.CustomColors.FlatCaptionGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.xPanderPanel_match_test.CustomColors.InnerBorderColor = System.Drawing.SystemColors.Window;
+            this.xPanderPanel_match_test.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.xPanderPanel_match_test.Image = null;
+            this.xPanderPanel_match_test.Name = "xPanderPanel_match_test";
+            this.xPanderPanel_match_test.PanelStyle = BSE.Windows.Forms.PanelStyle.Office2007;
+            this.xPanderPanel_match_test.Size = new System.Drawing.Size(297, 25);
+            this.xPanderPanel_match_test.TabIndex = 14;
+            this.xPanderPanel_match_test.Text = "匹配测试";
+            this.xPanderPanel_match_test.ToolTipTextCloseIcon = null;
+            this.xPanderPanel_match_test.ToolTipTextExpandIconPanelCollapsed = null;
+            this.xPanderPanel_match_test.ToolTipTextExpandIconPanelExpanded = null;
             // 
             // groupBox10
             // 
@@ -3427,7 +3484,7 @@
             "WGS84",
             "GCJ02",
             "BD09"});
-            this.cb_coord_view_type.Location = new System.Drawing.Point(1026, 3);
+            this.cb_coord_view_type.Location = new System.Drawing.Point(1041, 3);
             this.cb_coord_view_type.Name = "cb_coord_view_type";
             this.cb_coord_view_type.Size = new System.Drawing.Size(60, 20);
             this.cb_coord_view_type.TabIndex = 19;
@@ -3435,7 +3492,7 @@
             // tb_coord_view_text
             // 
             this.tb_coord_view_text.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tb_coord_view_text.Location = new System.Drawing.Point(846, 3);
+            this.tb_coord_view_text.Location = new System.Drawing.Point(861, 3);
             this.tb_coord_view_text.Name = "tb_coord_view_text";
             this.tb_coord_view_text.Size = new System.Drawing.Size(179, 21);
             this.tb_coord_view_text.TabIndex = 20;
@@ -3443,7 +3500,7 @@
             // btn_coord_view_add
             // 
             this.btn_coord_view_add.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_coord_view_add.Location = new System.Drawing.Point(1088, 1);
+            this.btn_coord_view_add.Location = new System.Drawing.Point(1103, 1);
             this.btn_coord_view_add.Name = "btn_coord_view_add";
             this.btn_coord_view_add.Size = new System.Drawing.Size(45, 23);
             this.btn_coord_view_add.TabIndex = 21;
@@ -3454,7 +3511,7 @@
             // btn_coord_view_clean
             // 
             this.btn_coord_view_clean.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_coord_view_clean.Location = new System.Drawing.Point(1135, 1);
+            this.btn_coord_view_clean.Location = new System.Drawing.Point(1150, 1);
             this.btn_coord_view_clean.Name = "btn_coord_view_clean";
             this.btn_coord_view_clean.Size = new System.Drawing.Size(45, 23);
             this.btn_coord_view_clean.TabIndex = 22;
@@ -3476,17 +3533,6 @@
             this.删除当前MarkerToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.删除当前MarkerToolStripMenuItem.Text = "删除当前Marker";
             this.删除当前MarkerToolStripMenuItem.Click += new System.EventHandler(this.删除当前MarkerToolStripMenuItem_Click);
-            // 
-            // buttonOneStep
-            // 
-            this.buttonOneStep.Location = new System.Drawing.Point(206, 28);
-            this.buttonOneStep.Name = "buttonOneStep";
-            this.buttonOneStep.Size = new System.Drawing.Size(44, 23);
-            this.buttonOneStep.TabIndex = 21;
-            this.buttonOneStep.Tag = "";
-            this.buttonOneStep.Text = "Step";
-            this.buttonOneStep.UseVisualStyleBackColor = true;
-            this.buttonOneStep.Click += new System.EventHandler(this.buttonOneStep_Click);
             // 
             // mapControl
             // 
@@ -3511,7 +3557,7 @@
             this.mapControl.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.mapControl.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.mapControl.ShowTileGridLines = false;
-            this.mapControl.Size = new System.Drawing.Size(882, 589);
+            this.mapControl.Size = new System.Drawing.Size(897, 589);
             this.mapControl.TabIndex = 6;
             this.mapControl.Zoom = 0D;
             // 
@@ -3530,7 +3576,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 730);
+            this.ClientSize = new System.Drawing.Size(1199, 730);
             this.Controls.Add(this.btn_coord_view_clean);
             this.Controls.Add(this.btn_coord_view_add);
             this.Controls.Add(this.tb_coord_view_text);
@@ -3564,9 +3610,9 @@
             this.xPanderPanelList1.ResumeLayout(false);
             this.xPanderPanel_coord_pickup.ResumeLayout(false);
             this.xPanderPanel_coord_pickup.PerformLayout();
-            this.xPanderPanel2.ResumeLayout(false);
-            this.xPanderPanel2.PerformLayout();
-            this.xPanderPanel3.ResumeLayout(false);
+            this.xPanderPanel_query.ResumeLayout(false);
+            this.xPanderPanel_query.PerformLayout();
+            this.xPanderPanel_download.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.groupBox8.ResumeLayout(false);
@@ -3574,7 +3620,7 @@
             this.gbMapImage.ResumeLayout(false);
             this.gbMapImage.PerformLayout();
             this.xPanderPanelChinaRegion.ResumeLayout(false);
-            this.xPanderPanel4.ResumeLayout(false);
+            this.xPanderPanel_overlay.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -3582,14 +3628,14 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
-            this.xPanderPanel5.ResumeLayout(false);
-            this.xPanderPanel5.PerformLayout();
-            this.xPanderPanel6.ResumeLayout(false);
+            this.xPanderPanel_navi_route.ResumeLayout(false);
+            this.xPanderPanel_navi_route.PerformLayout();
+            this.xPanderPanel_gps_load.ResumeLayout(false);
             this.xPanderPanelTerminalMap.ResumeLayout(false);
             this.xPanderPanelTerminalMap.PerformLayout();
-            this.xPanderPanel1.ResumeLayout(false);
-            this.xPanderPanel1.PerformLayout();
-            this.xPanderPanel7.ResumeLayout(false);
+            this.xPanderPanel_data_recv.ResumeLayout(false);
+            this.xPanderPanel_data_recv.PerformLayout();
+            this.xPanderPanel_match_test.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.groupBox7.ResumeLayout(false);
@@ -3606,11 +3652,11 @@
 
         private BSE.Windows.Forms.Panel panelMenu;
         private BSE.Windows.Forms.XPanderPanelList xPanderPanelList1;
-        private System.Windows.Forms.ToolStripMenuItem 地图操作ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 地图选择ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 高德地图ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 腾讯地图ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 百度地图ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 地图操作ToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem 地图操作ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 地图截屏ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 保存缓存ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 读取缓存ToolStripMenuItem;
@@ -3668,8 +3714,8 @@
         private System.Windows.Forms.ToolStripMenuItem 地图测距ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 设置ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 代理设置ToolStripMenuItem;
-        private BSE.Windows.Forms.XPanderPanel xPanderPanel2;
-        private BSE.Windows.Forms.XPanderPanel xPanderPanel3;
+        private BSE.Windows.Forms.XPanderPanel xPanderPanel_query;
+        private BSE.Windows.Forms.XPanderPanel xPanderPanel_download;
         private System.Windows.Forms.Button buttonPoiSave;
         private System.Windows.Forms.Button buttonPOISearch;
         private System.Windows.Forms.ComboBox comboBoxPoiSave;
@@ -3709,7 +3755,7 @@
         private System.Windows.Forms.ToolStripMenuItem 清除区域ToolStripMenuItem;
         private BSE.Windows.Forms.XPanderPanel xPanderPanelChinaRegion;
         private System.Windows.Forms.TreeView advTreeChina;
-        private BSE.Windows.Forms.XPanderPanel xPanderPanel4;
+        private BSE.Windows.Forms.XPanderPanel xPanderPanel_overlay;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button buttonStopBlink;
         private System.Windows.Forms.Button buttonBeginBlink;
@@ -3724,7 +3770,7 @@
         private System.Windows.Forms.Button buttonCircle;
         private System.Windows.Forms.Button buttonRectangle;
         private System.Windows.Forms.Button buttonPolygon;
-        private BSE.Windows.Forms.XPanderPanel xPanderPanel5;
+        private BSE.Windows.Forms.XPanderPanel xPanderPanel_navi_route;
         private System.Windows.Forms.Button buttonCleanRoute;
         private System.Windows.Forms.Button buttonNaviGetRoute;
         private System.Windows.Forms.TextBox textBoxNaviEndPoint;
@@ -3739,7 +3785,7 @@
         private System.Windows.Forms.RadioButton rbGMapGifMarker;
         private System.Windows.Forms.RadioButton rbGMapFlashMarker;
         private System.Windows.Forms.RadioButton rbGMarkerGoogle;
-        private BSE.Windows.Forms.XPanderPanel xPanderPanel6;
+        private BSE.Windows.Forms.XPanderPanel xPanderPanel_gps_load;
         private BSE.Windows.Forms.XPanderPanel xPanderPanelTerminalMap;
         private System.Windows.Forms.Button buttonLoadMapFile;
         private System.Windows.Forms.Button buttonDelectMapFile;
@@ -3761,7 +3807,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgv_Longitude;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgv_Latitude;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgv_Direction;
-        private BSE.Windows.Forms.XPanderPanel xPanderPanel1;
+        private BSE.Windows.Forms.XPanderPanel xPanderPanel_data_recv;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Button btn_clean;
         private System.Windows.Forms.Button btnOpenCom;
@@ -3805,7 +3851,7 @@
         private System.Windows.Forms.TextBox tb_end_idx;
         private System.Windows.Forms.TextBox tb_start_idx;
         private System.Windows.Forms.CheckBox checkBoxRepeat;
-        private BSE.Windows.Forms.XPanderPanel xPanderPanel7;
+        private BSE.Windows.Forms.XPanderPanel xPanderPanel_match_test;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.Label lb_mt_recv_num;
         private System.Windows.Forms.Button btn_mt_clean;
@@ -3884,6 +3930,10 @@
         private System.Windows.Forms.ComboBox cb_terminal_map_coord_type;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Button buttonOneStep;
+        private System.Windows.Forms.ToolStripMenuItem OSM地图ToolStripMenuItem_search;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.ComboBox cb_communicate_mode;
+        private System.Windows.Forms.Label lb_gps_progress;
     }
 }
 

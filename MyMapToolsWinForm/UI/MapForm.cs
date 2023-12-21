@@ -32,6 +32,7 @@ using GMapProvidersExt;
 using GMapProvidersExt.Tencent;
 using GMapProvidersExt.AMap;
 using GMapProvidersExt.Baidu;
+using GMapProvidersExt.OSM;
 using GMapExport;
 using GMapHeat;
 using GMapDownload;
@@ -131,6 +132,23 @@ namespace MapToolsWinForm
         /// </summary>
         private void InitUI()
         {
+            //hiddenMode = Properties.Settings.Default.Setting_hidden_mode;
+            //if (hiddenMode)
+            //{
+            //    xPanderPanel_coord_pickup.Visible = false;
+            //    xPanderPanel_query.Visible = false;
+            //    xPanderPanel_download.Visible = false;
+            //    xPanderPanelChinaRegion.Visible = false;
+            //    xPanderPanel_overlay.Visible = false;
+            //    xPanderPanel_navi_route.Visible = false;
+            //    xPanderPanel_match_test.Visible = false;
+            //    搜索引擎ToolStripMenuItem.Visible = false;
+            //    地图操作ToolStripMenuItem.Visible = false;
+            //    地图访问ToolStripMenuItem.Visible = false;
+            //    设置ToolStripMenuItem.Visible = false;
+            //    帮助ToolStripMenuItem.Visible = false;
+            //}
+
             this.Text += " V" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             ShowDownloadTip(false);
             this.toolStripStatusPOIDownload.Visible = false;
@@ -143,24 +161,35 @@ namespace MapToolsWinForm
                 this.高德地图ToolStripMenuItem_search.Checked = true;
                 this.百度地图ToolStripMenuItem_search.Checked = false;
                 this.腾讯地图ToolStripMenuItem_search.Checked = false;
+                this.OSM地图ToolStripMenuItem_search.Checked = false;
             }
             else if (slt_search_engine == 1)
             {
                 this.高德地图ToolStripMenuItem_search.Checked = false;
                 this.百度地图ToolStripMenuItem_search.Checked = true;
                 this.腾讯地图ToolStripMenuItem_search.Checked = false;
+                this.OSM地图ToolStripMenuItem_search.Checked = false;
             }
             else if (slt_search_engine == 2)
             {
                 this.高德地图ToolStripMenuItem_search.Checked = false;
                 this.百度地图ToolStripMenuItem_search.Checked = false;
                 this.腾讯地图ToolStripMenuItem_search.Checked = true;
+                this.OSM地图ToolStripMenuItem_search.Checked = false;
+            }
+            else if (slt_search_engine == 3)
+            {
+                this.高德地图ToolStripMenuItem_search.Checked = false;
+                this.百度地图ToolStripMenuItem_search.Checked = false;
+                this.腾讯地图ToolStripMenuItem_search.Checked = false;
+                this.OSM地图ToolStripMenuItem_search.Checked = true;
             }
             else
             {
                 this.高德地图ToolStripMenuItem_search.Checked = true;
                 this.百度地图ToolStripMenuItem_search.Checked = false;
                 this.腾讯地图ToolStripMenuItem_search.Checked = false;
+                this.OSM地图ToolStripMenuItem_search.Checked = false;
             }
 
             TerminalMapLib.TerminalMapTool.Chack(Properties.Settings.Default.Setting_key_word);
@@ -197,6 +226,8 @@ namespace MapToolsWinForm
             curMapProviderInfoArray = MapProviderSet.AMapProviderArray;
             curMapProviderInfoIdx = 0;
             RefreshMapLayer();
+            CleanMapToolStripMenuItemChecked();
+            高德地图ToolStripMenuItem.Checked = true;
 
             # region Map Providers test
             //mapControl.MapProvider = GMapProviders.ArcGIS_DarbAE_Q2_2011_NAVTQ_Eng_V5_Map;//NO
@@ -324,6 +355,27 @@ namespace MapToolsWinForm
 
             this.checkBoxFollow.CheckedChanged += new EventHandler(checkBoxFollow_CheckedChanged);
             this.treeViewTerminalMap.NodeMouseClick += new TreeNodeMouseClickEventHandler(treeViewTerminalMap_NodeMouseClick);
+
+            // 初始化测试数据加载配置
+            int terminal_map_coord_type_idx = Properties.Settings.Default.Setting_terminal_map_coord_type_idx;
+            if (terminal_map_coord_type_idx >= 0 && terminal_map_coord_type_idx <= 1)
+            {
+                cb_terminal_map_coord_type.SelectedIndex = terminal_map_coord_type_idx;
+            }
+            else
+            {
+                cb_terminal_map_coord_type.SelectedIndex = 0;
+            }
+            int terminal_map_encoding_idx = Properties.Settings.Default.Setting_terminal_map_encoding_idx;
+            if (terminal_map_encoding_idx >= 0 && terminal_map_encoding_idx <= 1)
+            {
+                cb_terminal_map_encoding.SelectedIndex = terminal_map_encoding_idx;
+            }
+            else
+            {
+                cb_terminal_map_encoding.SelectedIndex = 0;
+            }
+
         }
 
         private void MapForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -409,7 +461,7 @@ namespace MapToolsWinForm
         {
             // 搜索地图中心位置
             long dif_time = CalculateUtils.CurrentTimeMillis() - lastChangedTime;
-            if (lastChangedPostion == PointLatLng.Empty || (dif_time > 1000 && CalculateUtils.getDistance(point.Lng, point.Lat, lastChangedPostion.Lng, lastChangedPostion.Lat) > 1000))
+            if (lastChangedPostion == PointLatLng.Empty || (!isCenterPositionWorking && dif_time > 1000 && CalculateUtils.getDistance(point.Lng, point.Lat, lastChangedPostion.Lng, lastChangedPostion.Lat) > 1000))
             {
                 BackgroundWorker centerPositionWorker = new BackgroundWorker();
                 centerPositionWorker.DoWork += new DoWorkEventHandler(centerPositionWorker_DoWork);
@@ -672,6 +724,7 @@ namespace MapToolsWinForm
         #region 地图中心
 
         private string currentCenterCityName = "";
+        private bool isCenterPositionWorking = false;
 
         /// <summary>
         /// 刷新比例尺
@@ -693,6 +746,7 @@ namespace MapToolsWinForm
 
         void centerPositionWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            isCenterPositionWorking = false;
             try
             {
                 Placemark place = (Placemark)e.Result;
@@ -712,9 +766,8 @@ namespace MapToolsWinForm
 
         void centerPositionWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            isCenterPositionWorking = true;
             PointLatLng p = (PointLatLng)e.Argument;
-            //Placemark centerPosPlace = SoSoMapProvider.Instance.GetCenterNameByLocation(p);
-            //Placemark centerPosPlace = GMapProvidersExt.AMap.AMapProvider.Instance.GetCenterNameByLocation(p);
             Placemark? centerPosPlace;
             PointInDiffCoord coord = new PointInDiffCoord(p);
             if (高德地图ToolStripMenuItem_search.Checked)
@@ -728,6 +781,10 @@ namespace MapToolsWinForm
             else if (腾讯地图ToolStripMenuItem_search.Checked)
             {
                 centerPosPlace = TencentMapProvider.Instance.GetCenterNameByLocation(coord.GCJ02);
+            }
+            else if (OSM地图ToolStripMenuItem_search.Checked)
+            {
+                centerPosPlace = OsmMapProvider.Instance.GetCenterNameByLocation(coord.WGS84);
             }
             else
             {
@@ -775,6 +832,21 @@ namespace MapToolsWinForm
 
         }
 
+        private void CleanMapToolStripMenuItemChecked()
+        {
+            高德地图ToolStripMenuItem.Checked = false;
+            百度地图ToolStripMenuItem.Checked = false;
+            腾讯地图ToolStripMenuItem.Checked = false;
+            arcGISMapToolStripMenuItem.Checked = false;
+            bingToolStripMenuItem.Checked = false;
+            天地图福建ToolStripMenuItem.Checked = false;
+            czechToolStripMenuItem.Checked = false;
+            openCycleToolStripMenuItem.Checked = false;
+            googleToolStripMenuItem.Checked = false;
+            oSMToolStripMenuItem.Checked = false;
+            otherToolStripMenuItem.Checked = false;
+        }
+
         private void 高德地图ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (curMapProviderInfoArray[curMapProviderInfoIdx] == null || curMapProviderInfoArray[curMapProviderInfoIdx].MapProviderType != MapProviderType.AMap)
@@ -782,6 +854,8 @@ namespace MapToolsWinForm
                 curMapProviderInfoArray = MapProviderSet.AMapProviderArray;
                 curMapProviderInfoIdx = 0;
                 RefreshMapLayer();
+                CleanMapToolStripMenuItemChecked();
+                高德地图ToolStripMenuItem.Checked = true;
             }
         }
 
@@ -792,6 +866,8 @@ namespace MapToolsWinForm
                 curMapProviderInfoArray = MapProviderSet.BaiduProviderArray;
                 curMapProviderInfoIdx = 0;
                 RefreshMapLayer();
+                CleanMapToolStripMenuItemChecked();
+                百度地图ToolStripMenuItem.Checked = true;
             }
         }
 
@@ -802,6 +878,8 @@ namespace MapToolsWinForm
                 curMapProviderInfoArray = MapProviderSet.TencentProviderArray;
                 curMapProviderInfoIdx = 0;
                 RefreshMapLayer();
+                CleanMapToolStripMenuItemChecked();
+                腾讯地图ToolStripMenuItem.Checked = true;
             }
         }
 
@@ -812,6 +890,8 @@ namespace MapToolsWinForm
                 curMapProviderInfoArray = MapProviderSet.ArcGISProviderArray;
                 curMapProviderInfoIdx = 0;
                 RefreshMapLayer();
+                CleanMapToolStripMenuItemChecked();
+                arcGISMapToolStripMenuItem.Checked = true;
             }
         }
 
@@ -822,6 +902,8 @@ namespace MapToolsWinForm
                 curMapProviderInfoArray = MapProviderSet.BingProviderArray;
                 curMapProviderInfoIdx = 0;
                 RefreshMapLayer();
+                CleanMapToolStripMenuItemChecked();
+                bingToolStripMenuItem.Checked = true;
             }
         }
 
@@ -832,6 +914,8 @@ namespace MapToolsWinForm
                 curMapProviderInfoArray = MapProviderSet.Tianditu_FJProviderArray;
                 curMapProviderInfoIdx = 0;
                 RefreshMapLayer();
+                CleanMapToolStripMenuItemChecked();
+                天地图福建ToolStripMenuItem.Checked = true;
             }
         }
 
@@ -842,6 +926,8 @@ namespace MapToolsWinForm
                 curMapProviderInfoArray = MapProviderSet.CzechProviderArray;
                 curMapProviderInfoIdx = 0;
                 RefreshMapLayer();
+                CleanMapToolStripMenuItemChecked();
+                czechToolStripMenuItem.Checked = true;
             }
         }
 
@@ -852,6 +938,8 @@ namespace MapToolsWinForm
                 curMapProviderInfoArray = MapProviderSet.OpenCycleProviderArray;
                 curMapProviderInfoIdx = 0;
                 RefreshMapLayer();
+                CleanMapToolStripMenuItemChecked();
+                openCycleToolStripMenuItem.Checked = true;
             }
         }
 
@@ -862,6 +950,9 @@ namespace MapToolsWinForm
                 curMapProviderInfoArray = MapProviderSet.GoogleProviderArray;
                 curMapProviderInfoIdx = 0;
                 RefreshMapLayer();
+                CleanMapToolStripMenuItemChecked();
+                googleToolStripMenuItem.Checked = true;
+                MyMessageBox.ShowTipMessage("注意：访问谷歌地图需求科学上网全局模式！");
             }
         }
 
@@ -872,6 +963,8 @@ namespace MapToolsWinForm
                 curMapProviderInfoArray = MapProviderSet.OSMProviderArray;
                 curMapProviderInfoIdx = 0;
                 RefreshMapLayer();
+                CleanMapToolStripMenuItemChecked();
+                oSMToolStripMenuItem.Checked = true;
             }
         }
 
@@ -882,6 +975,8 @@ namespace MapToolsWinForm
                 curMapProviderInfoArray = MapProviderSet.OtherProviderArray;
                 curMapProviderInfoIdx = 0;
                 RefreshMapLayer();
+                CleanMapToolStripMenuItemChecked();
+                otherToolStripMenuItem.Checked = true;
             }
         }
 
@@ -1163,6 +1258,10 @@ namespace MapToolsWinForm
             {
                 place = TencentMapProvider.Instance.GetPlacemark(coord.GCJ02, out statusCode);
             }
+            else if (OSM地图ToolStripMenuItem_search.Checked)
+            {
+                place = OsmMapProvider.Instance.GetPlacemark(coord.WGS84, out statusCode);
+            }
             else
             {
                 place = AMapProvider.Instance.GetPlacemark(coord.GCJ02, out statusCode);
@@ -1210,6 +1309,11 @@ namespace MapToolsWinForm
             {
                 statusCode = TencentMapProvider.Instance.GetPoints(placemark, out searchResult);
                 coodType = CoordType.GCJ02;
+            }
+            else if (OSM地图ToolStripMenuItem_search.Checked)
+            {
+                statusCode = OsmMapProvider.Instance.GetPoints(searchStr, out searchResult);
+                coodType = CoordType.WGS84;
             }
             else
             {
@@ -1406,6 +1510,7 @@ namespace MapToolsWinForm
             this.高德地图ToolStripMenuItem_search.Checked = true;
             this.百度地图ToolStripMenuItem_search.Checked = false;
             this.腾讯地图ToolStripMenuItem_search.Checked = false;
+            this.OSM地图ToolStripMenuItem_search.Checked = false;
             Properties.Settings.Default.Setting_slt_search_engine = 0;
             Properties.Settings.Default.Save();
         }
@@ -1415,6 +1520,7 @@ namespace MapToolsWinForm
             this.高德地图ToolStripMenuItem_search.Checked = false;
             this.百度地图ToolStripMenuItem_search.Checked = true;
             this.腾讯地图ToolStripMenuItem_search.Checked = false;
+            this.OSM地图ToolStripMenuItem_search.Checked = false;
             Properties.Settings.Default.Setting_slt_search_engine = 1;
             Properties.Settings.Default.Save();
         }
@@ -1424,8 +1530,20 @@ namespace MapToolsWinForm
             this.高德地图ToolStripMenuItem_search.Checked = false;
             this.百度地图ToolStripMenuItem_search.Checked = false;
             this.腾讯地图ToolStripMenuItem_search.Checked = true;
+            this.OSM地图ToolStripMenuItem_search.Checked = false;
             Properties.Settings.Default.Setting_slt_search_engine = 2;
             Properties.Settings.Default.Save();
+        }
+
+        private void OSM地图ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.高德地图ToolStripMenuItem_search.Checked = false;
+            this.百度地图ToolStripMenuItem_search.Checked = false;
+            this.腾讯地图ToolStripMenuItem_search.Checked = false;
+            this.OSM地图ToolStripMenuItem_search.Checked = true;
+            Properties.Settings.Default.Setting_slt_search_engine = 3;
+            Properties.Settings.Default.Save();
+            MyMessageBox.ShowTipMessage("注意：使用OSM搜索需求科学上网全局模式！");
         }
 
 
@@ -1589,6 +1707,11 @@ namespace MapToolsWinForm
             else if (腾讯地图ToolStripMenuItem_search.Checked)
             {
                 selectMapIndex = 2;
+            }
+            else if (OSM地图ToolStripMenuItem_search.Checked)
+            {
+                MyMessageBox.ShowErrorMessage("OSM地图暂不支持POI查询");
+                return;
             }
             else
             {
@@ -2256,7 +2379,6 @@ namespace MapToolsWinForm
         {
             PointLatLng p = this.mapControl.FromLocalToLatLng((int)leftClickPoint.X, (int)leftClickPoint.Y);
             GeoCoderStatusCode statusCode;
-            //Placemark? place = AMapProvider.Instance.GetPlacemark(p, out statusCode);
             Placemark? place;
             PointInDiffCoord coord = new PointInDiffCoord(p);
             if (高德地图ToolStripMenuItem_search.Checked)
@@ -2270,6 +2392,10 @@ namespace MapToolsWinForm
             else if (腾讯地图ToolStripMenuItem_search.Checked)
             {
                 place = TencentMapProvider.Instance.GetPlacemark(coord.GCJ02, out statusCode);
+            }
+            else if (OSM地图ToolStripMenuItem_search.Checked)
+            {
+                place = OsmMapProvider.Instance.GetPlacemark(coord.WGS84, out statusCode);
             }
             else
             {
@@ -2287,13 +2413,24 @@ namespace MapToolsWinForm
                 this.routeOverlay.Markers.Add(routeStartMarker);
                 textBoxNaviStartPoint.Text = place.Value.Address;
             }
+            else
+            {
+                p.Type = curMapProviderInfoArray[curMapProviderInfoIdx].CoordType;
+                routeStartPoint = p;
+                if (this.routeOverlay.Markers.Contains(routeStartMarker))
+                {
+                    this.routeOverlay.Markers.Remove(routeStartMarker);
+                }
+                routeStartMarker = new GMapImageMarker(routeStartPoint, Properties.Resources.MapMarker_Bubble_Chartreuse);
+                this.routeOverlay.Markers.Add(routeStartMarker);
+                textBoxNaviStartPoint.Text = p.Lng + ";" + p.Lat;
+            }
         }
 
         private void 添加途径点ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PointLatLng p = this.mapControl.FromLocalToLatLng((int)leftClickPoint.X, (int)leftClickPoint.Y);
             GeoCoderStatusCode statusCode;
-            //Placemark? place = AMapProvider.Instance.GetPlacemark(p, out statusCode);
             Placemark? place;
             PointInDiffCoord coord = new PointInDiffCoord(p);
             if (高德地图ToolStripMenuItem_search.Checked)
@@ -2307,6 +2444,10 @@ namespace MapToolsWinForm
             else if (腾讯地图ToolStripMenuItem_search.Checked)
             {
                 place = TencentMapProvider.Instance.GetPlacemark(coord.GCJ02, out statusCode);
+            }
+            else if (OSM地图ToolStripMenuItem_search.Checked)
+            {
+                place = OsmMapProvider.Instance.GetPlacemark(coord.WGS84, out statusCode);
             }
             else
             {
@@ -2353,13 +2494,53 @@ namespace MapToolsWinForm
                     MyMessageBox.ShowTipMessage("最多只能添加3个途经点");
                 }
             }
+            else
+            {
+                p.Type = curMapProviderInfoArray[curMapProviderInfoIdx].CoordType;
+                if (wayPoint1 == PointLatLng.Empty)
+                {
+                    wayPoint1 = p;
+                    if (this.routeOverlay.Markers.Contains(routeWayMarker1))
+                    {
+                        this.routeOverlay.Markers.Remove(routeWayMarker1);
+                    }
+                    routeWayMarker1 = new GMapImageMarker(wayPoint1, Properties.Resources.MapMarker_Bubble_Azure);
+                    this.routeOverlay.Markers.Add(routeWayMarker1);
+                    textBoxNaviWay1.Text = p.Lng + ";" + p.Lat;
+                }
+                else if (wayPoint2 == PointLatLng.Empty)
+                {
+                    wayPoint2 = p;
+                    if (this.routeOverlay.Markers.Contains(routeWayMarker2))
+                    {
+                        this.routeOverlay.Markers.Remove(routeWayMarker2);
+                    }
+                    routeWayMarker2 = new GMapImageMarker(wayPoint2, Properties.Resources.MapMarker_Bubble_Azure);
+                    this.routeOverlay.Markers.Add(routeWayMarker2);
+                    textBoxNaviWay2.Text = p.Lng + ";" + p.Lat;
+                }
+                else if (wayPoint3 == PointLatLng.Empty)
+                {
+                    wayPoint3 = p;
+                    if (this.routeOverlay.Markers.Contains(routeWayMarker3))
+                    {
+                        this.routeOverlay.Markers.Remove(routeWayMarker3);
+                    }
+                    routeWayMarker3 = new GMapImageMarker(wayPoint3, Properties.Resources.MapMarker_Bubble_Azure);
+                    this.routeOverlay.Markers.Add(routeWayMarker3);
+                    textBoxNaviWay3.Text = p.Lng + ";" + p.Lat;
+                }
+                else
+                {
+                    MyMessageBox.ShowTipMessage("最多只能添加3个途经点");
+                }
+            }
         }
 
         private void 以此为终点ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PointLatLng p = this.mapControl.FromLocalToLatLng((int)leftClickPoint.X, (int)leftClickPoint.Y);
             GeoCoderStatusCode statusCode;
-            //Placemark? place = AMapProvider.Instance.GetPlacemark(p, out statusCode);
             Placemark? place;
             PointInDiffCoord coord = new PointInDiffCoord(p);
             if (高德地图ToolStripMenuItem_search.Checked)
@@ -2373,6 +2554,10 @@ namespace MapToolsWinForm
             else if (腾讯地图ToolStripMenuItem_search.Checked)
             {
                 place = TencentMapProvider.Instance.GetPlacemark(coord.GCJ02, out statusCode);
+            }
+            else if (OSM地图ToolStripMenuItem_search.Checked)
+            {
+                place = OsmMapProvider.Instance.GetPlacemark(coord.WGS84, out statusCode);
             }
             else
             {
@@ -2389,6 +2574,18 @@ namespace MapToolsWinForm
                 routeEndMarker = new GMapImageMarker(routeEndPoint, Properties.Resources.MapMarker_Bubble_Pink);
                 this.routeOverlay.Markers.Add(routeEndMarker);
                 textBoxNaviEndPoint.Text = place.Value.Address;
+            }
+            else
+            {
+                p.Type = curMapProviderInfoArray[curMapProviderInfoIdx].CoordType;
+                routeEndPoint = p;
+                if (this.routeOverlay.Markers.Contains(routeEndMarker))
+                {
+                    this.routeOverlay.Markers.Remove(routeEndMarker);
+                }
+                routeEndMarker = new GMapImageMarker(routeEndPoint, Properties.Resources.MapMarker_Bubble_Pink);
+                this.routeOverlay.Markers.Add(routeEndMarker);
+                textBoxNaviEndPoint.Text = textBoxNaviStartPoint.Text = p.Lng + ";" + p.Lat;
             }
         }
 
@@ -2667,6 +2864,25 @@ namespace MapToolsWinForm
                         MyMessageBox.ShowWarningMessage("获取导航路线失败");
                     }
                 }
+                else if (OSM地图ToolStripMenuItem_search.Checked)
+                {
+                    PointLatLng startPoint = PointInDiffCoord.GetWGS84Point(routeStartPoint);
+                    PointLatLng endPoint = PointInDiffCoord.GetWGS84Point(routeEndPoint);
+                    List<PointLatLng> wayList = getWayList(CoordType.WGS84);
+                    MapRoute route = OsmMapProvider.Instance.GetDrivingRoute(startPoint, endPoint, null);
+                    mNaviRoutepPointList = PointInDiffCoord.GetPointListInCoordType(route.Points, CoordType.WGS84, curMapProviderInfoArray[curMapProviderInfoIdx].CoordType);
+                    GMapRoute mapRoute = new GMapRoute(mNaviRoutepPointList, "");
+                    if (mapRoute != null)
+                    {
+                        this.routeOverlay.Routes.Clear();
+                        this.routeOverlay.Routes.Add(mapRoute);
+                        this.mapControl.ZoomAndCenterRoute(mapRoute);
+                    }
+                    else
+                    {
+                        MyMessageBox.ShowWarningMessage("获取导航路线失败");
+                    }
+                }
                 else
                 {
                     PointLatLng startPoint = PointInDiffCoord.GetGCJ02Point(routeStartPoint);
@@ -2787,7 +3003,7 @@ namespace MapToolsWinForm
             {
                 return null;
             }
-            int min_dist = 100;
+            int min_dist = 30;
             List<GpsRoutePoint> gpsRoutePointList = new List<GpsRoutePoint>();
             // 起点
             GpsRoutePoint point = new GpsRoutePoint();
@@ -2805,6 +3021,8 @@ namespace MapToolsWinForm
                 point.Longitude = lastPoint.Lng + (i + 1) * insertLon;
                 point.Latitude = lastPoint.Lat + (i + 1) * insertLat;
                 point.Direction = dir;
+                point.Speed = 50;
+                point.Accuracy = 5;
                 point.Type = 1;
                 gpsRoutePointList.Add(point);
             }
@@ -2813,6 +3031,8 @@ namespace MapToolsWinForm
             point.Longitude = curPoint.Lng;
             point.Latitude = curPoint.Lat;
             point.Direction = dir;
+            point.Speed = 50;
+            point.Accuracy = 5;
             gpsRoutePointList.Add(point);
             return gpsRoutePointList;
         }
@@ -3112,6 +3332,14 @@ namespace MapToolsWinForm
                 {
                     MyMessageBox.ShowTipMessage("文件夹路径不能为空");
                     return;
+                }
+                if (cb_terminal_map_encoding.SelectedIndex == 0)
+                {
+                    TerminalMapTool.SetEncoding(System.Text.Encoding.UTF8);
+                }
+                else
+                {
+                    TerminalMapTool.SetEncoding(System.Text.Encoding.Default);
                 }
                 BackgroundWorker loadCityIndexWorker = new BackgroundWorker();
                 loadCityIndexWorker.DoWork += new DoWorkEventHandler(loadCityIndexWorker_DoWork);
@@ -3485,8 +3713,16 @@ namespace MapToolsWinForm
                     {
                         continue;
                     }
-
-                    List<PointLatLng> pList = PointInDiffCoord.GetPointListInCoordType(item.Point_list, CoordType.GCJ02, curMapProviderInfoArray[curMapProviderInfoIdx].CoordType);
+                    // 新版地图坐标格式变化
+                    List<PointLatLng> pList;
+                    if (cb_terminal_map_coord_type.SelectedIndex == 0)
+                    {
+                        pList = PointInDiffCoord.GetPointListInCoordType(item.Point_list, CoordType.WGS84, curMapProviderInfoArray[curMapProviderInfoIdx].CoordType);
+                    }
+                    else
+                    {
+                        pList = PointInDiffCoord.GetPointListInCoordType(item.Point_list, CoordType.GCJ02, curMapProviderInfoArray[curMapProviderInfoIdx].CoordType);
+                    }
                     //GMapRoute mapRoute = new GMapRoute(pList, item.AttributeStr);
                     GMapRouteBezier mapRoute = new GMapRouteBezier(pList, item.AttributeStr);
                     if (item.EmFCLevel - 1 >= terminalMapInfo.DisplayInfo.RoadShowTag.Length || !terminalMapInfo.DisplayInfo.RoadShowTag[item.EmFCLevel - 1])
@@ -3564,7 +3800,16 @@ namespace MapToolsWinForm
             }
             foreach (var item in cityDataInfo.Block_list)
             {
-                List<PointLatLng> pList = PointInDiffCoord.GetPointListInCoordType(item, CoordType.GCJ02, curMapProviderInfoArray[curMapProviderInfoIdx].CoordType);
+                // 新版地图坐标格式变化
+                List<PointLatLng> pList;
+                if (cb_terminal_map_coord_type.SelectedIndex == 0)
+                {
+                    pList = PointInDiffCoord.GetPointListInCoordType(item, CoordType.WGS84, curMapProviderInfoArray[curMapProviderInfoIdx].CoordType);
+                }
+                else
+                {
+                    pList = PointInDiffCoord.GetPointListInCoordType(item, CoordType.GCJ02, curMapProviderInfoArray[curMapProviderInfoIdx].CoordType);
+                }
                 GMapAreaPolygon areaPolygon = new GMapAreaPolygon(pList, cityDataInfo.City_name);
                 overlay.Polygons.Add(areaPolygon);
                 RectLatLng rect = GMapUtil.PolygonUtils.GetRegionMaxRect(pList);
@@ -3995,6 +4240,18 @@ namespace MapToolsWinForm
             }
         }
 
+        private void cb_terminal_map_coord_type_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Setting_terminal_map_coord_type_idx = cb_terminal_map_coord_type.SelectedIndex;
+            Properties.Settings.Default.Save();
+        }
+
+        private void cb_terminal_map_encoding_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Setting_terminal_map_encoding_idx = cb_terminal_map_encoding.SelectedIndex;
+            Properties.Settings.Default.Save();
+        }
+
         #endregion
 
         #region 历史轨迹模拟/实时轨迹接收
@@ -4003,6 +4260,7 @@ namespace MapToolsWinForm
         private RealtimeGeoOverlay realtimeGeoOverlay = new RealtimeGeoOverlay();
         private GMapOverlay matchTestOverlay = new GMapOverlay("matchTestOverlay");
         private GMapOverlay sltHistoryPointOverlay = new GMapOverlay("sltHistoryPointOverlay");
+
         private enum RealtimeType
         {
             串口接收Nmea, 串口接收Text1, 串口接收Match
@@ -4024,14 +4282,16 @@ namespace MapToolsWinForm
             this.buttonForward.Enabled = false;
             this.buttonPause.Enabled = false;
             this.buttonResume.Enabled = false;
+            this.buttonOneStep.Enabled = false;
             this.buttonSetTimerInterval.Enabled = false;
             this.checkBoxFollow.Enabled = false;
             this.cb_simulate_type.SelectedIndex = 0;
+            this.cb_communicate_mode.SelectedIndex = 0;
             realtimeTypeDataTable.Columns.Add("Text", typeof(string));
             realtimeTypeDataTable.Columns.Add("Type", typeof(RealtimeType));
-            realtimeTypeDataTable.Rows.Add("串口接收:Nmea", RealtimeType.串口接收Nmea);
-            realtimeTypeDataTable.Rows.Add("串口接收:lon,lat,dir,speed", RealtimeType.串口接收Text1);
-            realtimeTypeDataTable.Rows.Add("串口接收:匹配测试", RealtimeType.串口接收Match);
+            realtimeTypeDataTable.Rows.Add("数据接收:Nmea", RealtimeType.串口接收Nmea);
+            realtimeTypeDataTable.Rows.Add("数据接收:lon,lat,dir,speed", RealtimeType.串口接收Text1);
+            realtimeTypeDataTable.Rows.Add("数据接收:匹配测试", RealtimeType.串口接收Match);
             this.cb_simulate_src.DataSource = realtimeTypeDataTable;
             this.cb_simulate_src.DisplayMember = "Text";   // Text，即显式的文本
             this.cb_simulate_src.ValueMember = "Type";    // Value，即实际的值
@@ -4094,7 +4354,7 @@ namespace MapToolsWinForm
             {
                 sltSimulateType = SimulateType.Realtime;
                 this.comboBoxTimeSpan.Enabled = false;
-                this.lb_simulate_src.Text = "接收数据:";
+                this.lb_simulate_src.Text = "数据格式:";
                 this.tb_simulate_src.Visible = false;
                 this.cb_simulate_src.Visible = true;
             }
@@ -4105,8 +4365,58 @@ namespace MapToolsWinForm
             }
         }
 
+        private void OnGpsDataSend(string data)
+        {
+            if (cb_communicate_mode.SelectedIndex == 0)
+            {
+                sendCom(data + "\n");
+            }
+            else if (cb_communicate_mode.SelectedIndex == 1)
+            {
+                if (namePipeServer != null)
+                {
+                    namePipeServer.sendCanData(data);
+                }
+            }
+        }
+
+        private void OnProgressChanged(int cur, int total)
+        {
+            lb_gps_progress.Text = cur + "/" + total;
+        }
+
         private void buttonStart_Click(object sender, EventArgs e)
         {
+            int tail_size;
+            try
+            {
+                tail_size = int.Parse(tb_tail_size.Text.ToString().Trim());
+                if (tail_size < 0)
+                {
+                    DialogResult ret = MessageBox.Show("设置的尾随点个数错误，是否使用默认设置？", "提醒", MessageBoxButtons.OKCancel);
+                    if (ret == System.Windows.Forms.DialogResult.OK)
+                    {
+                        tail_size = 5;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                DialogResult ret = MessageBox.Show("设置的尾随点个数错误，是否使用默认设置？", "提醒", MessageBoxButtons.OKCancel);
+                if (ret == System.Windows.Forms.DialogResult.OK)
+                {
+                    tail_size = 5;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            tb_tail_size.Text = tail_size + "";
             if (sltSimulateType == SimulateType.History)
             {
                 if (simulateGpsRoute == null || simulateGpsRoute.GpsRouteInfoList == null || simulateGpsRoute.GpsRouteInfoList.Count <= 0)
@@ -4122,6 +4432,7 @@ namespace MapToolsWinForm
                     {
                         start_idx = int.Parse(tb_start_idx.Text.ToString().Trim());
                         end_idx = int.Parse(tb_end_idx.Text.ToString().Trim());
+                        tail_size = int.Parse(tb_tail_size.Text.ToString().Trim());
                         if (start_idx <= 0)
                         {
                             start_idx = 0;
@@ -4159,8 +4470,17 @@ namespace MapToolsWinForm
                             return;
                         }
                     }
+                    if (cb_communicate_mode.SelectedIndex == 0)
+                    {
+                        StartTransferNamePipeServer();
+                    }
+                    else if (cb_communicate_mode.SelectedIndex == 1)
+                    {
+                        StartNamePipeServer();
+                    }
                     mapControl.Overlays.Add(historyGeoOverlay);
-                    historyGeoOverlay.Start(simulateGpsRoute, curMapProviderInfoArray[curMapProviderInfoIdx].CoordType, start_idx, end_idx);
+                    historyGeoOverlay.TailSize = tail_size;
+                    historyGeoOverlay.Start(simulateGpsRoute, curMapProviderInfoArray[curMapProviderInfoIdx].CoordType, start_idx, end_idx, OnGpsDataSend, OnProgressChanged);
                 }
                 else
                 {
@@ -4173,10 +4493,15 @@ namespace MapToolsWinForm
                 if (realtimeGeoOverlay != null)
                 {
                     mapControl.Overlays.Add(realtimeGeoOverlay);
-                    realtimeGeoOverlay.Start(serialCoordType, curMapProviderInfoArray[curMapProviderInfoIdx].CoordType);
+                    realtimeGeoOverlay.TailSize = tail_size;
+                    realtimeGeoOverlay.Start(serialCoordType, curMapProviderInfoArray[curMapProviderInfoIdx].CoordType, OnProgressChanged);
                     if (sltRealtimeType == RealtimeType.串口接收Match)
                     {
                         mapControl.Overlays.Add(matchTestOverlay);
+                    }
+                    if (cb_communicate_mode.SelectedIndex == 1)
+                    {
+                        StartNamePipeClient();
                     }
                 }
                 else
@@ -4196,8 +4521,10 @@ namespace MapToolsWinForm
             this.buttonSetTimerInterval.Enabled = true;
             this.checkBoxFollow.Enabled = true;
             this.cb_simulate_type.Enabled = false;
+            this.cb_communicate_mode.Enabled = false;
             this.tb_start_idx.Enabled = false;
             this.tb_end_idx.Enabled = false;
+            this.tb_tail_size.Enabled = false;
         }
 
         private void buttonStop_Click(object sender, EventArgs e)
@@ -4208,11 +4535,14 @@ namespace MapToolsWinForm
             this.buttonForward.Enabled = false;
             this.buttonPause.Enabled = false;
             this.buttonResume.Enabled = false;
+            this.buttonOneStep.Enabled = false;
             this.buttonSetTimerInterval.Enabled = false;
             this.checkBoxFollow.Enabled = false;
             this.cb_simulate_type.Enabled = true;
+            this.cb_communicate_mode.Enabled = true;
             this.tb_start_idx.Enabled = true;
             this.tb_end_idx.Enabled = true;
+            this.tb_tail_size.Enabled = true;
             if (sltSimulateType == SimulateType.History)
             {
                 if (historyGeoOverlay != null)
@@ -4220,13 +4550,35 @@ namespace MapToolsWinForm
                     historyGeoOverlay.Stop();
                     mapControl.Overlays.Remove(historyGeoOverlay);
                 }
+                if (cb_communicate_mode.SelectedIndex == 0)
+                {
+                    StopTransferNamePipeServer();
+                }
+                else if (cb_communicate_mode.SelectedIndex == 1)
+                {
+                    StopNamePipeServer();
+                }
             }
             else if (sltSimulateType == SimulateType.Realtime)
             {
                 if (realtimeGeoOverlay != null)
                 {
+                    GpsRoute gpsRoute = realtimeGeoOverlay.GetGpsRoute();
+                    if (gpsRoute != null)
+                    {
+                        DialogResult diaResult = MyMessageBox.ShowConformMessage("是否保存轨迹到文件？");
+                        if (diaResult == System.Windows.Forms.DialogResult.OK)
+                        {
+                            Form_export_gps export = new Form_export_gps(gpsRoute);
+                            export.ShowDialog();
+                        }
+                    }
                     realtimeGeoOverlay.Stop();
                     mapControl.Overlays.Remove(realtimeGeoOverlay);
+                }
+                if (cb_communicate_mode.SelectedIndex == 1)
+                {
+                    StopNamePipeClient();
                 }
             } 
             if (sltRealtimeType == RealtimeType.串口接收Match)
@@ -4241,6 +4593,7 @@ namespace MapToolsWinForm
             this.buttonSetTimerInterval.Enabled = false;
             this.checkBoxFollow.Enabled = false;
             this.buttonResume.Enabled = true;
+            this.buttonOneStep.Enabled = true;
             if (sltSimulateType == SimulateType.History)
             {
                 if (historyGeoOverlay != null)
@@ -4260,6 +4613,7 @@ namespace MapToolsWinForm
         private void buttonResume_Click(object sender, EventArgs e)
         {
             this.buttonResume.Enabled = false;
+            this.buttonOneStep.Enabled = false;
             this.buttonPause.Enabled = true;
             this.buttonSetTimerInterval.Enabled = true;
             this.checkBoxFollow.Enabled = true;
@@ -4276,6 +4630,21 @@ namespace MapToolsWinForm
                 {
                     realtimeGeoOverlay.Resume();
                 }
+            }
+        }
+
+        private void buttonOneStep_Click(object sender, EventArgs e)
+        {
+            if (sltSimulateType == SimulateType.History)
+            {
+                if (historyGeoOverlay != null)
+                {
+                    historyGeoOverlay.StepOver();
+                }
+            }
+            else if (sltSimulateType == SimulateType.Realtime)
+            {
+                MyMessageBox.ShowTipMessage("实时模式不支持单步回放");
             }
         }
 
@@ -4556,6 +4925,10 @@ namespace MapToolsWinForm
                 lb_recv_count.Invoke(new Action<int>(n => { this.lb_recv_count.Text = n.ToString(); }), count_recv);
             }
 
+            if (transferNamePipeServer != null)
+            {
+                transferNamePipeServer.sendCanData(line);
+            }
             GpsRoutePoint point = ParseGpsRoutePoint(line);
             if (point != null && realtimeGeoOverlay != null)
             {
@@ -4665,7 +5038,7 @@ namespace MapToolsWinForm
                     if (line.StartsWith("&Pos"))
                     {
                         this.BeginInvoke(new UpdateMatchRecv(HandleMatchRecvMsg), new object[] { line });
-                        // &Pos,id,经度,纬度,方向,速度,匹配结果（-4:未知错误；-3:没道路；-2:匹配概率低； -1:参数异常，不进行匹配 0:未定位； 1:匹配成功）,搜索距离
+                        // &Pos,id,经度,纬度,方向,速度,匹配结果（-4:未知错误；-3:没道路；-2:匹配概率低； -1:参数异常，不进行匹配 0:未定位； 1:匹配成功）,搜索距离,匹配概率,限速值
                         if (arrs != null && arrs.Length >= 4)
                         {
                             int id = Int32.Parse(arrs[1].Trim());
@@ -4724,7 +5097,7 @@ namespace MapToolsWinForm
             {
                 if (sd == null || sd == string.Empty)
                 {
-                    MessageBox.Show("要发送的数据错误!", "错误提示");
+                    Console.WriteLine("要发送的数据错误!");
                     return;
                 }
                 try
@@ -4734,13 +5107,14 @@ namespace MapToolsWinForm
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("发送数据时发生错误！", "错误提示");
+                    Console.WriteLine("发送数据时发生错误！");
+                    btnOpenCom.PerformClick();
                     return;
                 }
             }
             else
             {
-                MessageBox.Show("串口未打开", "错误提示");
+                Console.WriteLine("串口未打开");
                 return;
             }
         }
@@ -4808,16 +5182,187 @@ namespace MapToolsWinForm
             count_parse = 0;
         }
 
+        Process process = null;
+        int count_adb_recv = 0;
+        int count_adb_parse = 0;
+
+        private void btnOpenAdb_Click(object sender, EventArgs e)
+        {
+            if (process == null)
+            {
+                Thread c_thread = new Thread(AdbRecvThread);
+                c_thread.IsBackground = true;
+                c_thread.Start();
+                btnOpenAdb.Text = "关闭ADB";
+            }
+            else
+            {
+                process.CancelOutputRead();
+                process = null;
+                btnOpenAdb.Text = "打开ADB";
+            }
+        }
+
+        private void btn_adb_clean_Click(object sender, EventArgs e)
+        {
+            lb_adb_recv_count.Text = "0";
+            count_adb_recv = 0;
+            lb_adb_parse_count.Text = "0";
+            count_adb_parse = 0;
+        }
+
+        void AdbRecvThread()
+        {
+
+            // 创建一个新的进程
+            process = new Process();
+
+            // 设置进程启动信息
+            process.StartInfo.FileName = "cmd.exe";
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardInput = true;
+            process.StartInfo.CreateNoWindow = true;
+
+            // 为输出流注册事件处理程序
+            process.OutputDataReceived += Process_OutputDataReceived;
+
+            // 启动进程
+            process.Start();
+
+            // 输入命令
+            process.StandardInput.WriteLine("adb logcat | findstr ISA_Test:");
+            process.StandardInput.WriteLine("exit");
+
+            // 开始异步读取输出流
+            process.BeginOutputReadLine();
+
+            // 等待进程退出
+            process.WaitForExit();
+
+        }
+
+        // 输出数据接收事件处理程序
+        void Process_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(e.Data))
+            {
+                // 在控制台输出日志
+                string line = e.Data;
+                Console.WriteLine(line);
+                count_adb_recv++;
+                if (lb_adb_recv_count.InvokeRequired)
+                {
+                    lb_adb_recv_count.Invoke(new Action<int>(n => { this.lb_adb_recv_count.Text = n.ToString(); }), count_adb_recv);
+                }
+
+                string[] lines = line.Split(new string[] { "ISA_Test:" }, StringSplitOptions.None);
+                if (lines != null && lines.Length >= 2 && lines[1].StartsWith("&Pos"))
+                {
+                    GpsRoutePoint point = ParseGpsRoutePoint(lines[1]);
+                    if (point != null && realtimeGeoOverlay != null)
+                    {
+                        count_adb_parse++;
+                        if (lb_adb_parse_count.InvokeRequired)
+                        {
+                            lb_adb_parse_count.Invoke(new Action<int>(n => { this.lb_adb_parse_count.Text = n.ToString(); }), count_adb_parse);
+                        }
+                        if (this.InvokeRequired)
+                        {
+                            this.Invoke(new Action<GpsRoutePoint>(p => { realtimeGeoOverlay.Update(p); }), point);
+                        }
+                    }
+                }
+                
+            }
+        }
+
+        private NamedPipeServer namePipeServer;
+
+        private void StartNamePipeServer()
+        {
+            namePipeServer = new NamedPipeServer("com.lois.pipe.send.simulate.gps.string");
+        }
+
+        private void StopNamePipeServer()
+        {
+            if (namePipeServer != null)
+            {
+                namePipeServer.Close();
+            }
+            namePipeServer = null;
+        }
+
+        // 用于中转接收到的实时轨迹数据
+        private NamedPipeServer transferNamePipeServer;
+
+        private void StartTransferNamePipeServer()
+        {
+            transferNamePipeServer = new NamedPipeServer("com.lois.pipe.recv.real.gps.string");
+        }
+
+        private void StopTransferNamePipeServer()
+        {
+            if (transferNamePipeServer != null)
+            {
+                transferNamePipeServer.Close();
+            }
+            transferNamePipeServer = null;
+        }
+
+        // 用于接收地图引擎匹配信息或
+        private NamedPipeClient namedPipeClient;
+
+        private void StartNamePipeClient()
+        {
+            namedPipeClient = new NamedPipeClient("com.lois.pipe.recv.real.gps.string", OnNamePipeDataRecv);
+        }
+
+        private void StopNamePipeClient()
+        {
+            if (namedPipeClient != null)
+            {
+                namedPipeClient.Close();
+            }
+            namedPipeClient = null;
+        }
+
+        private void OnNamePipeDataRecv(string recvData)
+        {
+            Console.WriteLine(recvData);
+            count_recv++;
+            if (lb_recv_count.InvokeRequired)
+            {
+                lb_recv_count.Invoke(new Action<int>(n => { this.lb_recv_count.Text = n.ToString(); }), count_recv);
+            }
+            GpsRoutePoint point = ParseGpsRoutePoint(recvData);
+            if (point != null && realtimeGeoOverlay != null)
+            {
+                count_parse++;
+                if (lb_parse_count.InvokeRequired)
+                {
+                    lb_parse_count.Invoke(new Action<int>(n => { this.lb_parse_count.Text = n.ToString(); }), count_parse);
+                }
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new Action<GpsRoutePoint>(p => { realtimeGeoOverlay.Update(p); }), point);
+                }
+            }
+        }
+
         #endregion
 
         #region 匹配测试
 
         public delegate void UpdateMatchRecv(string str1);
         private List<RoadSectionInfo> sltRoadSectionInfos = new List<RoadSectionInfo>();
+        private List<RoadSectionInfo> sltRoadBranchInfos = new List<RoadSectionInfo>();
         TreeNode sltMatchTestRootNode;
         PointLatLng lastCenterPoint = PointLatLng.Empty;
         GpsRoutePoint lastMatchPoint = null;
         int matchRet = 0;
+
+        Brush limitBrush = new SolidBrush(Color.Red);
 
         private void LoadMtachTestMap(PointLatLng p)
         {
@@ -4841,6 +5386,7 @@ namespace MapToolsWinForm
             }
             // 加载地图
             sltRoadSectionInfos.Clear();
+            sltRoadBranchInfos.Clear();
             RectLatLng rect = new RectLatLng(p.Lat + 0.1, p.Lng - 0.1, 0.2, 0.2);
             RectLatLng rect2 = new RectLatLng(p.Lat + 0.02, p.Lng - 0.02, 0.04, 0.04);
             foreach (TreeNode item in sltRootNode.Nodes)
@@ -4913,8 +5459,8 @@ namespace MapToolsWinForm
                     if (item.StartsWith("Pos"))
                     {
                         ShowMatchRecvMsg(item);
-                        // &Pos,id,经度,纬度,方向,速度,匹配结果（-4:未知错误；-3:没道路；-2:匹配概率低； -1:参数异常，不进行匹配 0:未定位； 1:匹配成功）,搜索距离
-                        if (arrs != null && arrs.Length >= 9)
+                        // &Pos,id,经度,纬度,方向,速度,匹配结果（-4:未知错误；-3:没道路；-2:匹配概率低； -1:参数异常，不进行匹配 0:未定位； 1:匹配成功）,搜索距离,匹配概率,限速值
+                        if (arrs != null && arrs.Length >= 10)
                         {
                             int id = Int32.Parse(arrs[1].Trim());
                             double lon = Double.Parse(arrs[2].Trim());
@@ -4924,6 +5470,7 @@ namespace MapToolsWinForm
                             matchRet = Int32.Parse(arrs[6].Trim());
                             int search_dist = Int32.Parse(arrs[7].Trim());
                             double probability = Double.Parse(arrs[8].Trim());
+                            int limit = Int32.Parse(arrs[9].Trim());
                             GpsRoutePoint point;
                             if (matchRet == 0)
                             {
@@ -4978,6 +5525,10 @@ namespace MapToolsWinForm
                             }
                             GMapDirectionMarker dm = new GMapDirectionMarker(p, bm, (float)dir);
                             matchTestOverlay.Markers.Add(dm);
+                            // 显示限速值
+                            GMapTextMarker textMarker = new GMapTextMarker(p, "" + limit);
+                            textMarker.TipBrush = limitBrush;
+                            matchTestOverlay.Markers.Add(textMarker);
                             if (cb_mt_is_show_road.Checked || cb_mt_is_show_tmap.Checked)
                             {
                                 LoadMtachTestMap(p);
@@ -5008,7 +5559,16 @@ namespace MapToolsWinForm
                                     if (road_id == roadSection.Ui32EdgeId && (dif_len < 20 || dif_len < road_len / 50))
                                     {
                                         // 找到相同道路，显示路网
-                                        List<PointLatLng> pList = PointInDiffCoord.GetPointListInCoordType(roadSection.Point_list, CoordType.GCJ02, curMapProviderInfoArray[curMapProviderInfoIdx].CoordType);
+                                        // 新版地图坐标格式变化
+                                        List<PointLatLng> pList;
+                                        if (cb_terminal_map_coord_type.SelectedIndex == 0)
+                                        {
+                                            pList = PointInDiffCoord.GetPointListInCoordType(roadSection.Point_list, CoordType.WGS84, curMapProviderInfoArray[curMapProviderInfoIdx].CoordType);
+                                        }
+                                        else
+                                        {
+                                            pList = PointInDiffCoord.GetPointListInCoordType(roadSection.Point_list, CoordType.GCJ02, curMapProviderInfoArray[curMapProviderInfoIdx].CoordType);
+                                        }
                                         GMapRoute mapRoute = new GMapRoute(pList, roadSection.AttributeStr);
                                         if (matchRet != -2)
                                         {
@@ -5078,7 +5638,16 @@ namespace MapToolsWinForm
                                     if (road_id == roadSection.Ui32EdgeId && (dif_len < 20 || dif_len < road_len / 50))
                                     {
                                         // 找到相同道路，显示路网
-                                        List<PointLatLng> pList = PointInDiffCoord.GetPointListInCoordType(roadSection.Point_list, CoordType.GCJ02, curMapProviderInfoArray[curMapProviderInfoIdx].CoordType);
+                                        // 新版地图坐标格式变化
+                                        List<PointLatLng> pList;
+                                        if (cb_terminal_map_coord_type.SelectedIndex == 0)
+                                        {
+                                            pList = PointInDiffCoord.GetPointListInCoordType(roadSection.Point_list, CoordType.WGS84, curMapProviderInfoArray[curMapProviderInfoIdx].CoordType);
+                                        }
+                                        else
+                                        {
+                                            pList = PointInDiffCoord.GetPointListInCoordType(roadSection.Point_list, CoordType.GCJ02, curMapProviderInfoArray[curMapProviderInfoIdx].CoordType);
+                                        }
                                         GMapRoute mapRoute = new GMapRoute(pList, roadSection.AttributeStr);
                                         if (road_matchProbability < 0)
                                         {
@@ -5092,6 +5661,49 @@ namespace MapToolsWinForm
                                         {
                                             mapRoute.Stroke = new Pen(Color.FromArgb(255, Color.Lime), 5);
                                         }
+                                        matchTestOverlay.Routes.Add(mapRoute);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if (item.StartsWith("Branch"))
+                    {
+                        ShowMatchRecvMsg(item);
+                        // &Branch,id,size,道理ID|道路长度|限速值,道理ID|道路长度|限速值,道理ID|道路长度|限速值
+                        int id = Int32.Parse(arrs[1].Trim());
+                        int size = Int32.Parse(arrs[2].Trim());
+                        lb_mt_road_num.Text = size.ToString();
+                        if (cb_mt_is_show_road.Checked)
+                        {
+                            for (int i = 0; i < size && i < arrs.Length - 3; i++)
+                            {
+                                string[] sections = arrs[i + 3].Split('|');
+                                if (sections == null || sections.Length < 2)
+                                {
+                                    continue;
+                                }
+                                int road_id = Int32.Parse(sections[0].Trim());
+                                int road_len = Int32.Parse(sections[1].Trim());
+                                foreach (RoadSectionInfo roadSection in sltRoadSectionInfos)
+                                {
+                                    int dif_len = Math.Abs(road_len - roadSection.UiLnkLen);
+                                    if (road_id == roadSection.Ui32EdgeId && (dif_len < 20 || dif_len < road_len / 50))
+                                    {
+                                        // 找到相同道路，显示路网
+                                        // 新版地图坐标格式变化
+                                        List<PointLatLng> pList;
+                                        if (cb_terminal_map_coord_type.SelectedIndex == 0)
+                                        {
+                                            pList = PointInDiffCoord.GetPointListInCoordType(roadSection.Point_list, CoordType.WGS84, curMapProviderInfoArray[curMapProviderInfoIdx].CoordType);
+                                        }
+                                        else
+                                        {
+                                            pList = PointInDiffCoord.GetPointListInCoordType(roadSection.Point_list, CoordType.GCJ02, curMapProviderInfoArray[curMapProviderInfoIdx].CoordType);
+                                        }
+                                        GMapRoute mapRoute = new GMapRoute(pList, roadSection.AttributeStr);
+                                        mapRoute.Stroke = new Pen(Color.FromArgb(255, Color.Green), 5);
                                         matchTestOverlay.Routes.Add(mapRoute);
                                         break;
                                     }
@@ -5224,6 +5836,46 @@ namespace MapToolsWinForm
         {
             tempCoordOverlay.Markers.Clear();
             mapControl.Overlays.Remove(tempCoordOverlay);
+        }
+
+        #endregion
+
+        #region 隐藏一些功能
+
+        private int mClickCount = 0;
+        private DateTime clickTime;
+        private bool hiddenMode = false;
+
+        private void pb_compass_Click(object sender, EventArgs e)
+        {
+            if (clickTime != null && (DateTime.Now - clickTime).TotalMilliseconds < 500)
+            {
+                mClickCount++;
+                if (mClickCount > 4)
+                {
+                    mClickCount = 0;
+                    if (hiddenMode)
+                    {
+                        MyMessageBox.ShowTipMessage("隐藏模式已关闭，请重启软件。");
+                        hiddenMode = false;
+                        Properties.Settings.Default.Setting_hidden_mode = hiddenMode;
+                        Properties.Settings.Default.Save();
+                    }
+                    else
+                    {
+                        MyMessageBox.ShowTipMessage("隐藏模式已开启，请重启软件。");
+                        hiddenMode = true;
+                        Properties.Settings.Default.Setting_hidden_mode = hiddenMode;
+                        Properties.Settings.Default.Save();
+                    }
+                }
+            }
+            else
+            {
+                mClickCount = 0;
+            }
+            Console.WriteLine("ClickCount = " + mClickCount);
+            clickTime = DateTime.Now;
         }
 
         #endregion

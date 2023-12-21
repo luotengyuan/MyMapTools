@@ -2145,7 +2145,8 @@ namespace GMap.NET.MapProviders
             Instance = new GoogleMapProvider();
         }
 
-        public string Version = "m@333000000";
+        //public string Version = "m@333000000";
+        public string Version = "m";// 去掉版本
 
         #region GMapProvider Members
 
@@ -2170,8 +2171,8 @@ namespace GMap.NET.MapProviders
         public override PureImage GetTileImage(GPoint pos, int zoom)
         {
             string url = MakeTileImageUrl(pos, zoom, LanguageStr);
-
-            return GetTileImageUsingHttp(url);
+            // 注，这里请求需要使用代理的全局模式
+            return GetTileImageUsingHttp2(url);
         }
 
         #endregion

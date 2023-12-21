@@ -10,11 +10,14 @@ using CommonTools;
 using System.IO;
 using GMap.NET;
 using System.Data.OleDb;
+using System.Text.RegularExpressions;
 
 namespace MapToolsWinForm
 {
     public partial class Form_load_gps : Form
     {
+        List<string> mRegexPatternList = new List<string>();
+        string mRegexPath = Environment.CurrentDirectory + "\\RegexList.txt";
         public Form_load_gps()
         {
             InitializeComponent();
@@ -27,6 +30,7 @@ namespace MapToolsWinForm
 
         private void InitUI()
         {
+            InitRegexPatternList();
             cb_file_format.SelectedIndex = Properties.Settings.Default.Setting_file_format_idx;
             cb_separator.SelectedIndex = Properties.Settings.Default.Setting_separator_idx;
             cb_coord_type.SelectedIndex = Properties.Settings.Default.Setting_coord_type_idx;
@@ -44,6 +48,51 @@ namespace MapToolsWinForm
             tb_min_speed.Text = Properties.Settings.Default.Setting_min_speed;
         }
 
+        private void InitRegexPatternList()
+        {
+            // 从配置中读取列表
+            if (File.Exists(mRegexPath))
+            {
+                StreamReader sr = new StreamReader(mRegexPath);
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
+                    if (line == null)
+                    {
+                        continue;
+                    }
+                    mRegexPatternList.Add(line);
+                }
+            }
+            if (mRegexPatternList.Count <= 0)
+            {
+                getDefPatternList();
+            }
+            cb_regex_pattern.Items.Clear();
+            foreach (var item in mRegexPatternList)
+            {
+                cb_regex_pattern.Items.Add(item);
+            }
+            int slt_regex_pattern_idx = Properties.Settings.Default.Setting_slt_regex_pattern_idx;
+            if (slt_regex_pattern_idx >= mRegexPatternList.Count)
+            {
+                slt_regex_pattern_idx = 0;
+            }
+            cb_regex_pattern.SelectedIndex = slt_regex_pattern_idx;
+        }
+
+        private void getDefPatternList()
+        {
+            if (mRegexPatternList == null)
+            {
+                mRegexPatternList = new List<string>();
+            }
+            // longitude: 113.984948  latitude: 22.564434  direction: 260.820000  speed: 57.568001  alt: 0.000000  accuracy: 1.000000  time: 1559
+            mRegexPatternList.Add(@"longitude:\s+(-?\d+\.\d+)\s+latitude:\s+(-?\d+\.\d+)\s+direction:\s+(-?\d+\.\d+)\s+speed:\s+(-?\d+\.\d+)\s+alt:\s+(-?\d+\.\d+)\s+accuracy:\s+(-?\d+\.\d+)");
+            // lon = 0.000000  lat = 0.000000  prob = 0.000000
+            mRegexPatternList.Add(@"lon\s+=\s+(-?\d+\.\d+)\s+lat\s+=\s+(-?\d+\.\d+)\s+prob\s+=\s+(-?\d+\.\d+)");
+        }
+
         /// <summary>
         /// 加载文件内容
         /// </summary>
@@ -53,9 +102,15 @@ namespace MapToolsWinForm
         private void btn_load_file_Click(object sender, EventArgs e)
         {
             int file_format = cb_file_format.SelectedIndex;
-            if (file_format < 0 || file_format > 2)
+            if (file_format < 0 || file_format > 5)
             {
                 MyMessageBox.ShowTipMessage("暂不支持该文件类型");
+                return;
+            }
+            string pattern = cb_regex_pattern.Text;
+            if (file_format == 5 && string.IsNullOrWhiteSpace(pattern))
+            {
+                MyMessageBox.ShowTipMessage("请选择正则匹配语句");
                 return;
             }
             int separator_type = cb_separator.SelectedIndex;
@@ -82,6 +137,18 @@ namespace MapToolsWinForm
             {
                 ofd.Filter = "文本文档|*.nmea;*.log;*.txt|所有文件(*.*)|*.*";
             }
+            else if (cb_file_format.SelectedIndex == 3)
+            {
+                ofd.Filter = "文本文档|*.kml|所有文件(*.*)|*.*";
+            }
+            else if (cb_file_format.SelectedIndex == 4)
+            {
+                ofd.Filter = "文本文档|*.log;*.txt|所有文件(*.*)|*.*";
+            }
+            else if (cb_file_format.SelectedIndex == 5)
+            {
+                ofd.Filter = "文本文档|*.nmea;*.log;*.txt|所有文件(*.*)|*.*";
+            }
             else
             {
                 ofd.Filter = "所有文件(*.*)|*.*";
@@ -102,7 +169,7 @@ namespace MapToolsWinForm
 
                 routeName = Path.GetFileName(sltpath);
 
-                routeInfoList = getRouteInfoList(sltpath, file_format, separator_type);
+                routeInfoList = getRouteInfoList(sltpath, file_format, separator_type, pattern);
 
                 if (routeInfoList == null || routeInfoList.Count <= 0)
                 {
@@ -130,7 +197,7 @@ namespace MapToolsWinForm
             }
         }
 
-        private List<string[]> getRouteInfoList(string sltpath, int file_format, int separator_type)
+        private List<string[]> getRouteInfoList(string sltpath, int file_format, int separator_type, string pattern)
         {
             List<string[]> ret = new List<string[]>();
             int rowNum = 0;
@@ -295,6 +362,100 @@ namespace MapToolsWinForm
 
                             }
                             //Console.WriteLine(line);
+                        }
+                    }
+                    catch (Exception exception)
+                    {
+                        MyMessageBox.ShowTipMessage("读取文件出错！请检查文件内容格式是否正确或者文件是否被加密！\n" + exception.ToString());
+                    }
+                    break;
+                case 3:
+                    try
+                    {
+                        int count = KmlFileUtils.loadKmlFile(sltpath, ret);
+                        if (count <= 1)
+                        {
+                            MyMessageBox.ShowTipMessage("未加载到GPS点数据");
+                        }
+                    }
+                    catch (Exception exception)
+                    {
+                        MyMessageBox.ShowTipMessage("读取文件出错！请检查文件内容格式是否正确或者文件是否被加密！\n" + exception.ToString());
+                    }
+                    break;
+                case 4:
+                    try
+                    {
+                        ret.Add(new string[] { "lon", "lat", "dir", "speed", "accuracy" });
+                        StreamReader sr = new StreamReader(sltpath);
+                        while (!sr.EndOfStream)
+                        {
+                            string line = sr.ReadLine();
+                            if (line == null)
+                            {
+                                continue;
+                            }
+                            if (!line.Contains("av2hp-->location:"))
+                            {
+                                continue;
+                            }
+                            string[] arrs = line.Split(new string[] { "av2hp-->location:" }, StringSplitOptions.None);
+                            if (arrs == null || arrs.Length < 2)
+                            {
+                                continue;
+                            }
+                            line = arrs[1];
+                            arrs = line.Split(',');
+                            if (arrs == null || arrs.Length < 2)
+                            {
+                                continue;
+                            }
+                            if (rowNum == 0)
+                            {
+                                rowNum = arrs.Length;
+                            }
+                            string[] retArray = new string[rowNum];
+                            for (int i = 0; i < rowNum; i++)
+                            {
+                                if (i < arrs.Length)
+                                {
+                                    retArray[i] = arrs[i];
+                                }
+                                else
+                                {
+                                    retArray[i] = "";
+                                }
+                            }
+                            ret.Add(retArray);
+                            //Console.WriteLine(line);
+                        }
+                    }
+                    catch (Exception exception)
+                    {
+                        MyMessageBox.ShowTipMessage("读取文件出错！请检查文件内容格式是否正确或者文件是否被加密！\n" + exception.ToString());
+                    }
+                    break;
+                case 5:
+                    try
+                    {
+                        StreamReader sr = new StreamReader(sltpath);
+                        while (!sr.EndOfStream)
+                        {
+                            string line = sr.ReadLine();
+                            if (line == null)
+                            {
+                                continue;
+                            }
+                            Match match = Regex.Match(line, pattern);
+                            if (match.Success)
+                            {
+                                string[] retArray = new string[match.Groups.Count - 1];
+                                for (int i = 1; i < match.Groups.Count; i++)
+                                {
+                                    retArray[i - 1] = match.Groups[i].Value;
+                                }
+                                ret.Add(retArray);
+                            }
                         }
                     }
                     catch (Exception exception)
@@ -597,6 +758,8 @@ namespace MapToolsWinForm
                 int parse_line = 0;
                 gpsRoutePointList = new List<GpsRoutePoint>();
                 int id = 0;
+                double lastLon = 0;
+                double lastLat = 0;
                 foreach (var item in routeInfoList)
                 {
                     try
@@ -625,12 +788,6 @@ namespace MapToolsWinForm
                             lastLon = lon;
                             lastLat = lat;
                         }
-                        // 方向
-                        if (dir_idx >= 0)
-                        {
-                            double dir = Double.Parse(item[dir_idx]) * dir_scale;
-                            info.Direction = dir;
-                        }
                         // 速度
                         if (speed_idx >= 0)
                         {
@@ -641,6 +798,28 @@ namespace MapToolsWinForm
                                 continue;
                             }
                             info.Speed = speed;
+                        }
+                        // 方向
+                        if (dir_idx >= 0)
+                        {
+                            double dir = Double.Parse(item[dir_idx]) * dir_scale;
+                            info.Direction = dir;
+                        }
+                        else
+                        {
+                            if (lon != lastLon || lat != lastLat)
+                            {
+                                // 计算距离
+                                double dist = CalculateUtils.getDistance(lon, lat, lastLon, lastLat);
+                                if (dist < 500 && info.Speed > 3)
+                                {
+                                    // 计算方向
+                                    double dir = CalculateUtils.getDirection(lastLon, lastLat, lon, lat);
+                                    info.Direction = dir;
+                                }
+                            }
+                            lastLon = lon;
+                            lastLat = lat;
                         }
                         // 高度
                         if (alt_idx >= 0)
@@ -812,6 +991,59 @@ namespace MapToolsWinForm
                 DataSet set = new DataSet();
                 ada.Fill(set);
                 return set.Tables[0];
+            }
+        }
+
+        private void cb_file_format_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_file_format.SelectedIndex == 0)
+            {
+                cb_separator.Enabled = true;
+            }
+            else
+            {
+                cb_separator.Enabled = false;
+            }
+            if (cb_file_format.SelectedIndex == 5)
+            {
+                cb_regex_pattern.Enabled = true;
+            }
+            else
+            {
+                cb_regex_pattern.Enabled = false;
+            }
+        }
+
+        private void btn_regex_pattern_manage_Click(object sender, EventArgs e)
+        {
+            Form_regex_pattern_manage manage = new Form_regex_pattern_manage(mRegexPatternList);
+            manage.ShowDialog();
+            if (manage.IsModify)
+            {
+                if (mRegexPatternList == null || mRegexPatternList.Count <= 0)
+                {
+                    getDefPatternList();
+                }
+                cb_regex_pattern.Items.Clear();
+                foreach (var item in mRegexPatternList)
+                {
+                    cb_regex_pattern.Items.Add(item);
+                }
+                int slt_regex_pattern_idx = 0;
+                cb_regex_pattern.SelectedIndex = slt_regex_pattern_idx;
+                // 保存数据到配置文件
+                try
+                {
+                    StreamWriter sw = new StreamWriter(mRegexPath, false, System.Text.Encoding.Default);
+                    foreach (var item in mRegexPatternList)
+                    {
+                        sw.WriteLine(item);
+                    }
+                    sw.Close();
+                }
+                catch (Exception)
+                {
+                }
             }
         }
     }

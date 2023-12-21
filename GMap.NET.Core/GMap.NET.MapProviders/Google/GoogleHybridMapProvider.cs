@@ -58,7 +58,7 @@ namespace GMap.NET.MapProviders
       {
          string url = MakeTileImageUrl(pos, zoom, LanguageStr);
 
-         return GetTileImageUsingHttp(url);
+         return GetTileImageUsingHttp2(url);
       }
 
       #endregion

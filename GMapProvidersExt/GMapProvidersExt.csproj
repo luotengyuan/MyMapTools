@@ -82,6 +82,7 @@
     <Compile Include="Bing\BingChinaMapProvider.cs" />
     <Compile Include="Bing\BingMapProvider.cs" />
     <Compile Include="Bing\BingMapProviderBase.cs" />
+    <Compile Include="OSM\OsmMapProvider.cs" />
     <Compile Include="Properties\BMap.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

@@ -88,6 +88,10 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="TerminalMapLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\TerminalMapLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bean\SearchEngineType.cs" />
@@ -96,6 +100,12 @@
     </Compile>
     <Compile Include="UI\Form_export_gps.Designer.cs">
       <DependentUpon>Form_export_gps.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Form_regex_pattern_manage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Form_regex_pattern_manage.Designer.cs">
+      <DependentUpon>Form_regex_pattern_manage.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Form_set_map_key.cs">
       <SubType>Form</SubType>
@@ -145,6 +155,8 @@
     <Compile Include="UI\MapControl.Designer.cs">
       <DependentUpon>MapControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\KmlFileUtils.cs" />
+    <Compile Include="Utils\NamedPipeClient.cs" />
     <Compile Include="Utils\NamedPipeServer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -166,6 +178,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Form_load_gps.resx">
       <DependentUpon>Form_load_gps.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Form_regex_pattern_manage.resx">
+      <DependentUpon>Form_regex_pattern_manage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Form_set_map_key.resx">
       <DependentUpon>Form_set_map_key.cs</DependentUpon>
@@ -333,10 +348,6 @@
     <ProjectReference Include="..\NetUtil\NetUtil.csproj">
       <Project>{0B25DE8C-3747-4FD5-90A6-789FE09B1816}</Project>
       <Name>NetUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TerminalMapLib\TerminalMapLib.csproj">
-      <Project>{b3129cf0-5086-4838-8b0d-60f8d6f00e9b}</Project>
-      <Name>TerminalMapLib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

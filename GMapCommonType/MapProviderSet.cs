@@ -91,15 +91,15 @@ namespace GMapCommonType
             //mapControl.MapProvider = GMapProviders.GoogleChinaSatelliteMap;//NO
             //mapControl.MapProvider = GMapProviders.GoogleChinaHybridMap;//NO
             GoogleProviderArray = new MapProviderInfo[3];
-            GoogleProviderArray[0] = new MapProviderInfo(MapProviderType.Google, GMapProviders.GoogleChinaMap, MapLayerType.Common, CoordType.WGS84);
-            GoogleProviderArray[1] = new MapProviderInfo(MapProviderType.Google, GMapProviders.GoogleChinaSatelliteMap, MapLayerType.Satellite, CoordType.WGS84);
-            GoogleProviderArray[2] = new MapProviderInfo(MapProviderType.Google, GMapProviders.GoogleChinaHybridMap, MapLayerType.Hybird, CoordType.WGS84);
+            GoogleProviderArray[0] = new MapProviderInfo(MapProviderType.Google, GMapProviders.GoogleMap, MapLayerType.Common, CoordType.WGS84);
+            GoogleProviderArray[1] = new MapProviderInfo(MapProviderType.Google, GMapProviders.GoogleSatelliteMap, MapLayerType.Satellite, CoordType.WGS84);
+            GoogleProviderArray[2] = new MapProviderInfo(MapProviderType.Google, GMapProviders.GoogleHybridMap, MapLayerType.Hybird, CoordType.WGS84);
             // OSM	WGS84
             //mapControl.MapProvider = GMapProviders.OpenStreetMap;//NO
             //mapControl.MapProvider = GMapProviders.OpenStreetMapQuestSatelite;//NO
             //mapControl.MapProvider = GMapProviders.OpenStreetMapQuestHybrid;//NO
             OSMProviderArray = new MapProviderInfo[3];
-            OSMProviderArray[0] = new MapProviderInfo(MapProviderType.OpenStreetMap, GMapProviders.OpenStreetMap, MapLayerType.Common, CoordType.WGS84);
+            OSMProviderArray[0] = new MapProviderInfo(MapProviderType.OpenStreetMap, GMapProvidersExt.OSM.OsmMapProvider.Instance, MapLayerType.Common, CoordType.WGS84);
             OSMProviderArray[1] = new MapProviderInfo(MapProviderType.OpenStreetMap, GMapProviders.OpenStreetMapQuestSatelite, MapLayerType.Satellite, CoordType.WGS84);
             OSMProviderArray[2] = new MapProviderInfo(MapProviderType.OpenStreetMap, GMapProviders.OpenStreetMapQuestHybrid, MapLayerType.Hybird, CoordType.WGS84);
             // Other

@@ -77,52 +77,52 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-	<Reference Include="Mono.Data.Sqlite">
-	  <HintPath>..\Lib\Mono.Data.Sqlite.dll</HintPath>
-	  <Private>False</Private>
-	</Reference>
-	<Reference Include="System.Data.SQLite">
-	  <HintPath>..\References\Windows\NET4\System.Data.SQLite.DLL</HintPath>
-	  <SpecificVersion>False</SpecificVersion>
-	  <Private>False</Private>
-	</Reference>
-	<Reference Include="Npgsql">
-	  <HintPath>..\Lib\Npgsql.dll</HintPath>
-	  <Private>False</Private>
-	</Reference>
-	<Reference Include="Mono.Security">
-	  <HintPath>..\Lib\Mono.Security.dll</HintPath>
-	  <Private>False</Private>
-	</Reference>
-	<Reference Include="MySql.Data">
-	  <HintPath>..\Lib\MySql.Data.dll</HintPath>
-	  <SpecificVersion>False</SpecificVersion>
-	  <Private>False</Private>
-	</Reference>
+    <Reference Include="Mono.Data.Sqlite">
+      <HintPath>..\Lib\Mono.Data.Sqlite.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\References\Windows\NET4\System.Data.SQLite.DLL</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Npgsql">
+      <HintPath>..\Lib\Npgsql.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.Security">
+      <HintPath>..\Lib\Mono.Security.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\Lib\MySql.Data.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-	<Reference Include="Mono.Data.Sqlite">
-	  <HintPath>..\References\Windows\Mono.Data.Sqlite.dll</HintPath>
-	  <Private>False</Private>
-	</Reference>
-	<Reference Include="System.Data.SQLite">
-	  <HintPath>..\References\Windows\System.Data.SQLite.DLL</HintPath>
-	  <SpecificVersion>False</SpecificVersion>
-	  <Private>False</Private>
-	</Reference>
-	<Reference Include="Npgsql">
-	  <HintPath>..\References\Windows\Npgsql.dll</HintPath>
-	  <Private>False</Private>
-	</Reference>
-	<Reference Include="Mono.Security">
-	  <HintPath>..\References\Windows\Mono.Security.dll</HintPath>
-	  <Private>False</Private>
-	</Reference>
-	<Reference Include="MySql.Data">
-	  <HintPath>..\References\Windows\MySql.Data.dll</HintPath>
-	  <SpecificVersion>False</SpecificVersion>
-	  <Private>False</Private>
-	</Reference>
+    <Reference Include="Mono.Data.Sqlite">
+      <HintPath>..\References\Windows\Mono.Data.Sqlite.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\References\Windows\System.Data.SQLite.DLL</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Npgsql">
+      <HintPath>..\References\Windows\Npgsql.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.Security">
+      <HintPath>..\References\Windows\Mono.Security.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\References\Windows\MySql.Data.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -326,7 +326,6 @@
   <ItemGroup>
     <WebReferences Include="Web References\" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
