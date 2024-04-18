@@ -49,7 +49,10 @@ namespace MapToolsWinForm
         /// log4net日志记录
         /// </summary>
         private static readonly ILog log = LogManager.GetLogger(typeof(MapForm));
-
+        /// <summary>
+        /// 输入坐标格式
+        /// </summary>
+        private bool is_input_coord_lon_lat = true;
         public MapForm()
         {
             InitializeComponent();
@@ -132,22 +135,43 @@ namespace MapToolsWinForm
         /// </summary>
         private void InitUI()
         {
-            //hiddenMode = Properties.Settings.Default.Setting_hidden_mode;
-            //if (hiddenMode)
-            //{
-            //    xPanderPanel_coord_pickup.Visible = false;
-            //    xPanderPanel_query.Visible = false;
-            //    xPanderPanel_download.Visible = false;
-            //    xPanderPanelChinaRegion.Visible = false;
-            //    xPanderPanel_overlay.Visible = false;
-            //    xPanderPanel_navi_route.Visible = false;
-            //    xPanderPanel_match_test.Visible = false;
-            //    搜索引擎ToolStripMenuItem.Visible = false;
-            //    地图操作ToolStripMenuItem.Visible = false;
-            //    地图访问ToolStripMenuItem.Visible = false;
-            //    设置ToolStripMenuItem.Visible = false;
-            //    帮助ToolStripMenuItem.Visible = false;
-            //}
+            hiddenMode = Properties.Settings.Default.Setting_hidden_mode;
+            if (hiddenMode)
+            {
+                xPanderPanel_coord_pickup.Visible = false;
+                xPanderPanel_query.Visible = false;
+                xPanderPanel_download.Visible = false;
+                xPanderPanelChinaRegion.Visible = false;
+                xPanderPanel_overlay.Visible = false;
+                xPanderPanel_navi_route.Visible = false;
+                xPanderPanel_match_test.Visible = false;
+                搜索引擎ToolStripMenuItem.Visible = false;
+                地图操作ToolStripMenuItem.Visible = false;
+                地图访问ToolStripMenuItem.Visible = false;
+                设置ToolStripMenuItem.Visible = false;
+                帮助ToolStripMenuItem.Visible = false;
+            }
+
+            // 设置输入坐标格式
+            is_input_coord_lon_lat = Properties.Settings.Default.Setting_is_input_coord_lon_lat;
+            if (is_input_coord_lon_lat)
+            {
+                经度纬度ToolStripMenuItem.Checked = true;
+                纬度经度ToolStripMenuItem.Checked = false;
+                lb_input_coord.Text = "输入标系(经度,纬度)：";
+                lb_input_coord_wgs.Text = "WGS84坐标系(经度,纬度)：";
+                lb_input_coord_gcj.Text = "GCJ02坐标系(经度,纬度)：：";
+                lb_input_coord_bd.Text = "BD09坐标系(经度,纬度)：";
+            }
+            else
+            {
+                经度纬度ToolStripMenuItem.Checked = false;
+                纬度经度ToolStripMenuItem.Checked = true;
+                lb_input_coord.Text = "输入标系(纬度,经度)：";
+                lb_input_coord_wgs.Text = "WGS84坐标系(纬度,经度)：";
+                lb_input_coord_gcj.Text = "GCJ02坐标系(纬度,经度)：：";
+                lb_input_coord_bd.Text = "BD09坐标系(纬度,经度)：";
+            }
 
             this.Text += " V" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             ShowDownloadTip(false);
@@ -1009,6 +1033,44 @@ namespace MapToolsWinForm
 
         #endregion
 
+
+
+        #region 坐标输入格式菜单
+
+        private void 经度纬度ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!is_input_coord_lon_lat)
+            {
+                is_input_coord_lon_lat = true;
+                this.经度纬度ToolStripMenuItem.Checked = true;
+                this.纬度经度ToolStripMenuItem.Checked = false;
+                Properties.Settings.Default.Setting_is_input_coord_lon_lat = is_input_coord_lon_lat;
+                Properties.Settings.Default.Save();
+                lb_input_coord.Text = "输入标系(经度,纬度)：";
+                lb_input_coord_wgs.Text = "WGS84坐标系(经度,纬度)：";
+                lb_input_coord_gcj.Text = "GCJ02坐标系(经度,纬度)：：";
+                lb_input_coord_bd.Text = "BD09坐标系(经度,纬度)：";
+            }
+        }
+
+        private void 纬度经度ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (is_input_coord_lon_lat)
+            {
+                is_input_coord_lon_lat = false;
+                this.经度纬度ToolStripMenuItem.Checked = false;
+                this.纬度经度ToolStripMenuItem.Checked = true;
+                Properties.Settings.Default.Setting_is_input_coord_lon_lat = is_input_coord_lon_lat;
+                Properties.Settings.Default.Save();
+                lb_input_coord.Text = "输入标系(纬度,经度)：";
+                lb_input_coord_wgs.Text = "WGS84坐标系(纬度,经度)：";
+                lb_input_coord_gcj.Text = "GCJ02坐标系(纬度,经度)：：";
+                lb_input_coord_bd.Text = "BD09坐标系(纬度,经度)：";
+            }
+        }
+
+        #endregion
+
         #region 地图操作菜单
 
         private void 保存缓存ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1166,9 +1228,18 @@ namespace MapToolsWinForm
             if (p != PointLatLng.Empty)
             {
                 PointInDiffCoord coord = GetPointInDiffCoord(p);
-                tb_lon_lat_wgs84.Text = coord.WGS84.Lng.ToString("f7") + "," + coord.WGS84.Lat.ToString("f7");
-                tb_lon_lat_gcj02.Text = coord.GCJ02.Lng.ToString("f7") + "," + coord.GCJ02.Lat.ToString("f7");
-                tb_lon_lat_bd09.Text = coord.BD09.Lng.ToString("f7") + "," + coord.BD09.Lat.ToString("f7");
+                if (is_input_coord_lon_lat)
+                {
+                    tb_lon_lat_wgs84.Text = coord.WGS84.Lng.ToString("f7") + "," + coord.WGS84.Lat.ToString("f7");
+                    tb_lon_lat_gcj02.Text = coord.GCJ02.Lng.ToString("f7") + "," + coord.GCJ02.Lat.ToString("f7");
+                    tb_lon_lat_bd09.Text = coord.BD09.Lng.ToString("f7") + "," + coord.BD09.Lat.ToString("f7");
+                }
+                else
+                {
+                    tb_lon_lat_wgs84.Text = coord.WGS84.Lat.ToString("f7") + "," + coord.WGS84.Lng.ToString("f7");
+                    tb_lon_lat_gcj02.Text = coord.GCJ02.Lat.ToString("f7") + "," + coord.GCJ02.Lng.ToString("f7");
+                    tb_lon_lat_bd09.Text = coord.BD09.Lat.ToString("f7") + "," + coord.BD09.Lng.ToString("f7");
+                }
                 curCoordinatePickPointInDiffCoord = coord;
                 if (!isAddressReq)
                 {
@@ -1361,8 +1432,18 @@ namespace MapToolsWinForm
             {
                 try
                 {
-                    double lon = Convert.ToDouble(strs[0].Trim());
-                    double lat = Convert.ToDouble(strs[1].Trim());
+                    double lon = 999;
+                    double lat = 999;
+                    if (is_input_coord_lon_lat)
+                    {
+                        lon = Convert.ToDouble(strs[0].Trim());
+                        lat = Convert.ToDouble(strs[1].Trim());
+                    }
+                    else
+                    {
+                        lon = Convert.ToDouble(strs[1].Trim());
+                        lat = Convert.ToDouble(strs[0].Trim());
+                    }
                     if (Math.Abs(lon) <= 180 && Math.Abs(lat) <= 90)
                     {
                         return new PointLatLng(lat, lon, type);
@@ -1378,8 +1459,18 @@ namespace MapToolsWinForm
             {
                 try
                 {
-                    double lon = Convert.ToDouble(strs[0].Trim());
-                    double lat = Convert.ToDouble(strs[1].Trim());
+                    double lon = 999;
+                    double lat = 999;
+                    if (is_input_coord_lon_lat)
+                    {
+                        lon = Convert.ToDouble(strs[0].Trim());
+                        lat = Convert.ToDouble(strs[1].Trim());
+                    }
+                    else
+                    {
+                        lon = Convert.ToDouble(strs[1].Trim());
+                        lat = Convert.ToDouble(strs[0].Trim());
+                    }
                     if (Math.Abs(lon) <= 180 && Math.Abs(lat) <= 90)
                     {
                         return new PointLatLng(lat, lon, type);
@@ -1399,8 +1490,18 @@ namespace MapToolsWinForm
             {
                 try
                 {
-                    double lon = Convert.ToDouble(strs[0].Trim());
-                    double lat = Convert.ToDouble(strs[1].Trim());
+                    double lon = 999;
+                    double lat = 999;
+                    if (is_input_coord_lon_lat)
+                    {
+                        lon = Convert.ToDouble(strs[0].Trim());
+                        lat = Convert.ToDouble(strs[1].Trim());
+                    }
+                    else
+                    {
+                        lon = Convert.ToDouble(strs[1].Trim());
+                        lat = Convert.ToDouble(strs[0].Trim());
+                    }
                     if (Math.Abs(lon) <= 180 && Math.Abs(lat) <= 90)
                     {
                         return new PointLatLng(lat, lon, type);
@@ -2999,11 +3100,11 @@ namespace MapToolsWinForm
             // 计算方向
             double dir = CalculateUtils.getDirection(lastPoint.Lng, lastPoint.Lat, curPoint.Lng, curPoint.Lat);
             double dist = CalculateUtils.getDistance(lastPoint.Lng, lastPoint.Lat, curPoint.Lng, curPoint.Lat);
-            if (dist < 30)
+            int min_dist = 30;
+            if (dist < min_dist)
             {
                 return null;
             }
-            int min_dist = 30;
             List<GpsRoutePoint> gpsRoutePointList = new List<GpsRoutePoint>();
             // 起点
             GpsRoutePoint point = new GpsRoutePoint();
@@ -3346,6 +3447,7 @@ namespace MapToolsWinForm
                 loadCityIndexWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(loadCityIndexWorker_RunWorkerCompleted);
                 loadCityIndexWorker.RunWorkerAsync(sltPath);
                 Properties.Settings.Default.Setting_slt_tmap_path = sltPath;
+                Properties.Settings.Default.Save();
             }
         }
 
@@ -3395,6 +3497,7 @@ namespace MapToolsWinForm
                     sltMatchTestRootNode = rootNode;
                 }
                 MyMessageBox.ShowTipMessage("加载完成！");
+                terminalMapInfo = null;
             }
         }
 
@@ -3725,7 +3828,11 @@ namespace MapToolsWinForm
                     }
                     //GMapRoute mapRoute = new GMapRoute(pList, item.AttributeStr);
                     GMapRouteBezier mapRoute = new GMapRouteBezier(pList, item.AttributeStr);
-                    if (item.EmFCLevel - 1 >= terminalMapInfo.DisplayInfo.RoadShowTag.Length || !terminalMapInfo.DisplayInfo.RoadShowTag[item.EmFCLevel - 1])
+                    //if (item.EmFCLevel - 1 >= terminalMapInfo.DisplayInfo.RoadShowTag.Length || !terminalMapInfo.DisplayInfo.RoadShowTag[item.EmFCLevel - 1])
+                    //{
+                    //    continue;
+                    //}
+                    if (item.Ui8Nr - 1 >= terminalMapInfo.DisplayInfo.RoadShowTag.Length || !terminalMapInfo.DisplayInfo.RoadShowTag[item.Ui8Nr - 1])
                     {
                         continue;
                     }
@@ -3757,6 +3864,14 @@ namespace MapToolsWinForm
                             {
                                 mapRoute.Stroke = terminalMapInfo.DisplayInfo.RoadPenDefault5;
                             }
+                            //if (item.Ui8Nr <= 2)
+                            //{
+                            //    mapRoute.Stroke = terminalMapInfo.DisplayInfo.RoadPenDefault1;
+                            //}
+                            //else
+                            //{
+                            //    mapRoute.Stroke = terminalMapInfo.DisplayInfo.RoadPenDefault3;
+                            //}
                         }
                         else if (terminalMapInfo.DisplayInfo.RoadDisplayType == DisplayType.CUSTOM)
                         {
@@ -3780,6 +3895,13 @@ namespace MapToolsWinForm
                             {
                                 mapRoute.Stroke = terminalMapInfo.DisplayInfo.RoadPen5;
                             }
+                        }
+                        else
+                        {
+                            Pen pen = new Pen(Color.FromArgb(180, terminalMapInfo.DisplayInfo.RoadColor), 3f);
+                            pen.EndCap = LineCap.ArrowAnchor;
+                            pen.CustomEndCap = new AdjustableArrowCap(3f, 5f, true);
+                            mapRoute.Stroke = pen;
                         }
                         mapRoute.IsHitTestVisible = true;
                         cityDataInfo.CityDataOverlay.Routes.Add(mapRoute);
@@ -5815,7 +5937,14 @@ namespace MapToolsWinForm
             PointLatLng p = GetCoordFormString(tb_coord_view_text.Text, coordType);
             if (p == PointLatLng.Empty)
             {
-                MyMessageBox.ShowTipMessage("请输入经度在前，纬度在后，中间用逗号或空格隔开的格式坐标。");
+                if (is_input_coord_lon_lat)
+                {
+                    MyMessageBox.ShowTipMessage("请输入经度在前，纬度在后，中间用逗号或空格隔开的格式坐标。");
+                }
+                else
+                {
+                    MyMessageBox.ShowTipMessage("请输入纬度在前，经度在后，中间用逗号或空格隔开的格式坐标。");
+                }
                 return;
             }
             mapControl.Overlays.Remove(tempCoordOverlay);

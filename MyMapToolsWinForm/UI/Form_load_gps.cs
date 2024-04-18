@@ -11,6 +11,7 @@ using System.IO;
 using GMap.NET;
 using System.Data.OleDb;
 using System.Text.RegularExpressions;
+using GMapUtil;
 
 namespace MapToolsWinForm
 {
@@ -18,6 +19,7 @@ namespace MapToolsWinForm
     {
         List<string> mRegexPatternList = new List<string>();
         string mRegexPath = Environment.CurrentDirectory + "\\RegexList.txt";
+        string mTempLoadGpsPath = Environment.CurrentDirectory + "\\TempLoadGps.txt";
         public Form_load_gps()
         {
             InitializeComponent();
@@ -46,6 +48,8 @@ namespace MapToolsWinForm
             tb_type_scale.Text = Properties.Settings.Default.Setting_type_scale;
             tb_jump_num.Text = Properties.Settings.Default.Setting_jump_num;
             tb_min_speed.Text = Properties.Settings.Default.Setting_min_speed;
+            tb_interpolation_meter.Text = Properties.Settings.Default.Setting_interpolation_meter;
+            cb_regex_pattern.SelectedIndex = Properties.Settings.Default.Setting_regex_pattern_idx;
         }
 
         private void InitRegexPatternList()
@@ -91,6 +95,8 @@ namespace MapToolsWinForm
             mRegexPatternList.Add(@"longitude:\s+(-?\d+\.\d+)\s+latitude:\s+(-?\d+\.\d+)\s+direction:\s+(-?\d+\.\d+)\s+speed:\s+(-?\d+\.\d+)\s+alt:\s+(-?\d+\.\d+)\s+accuracy:\s+(-?\d+\.\d+)");
             // lon = 0.000000  lat = 0.000000  prob = 0.000000
             mRegexPatternList.Add(@"lon\s+=\s+(-?\d+\.\d+)\s+lat\s+=\s+(-?\d+\.\d+)\s+prob\s+=\s+(-?\d+\.\d+)");
+            // [2024/01/17 16:30:37.223516 WARNING]: [CORE_MOD hp_fk_interface.c:985]: av2hp-->gps: match road too much time, 4.000000 seconds:1.640455,41.320515,26.000000,90.080002,0.000000
+            mRegexPatternList.Add(@"seconds:(-?\d+\.\d+),(-?\d+\.\d+),(-?\d+\.\d+),(-?\d+\.\d+),(-?\d+\.\d+)");
         }
 
         /// <summary>
@@ -102,11 +108,6 @@ namespace MapToolsWinForm
         private void btn_load_file_Click(object sender, EventArgs e)
         {
             int file_format = cb_file_format.SelectedIndex;
-            if (file_format < 0 || file_format > 5)
-            {
-                MyMessageBox.ShowTipMessage("暂不支持该文件类型");
-                return;
-            }
             string pattern = cb_regex_pattern.Text;
             if (file_format == 5 && string.IsNullOrWhiteSpace(pattern))
             {
@@ -149,9 +150,14 @@ namespace MapToolsWinForm
             {
                 ofd.Filter = "文本文档|*.nmea;*.log;*.txt|所有文件(*.*)|*.*";
             }
+            else if (cb_file_format.SelectedIndex == 6)
+            {
+                ofd.Filter = "文本文档|*.kml|所有文件(*.*)|*.*";
+            }
             else
             {
-                ofd.Filter = "所有文件(*.*)|*.*";
+                MyMessageBox.ShowTipMessage("暂不支持该文件类型");
+                return;
             }
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -168,6 +174,77 @@ namespace MapToolsWinForm
                 }
 
                 routeName = Path.GetFileName(sltpath);
+
+                routeInfoList = getRouteInfoList(sltpath, file_format, separator_type, pattern);
+
+                if (routeInfoList == null || routeInfoList.Count <= 0)
+                {
+                    MyMessageBox.ShowTipMessage("未识别到数据，请检查文件内容格式是否正确或者文件是否被加密！");
+                }
+                else
+                {
+                    int lineNum = 0;
+                    foreach (var item in routeInfoList)
+                    {
+                        if (lineNum == 0)
+                        {
+                            headLine = item;
+                            InitListView(this.lv_route_info, headLine);
+                        }
+                        if (lineNum > 500)
+                        {
+                            break;
+                        }
+                        InsertListView(this.lv_route_info, item);
+                        lineNum++;
+                    }
+                    MyMessageBox.ShowTipMessage("加载数据成功" + routeInfoList.Count() + "条待发送数据！");
+                }
+            }
+        }
+
+        private void btn_load_copy_Click(object sender, EventArgs e)
+        {
+            int file_format = cb_file_format.SelectedIndex;
+            string pattern = cb_regex_pattern.Text;
+            if (file_format == 5 && string.IsNullOrWhiteSpace(pattern))
+            {
+                MyMessageBox.ShowTipMessage("请选择正则匹配语句");
+                return;
+            }
+            int separator_type = cb_separator.SelectedIndex;
+            if (file_format == 0)
+            {
+                if (separator_type < 0 || separator_type > 4)
+                {
+                    MyMessageBox.ShowTipMessage("暂不支持分隔符类型");
+                    return;
+                }
+            }
+            if (cb_file_format.SelectedIndex < 0 || cb_file_format.SelectedIndex == 1 || cb_file_format.SelectedIndex > 5)
+            {
+                MyMessageBox.ShowTipMessage("暂不支持该文件类型");
+                return;
+            }
+            Form_load_copy load_copy = new Form_load_copy();
+            if (load_copy.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string content = load_copy.content;
+                File.WriteAllText(mTempLoadGpsPath, content);
+                tb_file_path.Text = mTempLoadGpsPath;
+                string sltpath = mTempLoadGpsPath;
+                if (sltpath == null || sltpath.Trim().Equals(""))
+                {
+                    MyMessageBox.ShowTipMessage("选择的文件路径有问题");
+                    return;
+                }
+                if (!File.Exists(sltpath))
+                {
+                    MyMessageBox.ShowTipMessage("选择的文件不存在");
+                    return;
+                }
+
+                routeName = Path.GetFileName(sltpath) + "_" + DateTime.Now.ToString();
 
                 routeInfoList = getRouteInfoList(sltpath, file_format, separator_type, pattern);
 
@@ -372,7 +449,7 @@ namespace MapToolsWinForm
                 case 3:
                     try
                     {
-                        int count = KmlFileUtils.loadKmlFile(sltpath, ret);
+                        int count = KmlUtil.loadKmlFilePoint(sltpath, ret);
                         if (count <= 1)
                         {
                             MyMessageBox.ShowTipMessage("未加载到GPS点数据");
@@ -386,7 +463,7 @@ namespace MapToolsWinForm
                 case 4:
                     try
                     {
-                        ret.Add(new string[] { "lon", "lat", "dir", "speed", "accuracy" });
+                        ret.Add(new string[] { "time", "lon", "lat", "dir", "speed", "accuracy" });
                         StreamReader sr = new StreamReader(sltpath);
                         while (!sr.EndOfStream)
                         {
@@ -399,6 +476,9 @@ namespace MapToolsWinForm
                             {
                                 continue;
                             }
+                            // 获取时间
+                            string date_time = line.Substring(1, 19);
+                            date_time = date_time.Replace("/", "-");
                             string[] arrs = line.Split(new string[] { "av2hp-->location:" }, StringSplitOptions.None);
                             if (arrs == null || arrs.Length < 2)
                             {
@@ -414,16 +494,17 @@ namespace MapToolsWinForm
                             {
                                 rowNum = arrs.Length;
                             }
-                            string[] retArray = new string[rowNum];
+                            string[] retArray = new string[rowNum+1];
+                            retArray[0] = date_time;
                             for (int i = 0; i < rowNum; i++)
                             {
                                 if (i < arrs.Length)
                                 {
-                                    retArray[i] = arrs[i];
+                                    retArray[i+1] = arrs[i];
                                 }
                                 else
                                 {
-                                    retArray[i] = "";
+                                    retArray[i+1] = "";
                                 }
                             }
                             ret.Add(retArray);
@@ -456,6 +537,20 @@ namespace MapToolsWinForm
                                 }
                                 ret.Add(retArray);
                             }
+                        }
+                    }
+                    catch (Exception exception)
+                    {
+                        MyMessageBox.ShowTipMessage("读取文件出错！请检查文件内容格式是否正确或者文件是否被加密！\n" + exception.ToString());
+                    }
+                    break;
+                case 6:
+                    try
+                    {
+                        int count = KmlUtil.loadKmlFileLineString(sltpath, ret);
+                        if (count <= 1)
+                        {
+                            MyMessageBox.ShowTipMessage("未加载到GPS点数据");
                         }
                     }
                     catch (Exception exception)
@@ -667,6 +762,8 @@ namespace MapToolsWinForm
             int jumpCount = 0;
             int jump_num;
             double min_speed;
+            // 插值距离：米
+            int interpolation_meter = 0;
             try
             {
                 List<int> sltRowList = new List<int>();
@@ -755,11 +852,17 @@ namespace MapToolsWinForm
                     jump_num = 0;
                 }
                 min_speed = double.Parse(tb_min_speed.Text.ToString().Trim());
+                interpolation_meter = Int32.Parse(tb_interpolation_meter.Text.ToString().Trim());
+                if (interpolation_meter < 0)
+                {
+                    interpolation_meter = 0;
+                }
                 int parse_line = 0;
                 gpsRoutePointList = new List<GpsRoutePoint>();
                 int id = 0;
                 double lastLon = 0;
                 double lastLat = 0;
+                GpsRoutePoint lastGpsInfo = null;
                 foreach (var item in routeInfoList)
                 {
                     try
@@ -860,6 +963,42 @@ namespace MapToolsWinForm
                         }
                         if (parse_line % (jump_num + 1) == 0)
                         {
+                            // 这里先判断一下是否要插值
+                            if (interpolation_meter > 0)
+                            {
+                                if (lastGpsInfo != null)
+                                {
+                                    double dir = CalculateUtils.getDirection(lastGpsInfo.Longitude, lastGpsInfo.Latitude, info.Longitude, info.Latitude);
+                                    double dist = CalculateUtils.getDistance(lastGpsInfo.Longitude, lastGpsInfo.Latitude, info.Longitude, info.Latitude);
+                                    if (dist > interpolation_meter)
+                                    {
+                                        // 插值点
+                                        int insertNum = (int)dist / interpolation_meter;
+                                        double insertLon = (info.Longitude - lastGpsInfo.Longitude) / (insertNum + 1);
+                                        double insertLat = (info.Latitude - lastGpsInfo.Latitude) / (insertNum + 1);
+                                        for (int i = 0; i < insertNum; i++)
+                                        {
+                                            double tempLon = lastLon + (i + 1) * insertLon;
+                                            double tempLat = lastLat + (i + 1) * insertLat;
+                                            GpsRoutePoint tempInfo = new GpsRoutePoint();
+                                            tempInfo.ID = id;
+                                            tempInfo.Longitude = tempLon;
+                                            tempInfo.Latitude = tempLat;
+                                            tempInfo.Direction = info.Direction;
+                                            tempInfo.Speed = info.Speed;
+                                            tempInfo.Altitude = info.Altitude;
+                                            tempInfo.Accuracy = info.Accuracy;
+                                            tempInfo.Type = info.Type;
+                                            tempInfo.Datetime = info.Datetime;
+                                            tempInfo.Attributes = info.Attributes;
+                                            tempInfo.HeadAttributes = info.HeadAttributes;
+                                            gpsRoutePointList.Add(tempInfo);
+                                            id++;
+                                        }
+                                    }
+                                }
+                                lastGpsInfo = info;
+                            }
                             gpsRoutePointList.Add(info);
                             id++;
                         }
@@ -922,6 +1061,8 @@ namespace MapToolsWinForm
             }
             Properties.Settings.Default.Setting_jump_num = tb_jump_num.Text;
             Properties.Settings.Default.Setting_min_speed = tb_min_speed.Text;
+            Properties.Settings.Default.Setting_interpolation_meter = tb_interpolation_meter.Text;
+            Properties.Settings.Default.Setting_slt_regex_pattern_idx = cb_regex_pattern.SelectedIndex;
             Properties.Settings.Default.Save();
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close();
@@ -1017,9 +1158,9 @@ namespace MapToolsWinForm
         private void btn_regex_pattern_manage_Click(object sender, EventArgs e)
         {
             Form_regex_pattern_manage manage = new Form_regex_pattern_manage(mRegexPatternList);
-            manage.ShowDialog();
-            if (manage.IsModify)
+            if (manage.ShowDialog() == System.Windows.Forms.DialogResult.OK && manage.IsModify)
             {
+                mRegexPatternList = manage.RegexPatternList;
                 if (mRegexPatternList == null || mRegexPatternList.Count <= 0)
                 {
                     getDefPatternList();

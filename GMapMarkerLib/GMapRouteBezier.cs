@@ -11,7 +11,7 @@ namespace GMapMarkerLib
     public class GMapRouteBezier : GMapRoute
     {
         private bool isArrow;
-        private Pen pen = new Pen(Color.Red, 3f);
+        private Pen pen = new Pen(Color.DarkGray, 3f);
         private List<PointLatLng> points;
         private StringFormat TipFormat;
         public Font TipFont { set; get; }
@@ -31,7 +31,7 @@ namespace GMapMarkerLib
             if (this.isArrow)
             {
                 pen.EndCap = LineCap.ArrowAnchor;
-                pen.CustomEndCap = new AdjustableArrowCap(5f, 10f, true);
+                pen.CustomEndCap = new AdjustableArrowCap(3f, 5f, true);
             }
             Stroke = pen;
         }

@@ -178,6 +178,66 @@ namespace GMapUtil
             return list;
         }
 
+        public static List<List<PointLatLng>> GetLineStringsFromKMLFile(string kmlFile)
+        {
+            XmlDocument document = new XmlDocument();
+            document.Load(kmlFile);
+            List<List<PointLatLng>> list = new List<List<PointLatLng>>();
+            XmlNodeList elementsByTagName = document.GetElementsByTagName("LineString");
+            for (int i = 0; i < elementsByTagName.Count; i++)
+            {
+                XmlNodeList list3 = (elementsByTagName.Item(i) as XmlElement).GetElementsByTagName("coordinates");
+                for (int j = 0; j < list3.Count; j++)
+                {
+                    string[] strArray = list3.Item(j).InnerText.Replace("\n", "").Split(new char[] { ' ' });
+                    List<PointLatLng> item = new List<PointLatLng>();
+                    for (int k = 0; k < strArray.Length; k++)
+                    {
+                        if (!strArray[k].Trim().Equals(""))
+                        {
+                            string[] strArray2 = strArray[k].Split(new char[] { ',' });
+                            double num4 = double.Parse(strArray2[0]);
+                            double lat = double.Parse(strArray2[1]);
+                            PointLatLng lng = new PointLatLng(lat, num4);
+                            item.Add(lng);
+                        }
+                    }
+                    list.Add(item);
+                }
+            }
+            return list;
+        }
+
+        public static List<List<PointLatLng>> GetPointsFromKMLFile(string kmlFile)
+        {
+            XmlDocument document = new XmlDocument();
+            document.Load(kmlFile);
+            List<List<PointLatLng>> list = new List<List<PointLatLng>>();
+            XmlNodeList elementsByTagName = document.GetElementsByTagName("Point");
+            for (int i = 0; i < elementsByTagName.Count; i++)
+            {
+                XmlNodeList list3 = (elementsByTagName.Item(i) as XmlElement).GetElementsByTagName("coordinates");
+                for (int j = 0; j < list3.Count; j++)
+                {
+                    string[] strArray = list3.Item(j).InnerText.Replace("\n", "").Split(new char[] { ' ' });
+                    List<PointLatLng> item = new List<PointLatLng>();
+                    for (int k = 0; k < strArray.Length; k++)
+                    {
+                        if (!strArray[k].Trim().Equals(""))
+                        {
+                            string[] strArray2 = strArray[k].Split(new char[] { ',' });
+                            double num4 = double.Parse(strArray2[0]);
+                            double lat = double.Parse(strArray2[1]);
+                            PointLatLng lng = new PointLatLng(lat, num4);
+                            item.Add(lng);
+                        }
+                    }
+                    list.Add(item);
+                }
+            }
+            return list;
+        }
+
         public static void SaveEntry(KmlFile kml, string name, string filePath)
         {
             kml.Save(filePath);
@@ -217,6 +277,35 @@ namespace GMapUtil
             }
             root.Feature = document;
             KmlFile.Create(root, false).Save(filePath);
+        }
+
+        public static void SavePointsIcon(List<PointLatLng> points, string name, string filePath)
+        {
+            Kml root = new Kml();
+            Document document = new Document();
+            document.Name = name;
+
+            var style = new Style();
+            style.Id = "my_style";
+            var iconStyle = new IconStyle();
+            iconStyle.Scale = 1;
+            iconStyle.Icon = new IconStyle.IconLink(new Uri("https://lois-pictures.oss-cn-hangzhou.aliyuncs.com/picture/ylw-stars.png"));
+            style.Icon = iconStyle;
+
+            foreach (PointLatLng lng in points)
+            {
+                Placemark feature = new Placemark();
+                feature.Visibility = true;
+                feature.StyleSelector = style;
+                Point point = new Point
+                {
+                    Coordinate = new Vector(lng.Lat, lng.Lng)
+                };
+                feature.Geometry = point;
+                document.AddFeature(feature);
+            }
+            root.Feature = document;
+            KmlFile.Create(root, true).Save(filePath);
         }
 
         public static int SavePoints(List<PointLatLngWithProperty> points, string name, string filePath)
@@ -275,6 +364,97 @@ namespace GMapUtil
             }
             root.Geometry = polygon;
             KmlFile.Create(root, false).Save(filePath);
+        }
+
+        public static int loadKmlFileLineString(string filePath, List<string[]> pointsStrList)
+        {
+            if (!File.Exists(filePath))
+            {
+                return -1;
+            }
+            if (pointsStrList == null)
+            {
+                return -1;
+            }
+            List<List<PointLatLng>> list = GetLineStringsFromKMLFile(filePath);
+            if (list == null || list.Count <= 0)
+            {
+                return -1;
+            }
+            pointsStrList.Add(new string[] { "lon", "lat" , "dir"});
+            foreach (var line in list)
+            {
+                if (line == null || line.Count <= 0)
+                {
+                    continue;
+                }
+                double lastLon = 999;
+                double lastLat = 999;
+                foreach (var point in line)
+                {
+                    if (lastLon == 999 && lastLat == 999)
+                    {
+                        pointsStrList.Add(new string[] { point.Lng + "", point.Lat + "", "0" });
+                    }
+                    else
+                    {
+                        double dir = CalculateUtils.getDirection(lastLon, lastLat, point.Lng, point.Lat);
+                        double dist = CalculateUtils.getDistance(lastLon, lastLat, point.Lng, point.Lat);
+                        int min_dist = 30;
+                        if (dist < min_dist)
+                        {
+                            pointsStrList.Add(new string[] { point.Lng + "", point.Lat + "", dir + "" });
+                        }
+                        else
+                        {
+                            // 插值点
+                            int insertNum = (int)dist / min_dist;
+                            double insertLon = (point.Lng - lastLon) / (insertNum + 1);
+                            double insertLat = (point.Lat - lastLat) / (insertNum + 1);
+                            for (int i = 0; i < insertNum; i++)
+                            {
+                                pointsStrList.Add(new string[] { (lastLon + (i + 1) * insertLon) + "", (lastLat + (i + 1) * insertLat) + "", dir + "" });
+                            }
+                            pointsStrList.Add(new string[] { point.Lng + "", point.Lat + "", dir + "" });
+                        }
+                    }
+                    lastLon = point.Lng;
+                    lastLat = point.Lat;
+                }
+            }
+
+            return pointsStrList.Count;
+        }
+
+        public static int loadKmlFilePoint(string filePath, List<string[]> pointsStrList)
+        {
+            if (!File.Exists(filePath))
+            {
+                return -1;
+            }
+            if (pointsStrList == null)
+            {
+                return -1;
+            }
+            List<List<PointLatLng>> list = GetPointsFromKMLFile(filePath);
+            if (list == null || list.Count <= 0)
+            {
+                return -1;
+            }
+            pointsStrList.Add(new string[] { "lon", "lat", "dir" });
+            foreach (var line in list)
+            {
+                if (line == null || line.Count <= 0)
+                {
+                    continue;
+                }
+                foreach (var point in line)
+                {
+                    pointsStrList.Add(new string[] { point.Lng + "", point.Lat + "", "0" });
+                }
+            }
+
+            return pointsStrList.Count;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -14,6 +14,21 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>发布\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -88,10 +103,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="TerminalMapLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\TerminalMapLib.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bean\SearchEngineType.cs" />
@@ -100,6 +111,12 @@
     </Compile>
     <Compile Include="UI\Form_export_gps.Designer.cs">
       <DependentUpon>Form_export_gps.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Form_load_copy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Form_load_copy.Designer.cs">
+      <DependentUpon>Form_load_copy.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Form_regex_pattern_manage.cs">
       <SubType>Form</SubType>
@@ -119,8 +136,6 @@
     <Compile Include="UI\KeyWordForm.Designer.cs">
       <DependentUpon>KeyWordForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utils\CalculateUtils.cs" />
-    <Compile Include="Utils\ConvertUtils.cs" />
     <Compile Include="UI\Form_about.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,7 +170,6 @@
     <Compile Include="UI\MapControl.Designer.cs">
       <DependentUpon>MapControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utils\KmlFileUtils.cs" />
     <Compile Include="Utils\NamedPipeClient.cs" />
     <Compile Include="Utils\NamedPipeServer.cs" />
     <Compile Include="Program.cs" />
@@ -175,6 +189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Form_export_gps.resx">
       <DependentUpon>Form_export_gps.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Form_load_copy.resx">
+      <DependentUpon>Form_load_copy.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Form_load_gps.resx">
       <DependentUpon>Form_load_gps.cs</DependentUpon>
@@ -349,9 +366,32 @@
       <Project>{0B25DE8C-3747-4FD5-90A6-789FE09B1816}</Project>
       <Name>NetUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TerminalMapLib\TerminalMapLib.csproj">
+      <Project>{b3129cf0-5086-4838-8b0d-60f8d6f00e9b}</Project>
+      <Name>TerminalMapLib</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>editbin /largeaddressaware $(TargetPath)</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

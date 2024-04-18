@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MapToolsWinForm
+namespace GMapUtil
 {
-    class ConvertUtils
+    public class ConvertUtils
     {
         /**
          * 将字节转化为整型

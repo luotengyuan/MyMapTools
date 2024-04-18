@@ -62,6 +62,9 @@
             this.在线服务ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.本地缓存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.坐标输入格式ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.经度纬度ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.纬度经度ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.代理设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.口令ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,8 +83,10 @@
             this.toolStripStatusExport = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitter_button = new System.Windows.Forms.Splitter();
             this.buttonMapType = new System.Windows.Forms.Button();
+            this.mapControl = new MapToolsWinForm.MapControl();
             this.panelDock = new System.Windows.Forms.Panel();
             this.dataGridViewGpsRoute = new System.Windows.Forms.DataGridView();
+            this.dataGridViewID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewLongitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewLatitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewDirection = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -91,6 +96,7 @@
             this.dataGridViewDateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewAttributes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.historyGeoDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panelButtonTools = new System.Windows.Forms.Panel();
             this.lb_gps_progress = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
@@ -159,11 +165,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btn_query_by_coord = new System.Windows.Forms.Button();
             this.tb_lon_lat_bd09 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lb_input_coord_bd = new System.Windows.Forms.Label();
             this.tb_lon_lat_gcj02 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lb_input_coord_gcj = new System.Windows.Forms.Label();
             this.tb_lon_lat_wgs84 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lb_input_coord_wgs = new System.Windows.Forms.Label();
             this.xPanderPanel_query = new BSE.Windows.Forms.XPanderPanel();
             this.comboBoxAd = new System.Windows.Forms.ComboBox();
             this.label32 = new System.Windows.Forms.Label();
@@ -308,9 +314,7 @@
             this.btn_coord_view_clean = new System.Windows.Forms.Button();
             this.contextMenuStripDelMarker = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.删除当前MarkerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mapControl = new MapToolsWinForm.MapControl();
-            this.dataGridViewID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.historyGeoDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.lb_input_coord = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.panelMap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_compass)).BeginInit();
@@ -318,6 +322,7 @@
             this.statusStrip1.SuspendLayout();
             this.panelDock.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewGpsRoute)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.historyGeoDataBindingSource)).BeginInit();
             this.panelButtonTools.SuspendLayout();
             this.contextMenuStripSelectedArea.SuspendLayout();
             this.contextMenuStripLocation.SuspendLayout();
@@ -347,7 +352,6 @@
             this.groupBox7.SuspendLayout();
             this.contextMenuCityDataView.SuspendLayout();
             this.contextMenuStripDelMarker.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.historyGeoDataBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // 地图选择ToolStripMenuItem
@@ -609,23 +613,47 @@
             // 设置ToolStripMenuItem
             // 
             this.设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.坐标输入格式ToolStripMenuItem,
             this.代理设置ToolStripMenuItem,
             this.口令ToolStripMenuItem});
             this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
             this.设置ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.设置ToolStripMenuItem.Text = "设置";
             // 
+            // 坐标输入格式ToolStripMenuItem
+            // 
+            this.坐标输入格式ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.经度纬度ToolStripMenuItem,
+            this.纬度经度ToolStripMenuItem});
+            this.坐标输入格式ToolStripMenuItem.Name = "坐标输入格式ToolStripMenuItem";
+            this.坐标输入格式ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.坐标输入格式ToolStripMenuItem.Text = "坐标输入格式";
+            // 
+            // 经度纬度ToolStripMenuItem
+            // 
+            this.经度纬度ToolStripMenuItem.Name = "经度纬度ToolStripMenuItem";
+            this.经度纬度ToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.经度纬度ToolStripMenuItem.Text = "经度,纬度";
+            this.经度纬度ToolStripMenuItem.Click += new System.EventHandler(this.经度纬度ToolStripMenuItem_Click);
+            // 
+            // 纬度经度ToolStripMenuItem
+            // 
+            this.纬度经度ToolStripMenuItem.Name = "纬度经度ToolStripMenuItem";
+            this.纬度经度ToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.纬度经度ToolStripMenuItem.Text = "纬度,经度";
+            this.纬度经度ToolStripMenuItem.Click += new System.EventHandler(this.纬度经度ToolStripMenuItem_Click);
+            // 
             // 代理设置ToolStripMenuItem
             // 
             this.代理设置ToolStripMenuItem.Name = "代理设置ToolStripMenuItem";
-            this.代理设置ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.代理设置ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.代理设置ToolStripMenuItem.Text = "代理设置";
             this.代理设置ToolStripMenuItem.Click += new System.EventHandler(this.代理设置ToolStripMenuItem_Click);
             // 
             // 口令ToolStripMenuItem
             // 
             this.口令ToolStripMenuItem.Name = "口令ToolStripMenuItem";
-            this.口令ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.口令ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.口令ToolStripMenuItem.Text = "口令设置";
             this.口令ToolStripMenuItem.Click += new System.EventHandler(this.口令ToolStripMenuItem_Click);
             // 
@@ -772,6 +800,33 @@
             this.buttonMapType.Size = new System.Drawing.Size(50, 49);
             this.buttonMapType.TabIndex = 0;
             // 
+            // mapControl
+            // 
+            this.mapControl.Bearing = 0F;
+            this.mapControl.CanDragMap = true;
+            this.mapControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mapControl.EmptyTileColor = System.Drawing.Color.Navy;
+            this.mapControl.GrayScaleMode = false;
+            this.mapControl.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.mapControl.LevelsKeepInMemmory = 5;
+            this.mapControl.Location = new System.Drawing.Point(0, 0);
+            this.mapControl.MarkersEnabled = true;
+            this.mapControl.MaxZoom = 2;
+            this.mapControl.MinZoom = 2;
+            this.mapControl.MouseWheelZoomEnabled = true;
+            this.mapControl.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.mapControl.Name = "mapControl";
+            this.mapControl.NegativeMode = false;
+            this.mapControl.PolygonsEnabled = true;
+            this.mapControl.RetryLoadTile = 0;
+            this.mapControl.RoutesEnabled = true;
+            this.mapControl.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.mapControl.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.mapControl.ShowTileGridLines = false;
+            this.mapControl.Size = new System.Drawing.Size(897, 589);
+            this.mapControl.TabIndex = 6;
+            this.mapControl.Zoom = 0D;
+            // 
             // panelDock
             // 
             this.panelDock.Controls.Add(this.dataGridViewGpsRoute);
@@ -807,6 +862,13 @@
             this.dataGridViewGpsRoute.Size = new System.Drawing.Size(897, 62);
             this.dataGridViewGpsRoute.TabIndex = 1;
             this.dataGridViewGpsRoute.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewGpsRoute_CellDoubleClick);
+            // 
+            // dataGridViewID
+            // 
+            this.dataGridViewID.DataPropertyName = "ID";
+            this.dataGridViewID.FillWeight = 39.73235F;
+            this.dataGridViewID.HeaderText = "ID";
+            this.dataGridViewID.Name = "dataGridViewID";
             // 
             // dataGridViewLongitude
             // 
@@ -871,6 +933,10 @@
             this.dataGridViewAttributes.HeaderText = "Attributes";
             this.dataGridViewAttributes.Name = "dataGridViewAttributes";
             // 
+            // historyGeoDataBindingSource
+            // 
+            this.historyGeoDataBindingSource.DataSource = typeof(MapToolsWinForm.HistoryGeoData);
+            // 
             // panelButtonTools
             // 
             this.panelButtonTools.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -907,6 +973,7 @@
             // 
             // lb_gps_progress
             // 
+            this.lb_gps_progress.Font = new System.Drawing.Font("宋体", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lb_gps_progress.Location = new System.Drawing.Point(809, 33);
             this.lb_gps_progress.Name = "lb_gps_progress";
             this.lb_gps_progress.Size = new System.Drawing.Size(76, 12);
@@ -1483,11 +1550,11 @@
             this.xPanderPanel_coord_pickup.Controls.Add(this.label5);
             this.xPanderPanel_coord_pickup.Controls.Add(this.btn_query_by_coord);
             this.xPanderPanel_coord_pickup.Controls.Add(this.tb_lon_lat_bd09);
-            this.xPanderPanel_coord_pickup.Controls.Add(this.label4);
+            this.xPanderPanel_coord_pickup.Controls.Add(this.lb_input_coord_bd);
             this.xPanderPanel_coord_pickup.Controls.Add(this.tb_lon_lat_gcj02);
-            this.xPanderPanel_coord_pickup.Controls.Add(this.label3);
+            this.xPanderPanel_coord_pickup.Controls.Add(this.lb_input_coord_gcj);
             this.xPanderPanel_coord_pickup.Controls.Add(this.tb_lon_lat_wgs84);
-            this.xPanderPanel_coord_pickup.Controls.Add(this.label2);
+            this.xPanderPanel_coord_pickup.Controls.Add(this.lb_input_coord_wgs);
             this.xPanderPanel_coord_pickup.CustomColors.BackColor = System.Drawing.SystemColors.Control;
             this.xPanderPanel_coord_pickup.CustomColors.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(184)))), ((int)(((byte)(184)))));
             this.xPanderPanel_coord_pickup.CustomColors.CaptionCheckedGradientBegin = System.Drawing.Color.Empty;
@@ -1592,14 +1659,14 @@
             this.tb_lon_lat_bd09.TextChanged += new System.EventHandler(this.tb_lon_lat_bd09_TextChanged);
             this.tb_lon_lat_bd09.Validated += new System.EventHandler(this.tb_lon_lat_bd09_Validated);
             // 
-            // label4
+            // lb_input_coord_bd
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 160);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(143, 12);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "BD09坐标系(经度,纬度)：\t";
+            this.lb_input_coord_bd.AutoSize = true;
+            this.lb_input_coord_bd.Location = new System.Drawing.Point(12, 160);
+            this.lb_input_coord_bd.Name = "lb_input_coord_bd";
+            this.lb_input_coord_bd.Size = new System.Drawing.Size(143, 12);
+            this.lb_input_coord_bd.TabIndex = 4;
+            this.lb_input_coord_bd.Text = "BD09坐标系(经度,纬度)：\t";
             // 
             // tb_lon_lat_gcj02
             // 
@@ -1612,14 +1679,14 @@
             this.tb_lon_lat_gcj02.TextChanged += new System.EventHandler(this.tb_lon_lat_gcj02_TextChanged);
             this.tb_lon_lat_gcj02.Validated += new System.EventHandler(this.tb_lon_lat_gcj02_Validated);
             // 
-            // label3
+            // lb_input_coord_gcj
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 110);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(149, 12);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "GCJ02坐标系(经度,纬度)：\t";
+            this.lb_input_coord_gcj.AutoSize = true;
+            this.lb_input_coord_gcj.Location = new System.Drawing.Point(12, 110);
+            this.lb_input_coord_gcj.Name = "lb_input_coord_gcj";
+            this.lb_input_coord_gcj.Size = new System.Drawing.Size(149, 12);
+            this.lb_input_coord_gcj.TabIndex = 2;
+            this.lb_input_coord_gcj.Text = "GCJ02坐标系(经度,纬度)：\t";
             // 
             // tb_lon_lat_wgs84
             // 
@@ -1632,14 +1699,14 @@
             this.tb_lon_lat_wgs84.TextChanged += new System.EventHandler(this.tb_lon_lat_wgs84_TextChanged);
             this.tb_lon_lat_wgs84.Validated += new System.EventHandler(this.tb_lon_lat_wgs84_Validated);
             // 
-            // label2
+            // lb_input_coord_wgs
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 63);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(149, 12);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "WGS84坐标系(经度,纬度)：\t";
+            this.lb_input_coord_wgs.AutoSize = true;
+            this.lb_input_coord_wgs.Location = new System.Drawing.Point(12, 63);
+            this.lb_input_coord_wgs.Name = "lb_input_coord_wgs";
+            this.lb_input_coord_wgs.Size = new System.Drawing.Size(149, 12);
+            this.lb_input_coord_wgs.TabIndex = 0;
+            this.lb_input_coord_wgs.Text = "WGS84坐标系(经度,纬度)：\t";
             // 
             // xPanderPanel_query
             // 
@@ -3534,49 +3601,23 @@
             this.删除当前MarkerToolStripMenuItem.Text = "删除当前Marker";
             this.删除当前MarkerToolStripMenuItem.Click += new System.EventHandler(this.删除当前MarkerToolStripMenuItem_Click);
             // 
-            // mapControl
+            // lb_input_coord
             // 
-            this.mapControl.Bearing = 0F;
-            this.mapControl.CanDragMap = true;
-            this.mapControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mapControl.EmptyTileColor = System.Drawing.Color.Navy;
-            this.mapControl.GrayScaleMode = false;
-            this.mapControl.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-            this.mapControl.LevelsKeepInMemmory = 5;
-            this.mapControl.Location = new System.Drawing.Point(0, 0);
-            this.mapControl.MarkersEnabled = true;
-            this.mapControl.MaxZoom = 2;
-            this.mapControl.MinZoom = 2;
-            this.mapControl.MouseWheelZoomEnabled = true;
-            this.mapControl.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
-            this.mapControl.Name = "mapControl";
-            this.mapControl.NegativeMode = false;
-            this.mapControl.PolygonsEnabled = true;
-            this.mapControl.RetryLoadTile = 0;
-            this.mapControl.RoutesEnabled = true;
-            this.mapControl.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
-            this.mapControl.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-            this.mapControl.ShowTileGridLines = false;
-            this.mapControl.Size = new System.Drawing.Size(897, 589);
-            this.mapControl.TabIndex = 6;
-            this.mapControl.Zoom = 0D;
-            // 
-            // dataGridViewID
-            // 
-            this.dataGridViewID.DataPropertyName = "ID";
-            this.dataGridViewID.FillWeight = 39.73235F;
-            this.dataGridViewID.HeaderText = "ID";
-            this.dataGridViewID.Name = "dataGridViewID";
-            // 
-            // historyGeoDataBindingSource
-            // 
-            this.historyGeoDataBindingSource.DataSource = typeof(MapToolsWinForm.HistoryGeoData);
+            this.lb_input_coord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lb_input_coord.AutoSize = true;
+            this.lb_input_coord.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lb_input_coord.Location = new System.Drawing.Point(730, 6);
+            this.lb_input_coord.Name = "lb_input_coord";
+            this.lb_input_coord.Size = new System.Drawing.Size(131, 12);
+            this.lb_input_coord.TabIndex = 13;
+            this.lb_input_coord.Text = "输入标系(经度,纬度)：";
             // 
             // MapForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1199, 730);
+            this.Controls.Add(this.lb_input_coord);
             this.Controls.Add(this.btn_coord_view_clean);
             this.Controls.Add(this.btn_coord_view_add);
             this.Controls.Add(this.tb_coord_view_text);
@@ -3600,6 +3641,7 @@
             this.statusStrip1.PerformLayout();
             this.panelDock.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewGpsRoute)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.historyGeoDataBindingSource)).EndInit();
             this.panelButtonTools.ResumeLayout(false);
             this.panelButtonTools.PerformLayout();
             this.contextMenuStripSelectedArea.ResumeLayout(false);
@@ -3642,7 +3684,6 @@
             this.groupBox7.PerformLayout();
             this.contextMenuCityDataView.ResumeLayout(false);
             this.contextMenuStripDelMarker.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.historyGeoDataBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3691,11 +3732,11 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btn_query_by_coord;
         private System.Windows.Forms.TextBox tb_lon_lat_bd09;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lb_input_coord_bd;
         private System.Windows.Forms.TextBox tb_lon_lat_gcj02;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lb_input_coord_gcj;
         private System.Windows.Forms.TextBox tb_lon_lat_wgs84;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lb_input_coord_wgs;
         private System.Windows.Forms.CheckBox cb_get_coord_from_map;
         private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 关于MyMapToolsToolStripMenuItem;
@@ -3934,6 +3975,10 @@
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.ComboBox cb_communicate_mode;
         private System.Windows.Forms.Label lb_gps_progress;
+        private System.Windows.Forms.Label lb_input_coord;
+        private System.Windows.Forms.ToolStripMenuItem 坐标输入格式ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 经度纬度ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 纬度经度ToolStripMenuItem;
     }
 }
 

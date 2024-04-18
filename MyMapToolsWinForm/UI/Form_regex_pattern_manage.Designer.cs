@@ -32,7 +32,9 @@
             this.clb_pattern_list = new System.Windows.Forms.CheckedListBox();
             this.tb_pattern_add = new System.Windows.Forms.TextBox();
             this.btn_pattern_add = new System.Windows.Forms.Button();
-            this.btn_pattern_exit = new System.Windows.Forms.Button();
+            this.btn_pattern_save = new System.Windows.Forms.Button();
+            this.btn_pattern_cancel = new System.Windows.Forms.Button();
+            this.linkLabel_pattern = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // btn_pattern_del
@@ -77,23 +79,47 @@
             this.btn_pattern_add.UseVisualStyleBackColor = true;
             this.btn_pattern_add.Click += new System.EventHandler(this.btn_pattern_add_Click);
             // 
-            // btn_pattern_exit
+            // btn_pattern_save
             // 
-            this.btn_pattern_exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_pattern_exit.Location = new System.Drawing.Point(701, 79);
-            this.btn_pattern_exit.Name = "btn_pattern_exit";
-            this.btn_pattern_exit.Size = new System.Drawing.Size(75, 23);
-            this.btn_pattern_exit.TabIndex = 4;
-            this.btn_pattern_exit.Text = "退出编辑";
-            this.btn_pattern_exit.UseVisualStyleBackColor = true;
-            this.btn_pattern_exit.Click += new System.EventHandler(this.btn_pattern_exit_Click);
+            this.btn_pattern_save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_pattern_save.Location = new System.Drawing.Point(701, 79);
+            this.btn_pattern_save.Name = "btn_pattern_save";
+            this.btn_pattern_save.Size = new System.Drawing.Size(75, 23);
+            this.btn_pattern_save.TabIndex = 4;
+            this.btn_pattern_save.Text = "保存编辑";
+            this.btn_pattern_save.UseVisualStyleBackColor = true;
+            this.btn_pattern_save.Click += new System.EventHandler(this.btn_pattern_save_Click);
+            // 
+            // btn_pattern_cancel
+            // 
+            this.btn_pattern_cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_pattern_cancel.Location = new System.Drawing.Point(701, 108);
+            this.btn_pattern_cancel.Name = "btn_pattern_cancel";
+            this.btn_pattern_cancel.Size = new System.Drawing.Size(75, 23);
+            this.btn_pattern_cancel.TabIndex = 5;
+            this.btn_pattern_cancel.Text = "取消编辑";
+            this.btn_pattern_cancel.UseVisualStyleBackColor = true;
+            this.btn_pattern_cancel.Click += new System.EventHandler(this.btn_pattern_cancel_Click);
+            // 
+            // linkLabel_pattern
+            // 
+            this.linkLabel_pattern.AutoSize = true;
+            this.linkLabel_pattern.Location = new System.Drawing.Point(699, 143);
+            this.linkLabel_pattern.Name = "linkLabel_pattern";
+            this.linkLabel_pattern.Size = new System.Drawing.Size(89, 12);
+            this.linkLabel_pattern.TabIndex = 6;
+            this.linkLabel_pattern.TabStop = true;
+            this.linkLabel_pattern.Text = "正则表达式规则";
+            this.linkLabel_pattern.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_pattern_LinkClicked);
             // 
             // Form_regex_pattern_manage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(803, 435);
-            this.Controls.Add(this.btn_pattern_exit);
+            this.Controls.Add(this.linkLabel_pattern);
+            this.Controls.Add(this.btn_pattern_cancel);
+            this.Controls.Add(this.btn_pattern_save);
             this.Controls.Add(this.btn_pattern_add);
             this.Controls.Add(this.tb_pattern_add);
             this.Controls.Add(this.clb_pattern_list);
@@ -113,6 +139,8 @@
         private System.Windows.Forms.CheckedListBox clb_pattern_list;
         private System.Windows.Forms.TextBox tb_pattern_add;
         private System.Windows.Forms.Button btn_pattern_add;
-        private System.Windows.Forms.Button btn_pattern_exit;
+        private System.Windows.Forms.Button btn_pattern_save;
+        private System.Windows.Forms.Button btn_pattern_cancel;
+        private System.Windows.Forms.LinkLabel linkLabel_pattern;
     }
 }

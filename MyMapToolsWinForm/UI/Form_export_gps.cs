@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.IO;
 using GMapCommonType;
 using GMap.NET;
+using GMapUtil;
 
 namespace MapToolsWinForm
 {
@@ -113,14 +114,19 @@ namespace MapToolsWinForm
                 MessageBox.Show("轨迹为空");
                 return;
             }
-            bool ret;
+            bool ret = true;
             if (comboBox_file_type.SelectedIndex == 0)
             {
                 ret = saveGpsRouteToCsvFile(full_path_name, sltGpsRoute, type);
             }
             else
             {
-                ret = KmlFileUtils.saveGpsRouteToKmlFile(full_path_name, sltGpsRoute, type);
+                List<PointLatLng> points = new List<PointLatLng>();
+                foreach (var item in sltGpsRoute.GpsRouteInfoList)
+                {
+                    points.Add(PointInDiffCoord.GetPointInCoordType(new PointLatLng(item.Latitude, item.Longitude, sltGpsRoute.CoordType), type));
+                }
+                KmlUtil.SavePointsIcon(points, sltGpsRoute.RouteName, full_path_name);
             }
             if (ret)
             {
@@ -161,7 +167,7 @@ namespace MapToolsWinForm
                             sb.Append(item.Speed + ",");
                             sb.Append(item.Altitude + ",");
                             sb.Append(item.Accuracy + ",");
-                            sb.Append(item.Datetime);
+                            sb.Append(item.Datetime.ToString("yyyy-MM-dd HH:mm:ss"));
                             if (item.Attributes != null)
                             {
                                 for (int i = 0; i < item.Attributes.Length; i++)

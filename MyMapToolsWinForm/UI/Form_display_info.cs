@@ -226,7 +226,7 @@ namespace MapToolsWinForm
             {
                 displayInfo.RoadDisplayType = DisplayType.ARROW;
                 cb_road_weith_type.Enabled = false;
-                btn_road_color.Enabled = false;
+                btn_road_color.Enabled = true;
             }
         }
 

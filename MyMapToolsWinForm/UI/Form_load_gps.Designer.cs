@@ -79,6 +79,9 @@
             this.btn_regex_pattern_manage = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.cb_regex_pattern = new System.Windows.Forms.ComboBox();
+            this.btn_load_copy = new System.Windows.Forms.Button();
+            this.tb_interpolation_meter = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -105,7 +108,8 @@
             "Nmea：$GPRMC,071402.0,A,2429.608288,N,11805.238504,E,20.1,297.2,110316,,,A*53",
             "KML：Point",
             "ISA：av2hp-->location:lon, lat, dir, speed, accuracy",
-            "正则匹配：lon\\s+=\\s+(\\d+\\.\\d+)\\s+lat\\s+=\\s+(\\d+\\.\\d+)\\s+prob\\s+=\\s+(\\d+\\.\\d+)"});
+            "正则匹配：lon\\s+=\\s+(\\d+\\.\\d+)\\s+lat\\s+=\\s+(\\d+\\.\\d+)\\s+prob\\s+=\\s+(\\d+\\.\\d+)",
+            "KML：LineString"});
             this.cb_file_format.Location = new System.Drawing.Point(72, 12);
             this.cb_file_format.Name = "cb_file_format";
             this.cb_file_format.Size = new System.Drawing.Size(763, 20);
@@ -127,13 +131,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tb_file_path.Location = new System.Drawing.Point(72, 80);
             this.tb_file_path.Name = "tb_file_path";
-            this.tb_file_path.Size = new System.Drawing.Size(875, 21);
+            this.tb_file_path.Size = new System.Drawing.Size(795, 21);
             this.tb_file_path.TabIndex = 3;
             // 
             // btn_load_file
             // 
             this.btn_load_file.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_load_file.Location = new System.Drawing.Point(953, 78);
+            this.btn_load_file.Location = new System.Drawing.Point(873, 78);
             this.btn_load_file.Name = "btn_load_file";
             this.btn_load_file.Size = new System.Drawing.Size(75, 23);
             this.btn_load_file.TabIndex = 5;
@@ -228,6 +232,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.tb_interpolation_meter);
+            this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.tb_min_speed);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.cb_coord_type);
@@ -613,7 +619,6 @@
             // 
             this.cb_regex_pattern.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cb_regex_pattern.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_regex_pattern.FormattingEnabled = true;
             this.cb_regex_pattern.Items.AddRange(new object[] {
             "lon\\s+=\\s+(\\d+\\.\\d+)\\s+lat\\s+=\\s+(\\d+\\.\\d+)\\s+prob\\s+=\\s+(\\d+\\.\\d+)"});
@@ -622,11 +627,41 @@
             this.cb_regex_pattern.Size = new System.Drawing.Size(875, 20);
             this.cb_regex_pattern.TabIndex = 38;
             // 
+            // btn_load_copy
+            // 
+            this.btn_load_copy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_load_copy.Location = new System.Drawing.Point(953, 78);
+            this.btn_load_copy.Name = "btn_load_copy";
+            this.btn_load_copy.Size = new System.Drawing.Size(75, 23);
+            this.btn_load_copy.TabIndex = 39;
+            this.btn_load_copy.Text = "拷贝加载";
+            this.btn_load_copy.UseVisualStyleBackColor = true;
+            this.btn_load_copy.Click += new System.EventHandler(this.btn_load_copy_Click);
+            // 
+            // tb_interpolation_meter
+            // 
+            this.tb_interpolation_meter.Location = new System.Drawing.Point(243, 44);
+            this.tb_interpolation_meter.Name = "tb_interpolation_meter";
+            this.tb_interpolation_meter.Size = new System.Drawing.Size(75, 21);
+            this.tb_interpolation_meter.TabIndex = 59;
+            this.tb_interpolation_meter.Text = "0";
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(164, 48);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(83, 12);
+            this.label10.TabIndex = 58;
+            this.label10.Text = "插值距离(M)：";
+            // 
             // Form_load_gps
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1040, 626);
+            this.Controls.Add(this.btn_load_copy);
             this.Controls.Add(this.cb_regex_pattern);
             this.Controls.Add(this.btn_regex_pattern_manage);
             this.Controls.Add(this.label9);
@@ -707,5 +742,8 @@
         private System.Windows.Forms.Button btn_regex_pattern_manage;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cb_regex_pattern;
+        private System.Windows.Forms.Button btn_load_copy;
+        private System.Windows.Forms.TextBox tb_interpolation_meter;
+        private System.Windows.Forms.Label label10;
     }
 }

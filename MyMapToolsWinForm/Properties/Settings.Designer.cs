@@ -334,5 +334,41 @@ namespace MapToolsWinForm.Properties {
                 this["Setting_slt_regex_pattern_idx"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public string Setting_interpolation_meter {
+            get {
+                return ((string)(this["Setting_interpolation_meter"]));
+            }
+            set {
+                this["Setting_interpolation_meter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Setting_regex_pattern_idx {
+            get {
+                return ((int)(this["Setting_regex_pattern_idx"]));
+            }
+            set {
+                this["Setting_regex_pattern_idx"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Setting_is_input_coord_lon_lat {
+            get {
+                return ((bool)(this["Setting_is_input_coord_lon_lat"]));
+            }
+            set {
+                this["Setting_is_input_coord_lon_lat"] = value;
+            }
+        }
     }
 }
